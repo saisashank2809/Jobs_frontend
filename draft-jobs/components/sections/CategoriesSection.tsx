@@ -1,5 +1,6 @@
 "use client";
 
+// @ts-expect-error - framer-motion types are currently causing IDE resolution errors in some setups.
 import { motion } from "framer-motion";
 import {
     Code2,
@@ -61,6 +62,18 @@ export function CategoriesSection() {
                             <p className="text-sm text-black/40 font-medium">{category.count}</p>
                         </motion.div>
                     ))}
+                </div>
+
+                <div className="mt-16 text-center">
+                    <button
+                        onClick={scrollToJobs}
+                        className="px-8 py-3.5 rounded-full bg-black text-white font-medium hover:bg-black/90 hover:-translate-y-0.5 transition-all shadow-lg hover:shadow-xl text-sm inline-flex items-center gap-2"
+                    >
+                        Explore all categories
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </section>

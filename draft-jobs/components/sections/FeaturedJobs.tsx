@@ -1,8 +1,10 @@
 "use client";
 
+// @ts-expect-error - framer-motion types are currently causing IDE resolution errors in some setups.
 import { motion } from "framer-motion";
 import { MapPin, Briefcase, Check } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 const jobs = [
     {
@@ -86,15 +88,23 @@ export function FeaturedJobs() {
                         </h2>
                         <p className="text-black/60 max-w-xl">
                             Discover roles at leading Indian startups and global tech giants.
-                            Find your next career move with Ottobon.
+                            Find your next career move with Us.
                         </p>
                     </div>
-                    <button
-                        onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
-                        className="text-black font-semibold border-b-2 border-black pb-1 hover:text-black/60 hover:border-black/30 transition-all cursor-pointer"
-                    >
-                        View All Jobs
-                    </button>
+                    <div className="flex items-center gap-6">
+                        <Link
+                            href="/signup"
+                            className="bg-black text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-black/90 transition-colors shadow-sm text-sm cursor-pointer inline-block"
+                        >
+                            Get started
+                        </Link>
+                        <button
+                            onClick={() => document.getElementById('categories')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="text-black font-semibold border-b-2 border-black pb-1 hover:text-black/60 hover:border-black/30 transition-all cursor-pointer"
+                        >
+                            View All Jobs
+                        </button>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

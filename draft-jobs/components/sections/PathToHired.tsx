@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion";
 import { User, MessageCircle, Zap } from "lucide-react";
+import Link from "next/link";
 
 export function PathToHired() {
-    const scrollToSignup = () => {
-        const el = document.getElementById('newsletter-section');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-    };
+    // const scrollToSignup = () => {
+    //     const el = document.getElementById('newsletter-section');
+    //     if (el) el.scrollIntoView({ behavior: 'smooth' });
+    // };
 
     return (
         <section className="bg-[#F9F7F2] py-24">
@@ -18,12 +19,12 @@ export function PathToHired() {
                         PATH <br />
                         TO HIRED.
                     </h2>
-                    <button
-                        onClick={scrollToSignup}
-                        className="bg-black text-white px-8 py-3 rounded-xl font-bold hover:scale-105 transition-transform cursor-pointer"
+                    <Link
+                        href="/signup"
+                        className="bg-black text-white px-8 py-3 rounded-xl font-bold hover:scale-105 transition-transform cursor-pointer inline-block"
                     >
                         Get started free
-                    </button>
+                    </Link>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20">

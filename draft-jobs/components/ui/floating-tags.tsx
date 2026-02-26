@@ -56,23 +56,24 @@ function randomBetween(min: number, max: number) {
 }
 
 function createTag(id: number, width: number, height: number, minY: number): FloatingTag {
-    const variants: FloatingTag["variant"][] = ["filled", "outlined", "ghost"];
+    const index = id % TAG_LABELS.length;
+    const isCompany = index < 17; // First 17 items are companies
     const sizes: FloatingTag["size"][] = ["sm", "md", "lg"];
     const bvx = randomBetween(-0.6, 0.6) || 0.3;
     const bvy = randomBetween(-0.6, 0.6) || 0.3;
 
     return {
         id,
-        label: TAG_LABELS[id % TAG_LABELS.length],
+        label: TAG_LABELS[index],
         x: randomBetween(50, width - 200),
         y: randomBetween(minY, height - 50),
         vx: bvx,
         vy: bvy,
         baseVx: bvx,
         baseVy: bvy,
-        variant: variants[Math.floor(Math.random() * variants.length)],
+        variant: isCompany ? "filled" : "outlined",
         size: sizes[Math.floor(Math.random() * sizes.length)],
-        opacity: randomBetween(0.4, 1),
+        opacity: isCompany ? randomBetween(0.8, 1) : randomBetween(0.4, 0.8),
     };
 }
 
