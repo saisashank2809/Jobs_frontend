@@ -1,14 +1,19 @@
+version: '3.8'
+
 services:
-  frontend:
+  jobs-frontend:
     build:
       context: .
+      dockerfile: Dockerfile
+      # Read the variables from the local .env file and pass them as build arguments
       args:
         - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
         - VITE_SUPABASE_KEY=${VITE_SUPABASE_KEY}
         - VITE_API_URL=${VITE_API_URL}
-    container_name: ottobon-jobs-frontend
+    image: jobs-frontend:latest
+    container_name: jobs-frontend
     ports:
-      - "5175:80"
+      # Map host port 5175 to container port 5175
+      - "5175:5175"
     restart: unless-stopped
-    env_file:
-      - .env
+
