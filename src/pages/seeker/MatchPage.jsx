@@ -4,7 +4,7 @@ import { matchUserToJob as matchApi } from '../../api/matchingApi';
 import { getJobDetails as fetchJob } from '../../api/jobsApi';
 import { uploadResume } from '../../api/usersApi';
 import Loader from '../../components/ui/Loader';
-import { CheckCircle, MessageSquare, Upload, RefreshCw, ArrowLeft, ExternalLink, Zap, Shield } from 'lucide-react';
+import { CheckCircle, MessageSquare, Upload, RefreshCw, ArrowLeft, ExternalLink, Zap, Shield, Target } from 'lucide-react';
 import { createChatSession } from '../../api/chatApi';
 import { tailorResume } from '../../api/matchingApi';
 import ReactMarkdown from 'react-markdown';
@@ -234,6 +234,13 @@ const MatchPage = () => {
                                     {tailoring ? "Optimizing..." : "Recalibrate Info"}
                                 </button>
                             )}
+
+                            <Link
+                                to={`/jobs/${id}/tailor`}
+                                className="w-full flex items-center justify-center gap-2 bg-white border-2 border-black text-black py-4 rounded-2xl font-display font-black text-[10px] uppercase tracking-[0.25em] hover:bg-black hover:text-white transition-all duration-500"
+                            >
+                                <Target size={18} /> Resume Builder
+                            </Link>
 
                             <button
                                 onClick={handleStartChat}

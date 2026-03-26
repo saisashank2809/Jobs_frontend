@@ -163,11 +163,18 @@ const JobDetailPage = () => {
 
                             <div className="flex flex-col sm:flex-row gap-4 shrink-0 w-full lg:w-auto">
                                 {user ? (
-                                    <Link to={`/jobs/${id}/match`} className="w-full sm:w-auto">
-                                        <button className="w-full bg-black text-white px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.25em] hover:bg-gray-900 transition-all flex items-center justify-center gap-3 shadow-xl">
-                                            <Sparkles size={18} /> Run Match IQ
-                                        </button>
-                                    </Link>
+                                    <>
+                                        <Link to={`/jobs/${id}/match`} className="w-full sm:w-auto">
+                                            <button className="w-full bg-black text-white px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.25em] hover:bg-gray-900 transition-all flex items-center justify-center gap-3 shadow-xl">
+                                                <Sparkles size={18} /> Run Match IQ
+                                            </button>
+                                        </Link>
+                                        <Link to={`/jobs/${id}/tailor`} className="w-full sm:w-auto">
+                                            <button className="w-full bg-white border-4 border-black text-black px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.25em] hover:bg-black hover:text-white transition-all flex items-center justify-center gap-3 shadow-xl">
+                                                <Target size={18} /> Tailor & Score
+                                            </button>
+                                        </Link>
+                                    </>
                                 ) : (
                                     <Link to="/login" className="w-full sm:w-auto">
                                         <button className="w-full bg-black text-white px-10 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.25em] hover:opacity-90 transition-all">

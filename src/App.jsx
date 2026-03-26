@@ -14,6 +14,7 @@ const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'));
 const JobFeedPage = lazy(() => import('./pages/seeker/JobFeedPage'));
 const JobDetailPage = lazy(() => import('./pages/seeker/JobDetailPage'));
 const MatchPage = lazy(() => import('./pages/seeker/MatchPage'));
+const TailorResumePage = lazy(() => import('./pages/seeker/TailorResumePage'));
 const ProfilePage = lazy(() => import('./pages/seeker/ProfilePage'));
 const CoursesPage = lazy(() => import('./pages/seeker/CoursesPage'));
 
@@ -79,6 +80,7 @@ function App() {
               {/* Protected: Seeker Only */}
               <Route element={<ProtectedRoute allowedRoles={[ROLES.SEEKER]} />}>
                 <Route path="/jobs/:id/match" element={<MatchPage />} />
+                <Route path="/jobs/:id/tailor" element={<TailorResumePage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/courses" element={<CoursesPage />} />
                 <Route path="/chat" element={<ChatPage />} />
