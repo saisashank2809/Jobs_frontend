@@ -25,14 +25,10 @@ const JobDetailPage = () => {
     const [job, setJob] = useState(null);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
-<<<<<<< HEAD
-    
     // Gen Z Summary States
     const [genZSummary, setGenZSummary] = useState(null);
     const [isSummarizing, setIsSummarizing] = useState(false);
-=======
     const [isSpecExpanded, setIsSpecExpanded] = useState(false);
->>>>>>> akbar-F
 
     const fetchJob = async (isRefresh = false) => {
         try {
@@ -145,17 +141,10 @@ const JobDetailPage = () => {
                 {/* Header Card - High Contrast */}
                 <div className="lg:col-span-12">
                     <BentoCard className="relative overflow-hidden !py-12 !px-12 border-4 shadow-[16px_16px_0px_#000]">
-<<<<<<< HEAD
-                        <div className="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10">
-                            <div className="max-w-3xl">
-                                <h1 className="text-5xl md:text-6xl font-display font-black text-black tracking-tighter uppercase mb-6 leading-none">
-                                    {job.cleanTitle}
-=======
                         <div className="relative z-10 flex flex-col items-start gap-10 w-full">
                             <div className="max-w-4xl min-w-0 w-full flex flex-col items-start">
                                 <h1 className="text-5xl md:text-6xl font-display font-black text-black tracking-tighter uppercase mb-6 leading-none break-words text-left">
-                                    {job.title}
->>>>>>> akbar-F
+                                    {job.cleanTitle}
                                 </h1>
                                 <div className="flex flex-wrap justify-start gap-8 text-black opacity-40 font-black uppercase text-[10px] tracking-[0.2em]">
                                     <span className="flex items-center gap-2">
@@ -207,8 +196,6 @@ const JobDetailPage = () => {
                             <div className="w-2 h-4 bg-black" />
                             Role Specifications
                         </h2>
-<<<<<<< HEAD
-
                         {/* Gen Z Summary Display */}
                         {isSummarizing ? (
                             <div className="mb-12 p-8 rounded-3xl border-2 border-black bg-gray-50 flex flex-col gap-4 relative overflow-hidden">
@@ -236,7 +223,6 @@ const JobDetailPage = () => {
                             </motion.div>
                         ) : null}
 
-=======
                         <div className="w-full relative overflow-hidden">
                             <div
                                 className={`prose prose-neutral max-w-none text-black font-medium leading-relaxed text-sm break-words text-left [&_*]:text-left [&_*]:break-words [&_*]:max-w-full [&_table]:max-w-full [&_table]:overflow-x-auto [&_table]:block [&_pre]:overflow-x-auto [&_img]:hidden w-full transition-all duration-500 will-change-[max-height] ${isSpecExpanded ? 'max-h-[8000px]' : 'max-h-[400px] overflow-hidden'}`}
@@ -256,7 +242,6 @@ const JobDetailPage = () => {
                                 <>View More <ChevronDown size={14} /></>
                             )}
                         </button>
->>>>>>> akbar-F
                     </BentoCard>
 
                     <BentoCard delay={0.2}>
@@ -327,36 +312,12 @@ const JobDetailPage = () => {
                             <div className="w-2 h-4 bg-black" />
                             Required Scalar Skills
                         </h2>
-<<<<<<< HEAD
-                        <div className="flex flex-wrap gap-3">
-                            {job.skills_required?.map((skill, idx) => (
-                                <span key={idx} className="px-5 py-2.5 bg-black text-white rounded-xl text-[9px] font-black uppercase tracking-[0.2em] shadow-lg">
-                                    {skill}
-                                </span>
-                            ))}
-                        </div>
-                    </BentoCard>
-
-                    <BentoCard delay={0.3}>
-                        <h2 className="text-sm font-black text-black mb-10 pb-4 border-b-2 border-black flex items-center gap-3 uppercase tracking-[0.3em]">
-                            <div className="w-2 h-4 bg-black" />
-                            Content Optimization Tips
-                        </h2>
-                        {job.resume_guide_generated ? (
-                            <ul className="space-y-4">
-                                {job.resume_guide_generated.map((point, idx) => (
-                                    <li key={idx} className="flex gap-4 items-start p-4 bg-gray-50 border border-black/5 rounded-2xl hover:bg-gray-100 transition-colors">
-                                        <CheckCircle size={18} className="text-black mt-0.5 shrink-0" />
-                                        <span className="text-gray-600 text-[10px] font-bold uppercase tracking-widest leading-loose">{point}</span>
-                                    </li>
-=======
                         {job.skills_required?.length > 0 ? (
                             <div className="flex flex-wrap justify-start gap-3">
                                 {job.skills_required.map((skill, idx) => (
                                     <span key={idx} className="px-5 py-2.5 bg-black text-white rounded-xl text-[9px] font-black uppercase tracking-[0.2em] shadow-lg">
                                         {skill}
                                     </span>
->>>>>>> akbar-F
                                 ))}
                             </div>
                         ) : (
