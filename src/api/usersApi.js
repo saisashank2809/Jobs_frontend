@@ -5,6 +5,11 @@ export const getMyProfile = async () => {
     return response.data;
 };
 
+export const updateProfile = async (data) => {
+    const response = await api.patch('/users/me', data);
+    return response.data;
+};
+
 export const uploadResume = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -31,5 +36,16 @@ export const reuploadResume = async (file) => {
 
 export const getResumeDownloadUrl = async () => {
     const response = await api.get('/users/me/resume');
+    return response.data;
+};
+
+export const extractSkills = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await api.post('/users/extract-skills', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
     return response.data;
 };

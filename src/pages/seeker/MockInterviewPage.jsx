@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
-import { setMockJobContext, setMockMode, getMockEvaluation } from '../../api/mockInterviewApi';
+import { setMockJobContext, setMockMode, getMockEvaluation, uploadMockResume } from '../../api/mockInterviewApi';
 import { useAuth } from '../../hooks/useAuth';
 import { useWebSocket } from '../../hooks/useWebSocket';
 import { useMicrophone } from '../../hooks/useMicrophone';
@@ -22,6 +22,8 @@ import {
     BarChart2,
     ChevronRight,
     Radio,
+    FileText,
+    Upload,
 } from 'lucide-react';
 
 // ── Config ────────────────────────────────────────────────────
@@ -197,6 +199,8 @@ const MockInterviewPage = () => {
     const [duration, setDuration] = useState(10);
     const [proctorMode, setProctorMode] = useState(false);
     const [isStarting, setIsStarting] = useState(false);
+    const [uploadingResume, setUploadingResume] = useState(false);
+    const [sessionResumeName, setSessionResumeName] = useState(null);
 
     // Interview state
     const [isActive, setIsActive] = useState(false);
@@ -213,12 +217,19 @@ const MockInterviewPage = () => {
     const [showViolationAlert, setShowViolationAlert] = useState(false);
     const [timeLeft, setTimeLeft] = useState(0);
     const [isTimerActive, setIsTimerActive] = useState(false);
+    const [forceResumeUpload, setForceResumeUpload] = useState(false);
 
-    const { session } = useAuth();
+    // Compute safe session ID (default to 'default_session' if no job ID is in the URL)
+    const sessionId = id || 'default_session';
+
+    const { session, profile } = useAuth();
     const token = session?.access_token;
+    
+    // Resume is available if either profile has it OR session has it
+    const hasResume = !!profile?.resume_text || !!sessionResumeName;
 
     // Compute WebSocket URL with session and token
-    const wsUrl = `${MOCK_WS_BASE}?session_id=${id}${token ? `&token=${token}` : ''}`;
+    const wsUrl = `${MOCK_WS_BASE}?session_id=${sessionId}${token ? `&token=${token}` : ''}`;
 
     const transcriptRef = useRef(null);
     const responseRef = useRef(null);
@@ -310,13 +321,30 @@ const MockInterviewPage = () => {
         setIsEvaluating(true);
         setErrorMsg('');
         try {
-            const data = await getMockEvaluation();
+            const data = await getMockEvaluation(sessionId);
             if (data.error) throw new Error(data.error);
             setEvaluation(data);
         } catch (err) {
             setErrorMsg('Failed to fetch evaluation: ' + err.message);
         } finally {
             setIsEvaluating(false);
+        }
+    };
+
+    const handleResumeUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setUploadingResume(true);
+        setErrorMsg('');
+        try {
+            const data = await uploadMockResume(file, sessionId);
+            if (data.error) throw new Error(data.error);
+            setSessionResumeName(file.name);
+        } catch (err) {
+            setErrorMsg('Resume upload failed: ' + err.message);
+        } finally {
+            setUploadingResume(false);
         }
     };
 
@@ -331,8 +359,8 @@ const MockInterviewPage = () => {
 
         try {
             // Push job context to mock backend (runs on the same server as jobs backend)
-            await setMockJobContext(companyName, jobTitle);
-            await setMockMode(interviewType);
+            await setMockJobContext(companyName, jobTitle, sessionId);
+            await setMockMode(interviewType, sessionId);
         } catch (err) {
             console.error('Failed to set context/mode:', err);
         }
@@ -523,6 +551,56 @@ const MockInterviewPage = () => {
                             </button>
                         </div>
 
+                        {/* Resume Status */}
+                        <div className="mb-10">
+                            <p className="text-[9px] font-black uppercase tracking-[0.3em] mb-4 opacity-40">
+                                3 · Resume Data
+                            </p>
+                            <div className={`p-6 rounded-2xl border-2 transition-all duration-300 ${
+                                hasResume ? 'border-black bg-gray-50' : 'border-red-200 bg-red-50'
+                            }`}>
+                                <div className="flex items-center justify-between gap-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                                            hasResume ? 'bg-black' : 'bg-red-500'
+                                        }`}>
+                                            <FileText size={20} className="text-white" />
+                                        </div>
+                                        <div>
+                                            <p className="font-black text-xs uppercase tracking-widest">
+                                                {sessionResumeName 
+                                                    ? 'Session Override Active' 
+                                                    : profile?.resume_text 
+                                                        ? 'Using Profile Resume' 
+                                                        : 'No Resume Detected'}
+                                            </p>
+                                            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wide mt-1">
+                                                {sessionResumeName 
+                                                    ? `File: ${sessionResumeName}`
+                                                    : profile?.resume_text 
+                                                        ? 'Picked up automatically from your profile' 
+                                                        : 'Upload one below or in your profile to start'}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <label className="cursor-pointer group">
+                                        <input 
+                                            type="file" 
+                                            className="hidden" 
+                                            onChange={handleResumeUpload}
+                                            accept=".pdf,.docx"
+                                            disabled={uploadingResume}
+                                        />
+                                        <div className="flex items-center gap-2 px-4 py-2 border-2 border-black rounded-xl font-black text-[9px] uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                                            {uploadingResume ? <Activity size={12} className="animate-pulse" /> : <Upload size={12} />}
+                                            {hasResume ? 'Change' : 'Upload'}
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                         {/* Advisory */}
                         <div className="mb-10 p-5 bg-yellow-50 border-2 border-yellow-200 rounded-2xl">
                             <p className="text-[10px] font-bold text-yellow-800 uppercase tracking-widest leading-relaxed">
@@ -530,17 +608,10 @@ const MockInterviewPage = () => {
                             </p>
                         </div>
 
-                        {/* Backend info */}
-                        <div className="mb-8 p-4 bg-black text-white rounded-2xl">
-                            <p className="text-[9px] font-black uppercase tracking-widest opacity-70">
-                                ⚡ Interview engine runs on the jobs backend — no separate server needed
-                            </p>
-                        </div>
-
                         {/* Start button */}
                         <button
                             onClick={handleStart}
-                            disabled={isStarting}
+                            disabled={isStarting || !hasResume || uploadingResume}
                             className="w-full py-5 bg-black text-white rounded-2xl font-black text-sm uppercase tracking-[0.25em] hover:bg-gray-900 transition-all flex items-center justify-center gap-3 shadow-[8px_8px_0px_rgba(0,0,0,0.15)] disabled:opacity-40"
                         >
                             {isStarting ? (
@@ -549,8 +620,12 @@ const MockInterviewPage = () => {
                                 </>
                             ) : (
                                 <>
-                                    <Play size={20} /> Launch Interview Session
-                                    <ChevronRight size={20} />
+                                    {!hasResume ? 'Resume Required' : (
+                                        <>
+                                            <Play size={20} /> Launch Interview Session
+                                            <ChevronRight size={20} />
+                                        </>
+                                    )}
                                 </>
                             )}
                         </button>

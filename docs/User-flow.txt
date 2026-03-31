@@ -1,0 +1,71 @@
+User Flow Document:
+jobs.ottobon.cloud
+Purpose: This document details the single, integrated end-to-end journey for both
+job seekers and job providers on our platform. The primary goal is to provide a
+comprehensive understanding of how users interact with the system, from initial
+discovery through AI-driven preparation and application execution.
+
+Phase 1 DISCOVERY & INITIAL ENGAGEMENT PREAUTH
+This phase covers the user's initial interaction with the platform before creating an
+account.
+
+Entry Point: The primary acquisition channel is the official Telegram group,
+where job links and summaries are broadcasted to students and new graduates.
+Job Details Page: Clicking a Telegram link directs the user to a specific job
+listing on the platform. The Job Description JD) is formatted in a highly readable,
+GenZ-optimized style.
+External Application Routing: An "Apply" button is immediately visible next to
+the job title. Clicking this redirects the user directly to the original scraped career
+page to complete their actual application.
+Premium Feature Teasers Locked The job page displays several high-value,
+locked features designed to drive conversions. These include a "Check Your Fit
+Score" indicator, a "Mock Interview" module, and a "Resume Builder" tool.
+Phase 2 UNIFIED AUTHENTICATION & ONBOARDING
+This phase outlines the conversion funnel when a user decides to utilize the
+platform's advanced features.
+Trigger Action: The user clicks on any of the locked premium features Fit
+Score, Mock Interview, or Resume Builder).
+Sign-Up / Login: The user is redirected to the authentication gateway to create
+an account or log in.
+Candidate Profile Setup: During onboarding, the user inputs standard personal
+details and uploads their current resume.
+Feature Unlocking: Upon successful profile creation, the system parses the
+resume and permanently unlocks all premium tools across the platform for that
+user.
+Phase 3 AIPOWERED PREPARATION ENGINE
+This is the core value proposition of the platform, utilizing the user's profile and
+the specific JD to provide tailored preparation.
+Fit Score Generation: The system compares the parsed resume against the
+specific JD and generates a percentage-based alignment score.
+Dynamic Resume Builder: Based on the Fit Score analysis, the system
+automatically generates and suggests a tailored version of the user's resume,
+optimized specifically for that exact job description.
+Proctored AI Mock Interview: The user can initiate a voice-based mock
+interview. They select the interview type Technical or HR. The AI conducts a
+proctored, voice-to-voice interview directly aligned with the JD and the user's
+resume.
+Post-Interview Analysis: Upon completion, the system generates a
+performance score and provides specific improvement tips.
+Upskilling Recommendations: If gaps are identified during the interview or Fit
+Score calculation, the system suggests specific courses (via integrations with
+platforms like Udemy or Coursera) to help the user upskill.
+Phase 4 HYBRID AI COACHING EXECUTION
+This phase details the continuous support system available to the job seeker.
+Job-Specific Chat Hub: Every job listing has a dedicated chat interface
+containing the user's interaction history for that specific role, similar to isolated
+thread histories.
+Primary AI Coach: An AI assistant acts as the first line of support, answering
+questions about the role, the company, or interview strategies based on the JD.
+Human-in-the-Loop HITL Monitoring: Human experts (team leads/mentors)
+monitor these active chat threads from a backend dashboard.
+Seamless Expert Intervention: An expert can take over an active AI chat to
+provide high-level insights. The UI clearly displays system prompts like "An expert
+entered the chat" and "Expert left, now AI coach follows up" to maintain
+transparency with the user.
+Phase 5 JOB PROVIDER PORTAL
+This phase outlines the entirely separate flow for employers interacting with the
+platform.
+Provider Authentication: Employers log into a dedicated provider dashboard.
+Job Posting Execution: Providers can manually input job details, requirements,
+and external application routing links to populate the platform's database and
+trigger the downstream Telegram broadcasts.

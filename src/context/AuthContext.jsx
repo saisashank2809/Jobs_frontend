@@ -21,6 +21,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [session, setSession] = useState(null);
+    const [profile, setProfile] = useState(null);
     const [role, setRole] = useState(null);
     const [loading, setLoading] = useState(true);
     const initialised = useRef(false);
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }) => {
             setSession(session);
             if (session?.user) {
                 setUser(session.user);
-                fetchRole();
+                fetchProfile();
             } else {
                 setLoading(false);
             }
@@ -50,7 +51,7 @@ export const AuthProvider = ({ children }) => {
             setSession(session);
             setUser(session?.user ?? null);
             if (session?.user) {
-                await fetchRole();
+                await fetchProfile();
             } else {
                 // User logged out — clear chat sessions from localStorage
                 Object.keys(localStorage).forEach(key => {
@@ -59,6 +60,7 @@ export const AuthProvider = ({ children }) => {
                     }
                 });
                 setRole(null);
+                setProfile(null);
                 setLoading(false);
             }
         });
@@ -66,34 +68,34 @@ export const AuthProvider = ({ children }) => {
         return () => subscription.unsubscribe();
     }, []);
 
-    const fetchRole = async (retries = 3) => {
+    const fetchProfile = async (retries = 3) => {
         try {
-            const profile = await getMyProfile();
-            setRole(profile.role);
+            const data = await getMyProfile();
+            setProfile(data);
+            setRole(data.role);
         } catch (error) {
             const status = error?.response?.status;
 
             // Retry on 503 (server overloaded) or 404 (user row not yet created by trigger)
-            // Do NOT retry on 401 — that means the token itself is bad
             if (retries > 0 && (status === 503 || status === 404)) {
-                const delay = status === 404 ? 1500 : 1000; // longer delay for new users
-                console.warn(`fetchRole: ${status} error, retrying in ${delay}ms (${retries} retries left)`);
+                const delay = status === 404 ? 1500 : 1000;
+                console.warn(`fetchProfile: ${status} error, retrying in ${delay}ms (${retries} retries left)`);
                 await new Promise(r => setTimeout(r, delay));
-                return fetchRole(retries - 1);
+                return fetchProfile(retries - 1);
             }
 
-            console.error('Failed to fetch user role:', error);
+            console.error('Failed to fetch user profile:', error);
 
-            // Fallback: try to extract role from Supabase user metadata
+            // Fallback: Supabase metadata
             try {
                 const { data } = await supabase.auth.getUser();
                 const metaRole = data?.user?.user_metadata?.role;
                 if (metaRole) {
-                    console.warn('Using role from user metadata as fallback:', metaRole);
                     setRole(metaRole);
+                    setProfile({ role: metaRole });
                 }
             } catch (fallbackErr) {
-                console.error('Fallback role fetch also failed:', fallbackErr);
+                console.error('Fallback profile fetch also failed:', fallbackErr);
             }
         } finally {
             setLoading(false);
@@ -110,10 +112,11 @@ export const AuthProvider = ({ children }) => {
     const value = useMemo(() => ({
         session,
         user,
+        profile,
         role,
         loading,
         isAuthenticated: !!session?.user,
-    }), [session, user, role, loading]);
+    }), [session, user, profile, role, loading]);
 
     return (
         <AuthContext.Provider value={value}>
