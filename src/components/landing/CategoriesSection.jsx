@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from "framer-motion";
 import {
     Code2,
@@ -9,7 +10,12 @@ import {
     Zap,
     Heart
 } from "lucide-react";
+import { CategoryCard } from "../ui/CategoryCard";
 
+/**
+ * Enhanced CategoriesSection - Minimal, modern, and highly interactive.
+ * Using a responsive grid (2 cols mobile / 4 cols desktop).
+ */
 const categories = [
     { name: "Engineering", icon: Code2, count: "12k+ Jobs" },
     { name: "Design", icon: Palette, count: "5k+ Jobs" },
@@ -28,50 +34,56 @@ export function CategoriesSection() {
     };
 
     return (
-        <section className="bg-white py-24 border-t border-black/5">
-            <div className="container mx-auto px-4">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-black mb-4">
-                        Browse by Category
-                    </h2>
-                    <p className="text-black/60 max-w-2xl mx-auto">
-                        Explore thousands of job opportunities across specialized domains.
-                        Filtering through the noise to find your perfect fit.
-                    </p>
+        <section id="categories" className="bg-[#F8F9FA]/30 py-28 overflow-hidden">
+            <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+                {/* Section Header */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-12">
+                    <div className="max-w-2xl space-y-6">
+                        <h2 className="text-5xl md:text-6xl font-bold text-black tracking-tight leading-tight">
+                            Explore specialized <br />
+                            <span className="text-black/20">fields of work.</span>
+                        </h2>
+                        <p className="text-lg text-black/40 font-medium leading-relaxed">
+                            Discover high-impact opportunities curated across global tech centers. 
+                            Filtering the noise to find your perfect professional match.
+                        </p>
+                    </div>
+                    
+                    <button 
+                        onClick={scrollToJobs}
+                        className="group flex items-center gap-4 text-xs font-black uppercase tracking-[0.3em] text-black hover:text-black/60 transition-all duration-300"
+                    >
+                        View All Categories
+                        <div className="w-12 h-px bg-black/20 group-hover:w-16 transition-all duration-500" />
+                    </button>
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                {/* Grid Layout (2 cols mobile, 4 cols desktop) */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
                     {categories.map((category, index) => (
                         <motion.div
-                            key={index}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            key={category.name}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: index * 0.05 }}
-                            whileHover={{ y: -5 }}
-                            onClick={scrollToJobs}
-                            className="bg-gray-50/50 border border-black/5 rounded-2xl p-6 md:p-8 hover:bg-white hover:border-black/20 hover:shadow-xl hover:shadow-black/5 transition-all group cursor-pointer"
+                            transition={{ 
+                                duration: 0.8, 
+                                delay: (index % 4) * 0.1,
+                                ease: [0.21, 0.47, 0.32, 0.98]
+                            }}
                         >
-                            <div className="w-12 h-12 rounded-xl bg-white border border-black/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                <category.icon className="w-6 h-6 text-black" />
-                            </div>
-                            <h3 className="text-lg font-bold text-black mb-1">{category.name}</h3>
-                            <p className="text-sm text-black/40 font-medium">{category.count}</p>
+                            <CategoryCard
+                                name={category.name}
+                                icon={category.icon}
+                                count={category.count}
+                                onClick={scrollToJobs}
+                            />
                         </motion.div>
                     ))}
                 </div>
 
-                <div className="mt-16 text-center">
-                    <button
-                        onClick={scrollToJobs}
-                        className="px-8 py-3.5 rounded-full bg-black text-white font-medium hover:bg-black/90 hover:-translate-y-0.5 transition-all shadow-lg hover:shadow-xl text-sm inline-flex items-center gap-2"
-                    >
-                        Explore all categories
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </button>
-                </div>
+                {/* Bottom Decorative Element */}
+                <div className="mt-32 h-px w-full bg-gradient-to-r from-transparent via-black/5 to-transparent shadow-[0_1px_4px_rgba(0,0,0,0.02)]" />
             </div>
         </section>
     );

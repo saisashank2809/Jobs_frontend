@@ -1,49 +1,30 @@
-import { Loader2 } from 'lucide-react';
+import React from 'react';
+import SendingLoader from './sending-loader';
+import LoadingLogo from './LoadingLogo';
 
-const Loader = ({ fullScreen = false }) => {
+/**
+ * Loader - A global wrapper component that displays either the Terminal Loader or Brand Logo.
+ * Supports switching between "terminal" and "logo" variants.
+ */
+const Loader = ({ fullScreen = false, text = "Initializing...", variant = "terminal" }) => {
+    const renderContent = () => {
+        if (variant === "logo") {
+            return <LoadingLogo />;
+        }
+        return <SendingLoader text={text} className={fullScreen ? "scale-110 shadow-2xl" : "scale-90 opacity-80"} />;
+    };
+
     if (fullScreen) {
         return (
-            <div style={{
-                position: 'fixed',
-                inset: 0,
-                background: '#FFFFFF',
-                display: 'grid',
-                placeItems: 'center',
-                zIndex: 100
-            }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
-                    <div style={{ position: 'relative' }}>
-                        <Loader2 size={48} color="#000000" style={{ animation: 'spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite' }} />
-                        <div style={{
-                            position: 'absolute',
-                            inset: 0,
-                            border: '2px solid #F0F0F0',
-                            borderRadius: '50%',
-                            opacity: 0.5
-                        }} />
-                    </div>
-                    <p style={{
-                        color: '#000000',
-                        fontSize: '0.75rem',
-                        fontWeight: 900,
-                        letterSpacing: '0.4em',
-                        textTransform: 'uppercase',
-                        marginLeft: '0.4em'
-                    }}>Initializing</p>
-                </div>
-                <style>{`
-          @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        `}</style>
+            <div className="fixed inset-0 bg-white grid place-items-center z-50 animate-in fade-in duration-500">
+                {renderContent()}
             </div>
         );
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }}>
-            <Loader2 size={32} color="#000000" style={{ animation: 'spin 1s linear infinite' }} />
-            <style>{`
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-      `}</style>
+        <div className="flex justify-center p-12">
+            {renderContent()}
         </div>
     );
 };

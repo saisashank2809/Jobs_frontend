@@ -148,7 +148,7 @@ const MatchPage = () => {
         } catch (err) { console.error(err); }
     };
 
-    if (loading) return <Loader fullScreen />;
+    if (loading) return <Loader fullScreen variant="logo" />;
 
     if (missingResume) {
         return (

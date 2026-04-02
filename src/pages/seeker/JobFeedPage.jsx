@@ -187,7 +187,7 @@ const JobFeedPage = () => {
         selectedCategory !== 'All Categories' || 
         selectedSkills.length > 0;
 
-    if (loading) return <Loader fullScreen />;
+    if (loading) return <Loader fullScreen variant="logo" />;
 
     return (
         <div className="min-h-screen bg-white">

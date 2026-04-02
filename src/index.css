@@ -1,80 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 @import "tailwindcss";
-
-@theme {
-  --color-background: #FFFFFF;
-  --color-foreground: #000000;
-
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-display: 'Plus Jakarta Sans', sans-serif;
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-2xl: 24px;
-}
-
-/* ── Elevation Utilities ──────────────────── */
-
-@utility premium-shadow {
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.02),
-    0 10px 15px -3px rgba(0, 0, 0, 0.04),
-    0 20px 25px -5px rgba(0, 0, 0, 0.02);
-}
-
-@utility premium-shadow-lg {
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.04),
-    0 20px 40px -10px rgba(0, 0, 0, 0.06),
-    0 40px 60px -15px rgba(0, 0, 0, 0.03);
-}
-
-@utility premium-shadow-hover {
-  box-shadow:
-    0 20px 40px -15px rgba(0, 0, 0, 0.05),
-    0 8px 16px -6px rgba(0, 0, 0, 0.04);
-}
-
-@utility glass-panel {
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  background-color: rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-@utility glass-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 16px;
-}
-
-@utility glass-card-light {
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 16px;
-}
-
-@utility premium-button {
-  @apply font-display font-semibold px-6 py-3 rounded-xl transition-all duration-300 ease-out;
-
-  &:hover {
-    transform: scale(1.02);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-@utility premium-badge {
-  @apply font-medium px-3 py-1 text-xs rounded-full;
-}
 
 @layer base {
   :root {
-    /* ── Monochrome High-Contrast Palette ──────────────────── */
+    --color-background: #FFFFFF;
+    --color-foreground: #000000;
+
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-display: 'Plus Jakarta Sans', sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+
+    --animate-spin-slow: spin 8s linear infinite;
+
+    /* Terminal Loader Animations */
+    --animate-terminal-type: typeAndDelete 4s steps(11) infinite, blinkCursor 0.5s step-end infinite alternate;
+
+    /* Monochrome High-Contrast Palette */
     --bg-primary: #FFFFFF;
     --bg-surface: #FFFFFF;
     --bg-surface-solid: #FFFFFF;
@@ -83,14 +29,10 @@
     --accent: #000000;
     --accent-hover: #1A1A1A;
     --accent-primary: #000000;
-    /* Absolute Black */
     --accent-secondary: #404040;
-    /* Deep Slate Gray */
     --accent-tertiary: #737373;
-    /* Neutral Gray */
 
     --danger: #000000;
-    /* Monochrome danger */
     --warning: #404040;
     --success: #000000;
 
@@ -104,15 +46,34 @@
 
     --background: var(--bg-primary);
     --foreground: var(--text-main);
+  }
 
-    /* ── Radii ──────────────────── */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes blinkCursor {
+    50% { border-right-color: transparent; }
+  }
+
+  @keyframes typeAndDelete {
+    0%, 10% { width: 0; }
+    45%, 55% { width: 6.2em; }
+    90%, 100% { width: 0; }
   }
 
   body {
-    @apply bg-[var(--bg-primary)] text-[var(--text-main)] antialiased font-sans leading-relaxed;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-sans);
+    line-height: 1.625; /* relaxed */
 
     ::selection {
       background: rgba(0, 0, 0, 0.08);
@@ -120,13 +81,11 @@
     }
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-display tracking-tight text-[var(--text-main)] font-bold;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em; /* tracking-tight */
+    color: var(--text-main);
+    font-weight: 700;
   }
 
   /* Scrollbar */
@@ -137,12 +96,88 @@
 }
 
 @layer utilities {
+  .premium-shadow {
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.02),
+      0 10px 15px -3px rgba(0, 0, 0, 0.04),
+      0 20px 25px -5px rgba(0, 0, 0, 0.02);
+  }
+
+  .premium-shadow-lg {
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.04),
+      0 20px 40px -10px rgba(0, 0, 0, 0.06),
+      0 40px 60px -15px rgba(0, 0, 0, 0.03);
+  }
+
+  .premium-shadow-hover {
+    box-shadow:
+      0 20px 40px -15px rgba(0, 0, 0, 0.05),
+      0 8px 16px -6px rgba(0, 0, 0, 0.04);
+  }
+
+  .glass-panel {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background-color: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .glass-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+  }
+
+  .glass-card-light {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+  }
+
+  .premium-button {
+    font-family: var(--font-display);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem; /* px-6 py-3 */
+    border-radius: 0.75rem; /* xl/20px? let's stick to 12px for xl in standard? no, theme says xl is 20px. 0.75rem is 12px. theme --radius-xl is 20px. so 1.25rem */
+    border-radius: var(--radius-xl);
+    transition: all 0.3s cubic-bezier(0, 0, 0.2, 1); /* transition-all duration-300 ease-out */
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  .premium-badge {
+    font-weight: 500; /* font-medium */
+    padding: 0.25rem 0.75rem; /* px-3 py-1 */
+    font-size: 0.75rem; /* text-xs */
+    border-radius: 9999px; /* rounded-full */
+  }
+
   .container {
     max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  /* PERFORMANCE: Skip rendering for off-screen sections */
+  .section-optimize {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 5000px;
+  }
+
+  /* GPU Acceleration utility */
+  .gpu-accelerate {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
   .text-gradient {
@@ -161,11 +196,6 @@
 }
 
 /* ── Landing Page Styles ──────────────────── */
-
-/* Playfair Display serif font for landing page */
-@theme {
-  --font-serif: 'Playfair Display', Georgia, serif;
-}
 
 /* Hide Spline watermark */
 [data-spline-watermark],
@@ -287,4 +317,4 @@ canvas~div>a {
   width: 140px;
   height: 140px;
   opacity: 1;
-}
+}

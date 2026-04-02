@@ -86,7 +86,7 @@ const BlogPostPage = () => {
         fetchPost();
     }, [slug]);
 
-    if (loading) return <Loader fullScreen />;
+    if (loading) return <Loader fullScreen variant="logo" />;
 
     if (error) return (
         <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-white">

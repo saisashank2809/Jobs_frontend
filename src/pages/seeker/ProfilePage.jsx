@@ -138,7 +138,7 @@ const ProfilePage = () => {
         }
     };
 
-    if (loading) return <Loader fullScreen />;
+    if (loading) return <Loader fullScreen variant="logo" />;
 
     return (
         <div className="max-w-4xl mx-auto py-16 px-6 bg-white overflow-hidden">

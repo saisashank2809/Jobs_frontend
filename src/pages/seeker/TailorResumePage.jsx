@@ -132,7 +132,7 @@ const TailorResumePage = () => {
         }
     };
 
-    if (loadingJob) return <Loader fullScreen />;
+    if (loadingJob) return <Loader fullScreen variant="logo" />;
     if (error) return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#fafafa] px-4 font-display">
             <BentoCard className="max-w-xl w-full text-center items-center py-16">

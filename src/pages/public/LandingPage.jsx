@@ -23,6 +23,9 @@ export default function LandingPage() {
             <div className="relative flex h-dvh w-full flex-col items-center overflow-hidden">
                 <GLSLHills />
                 <FloatingTags className="z-[1]" />
+                
+                {/* Visual Transition Gradient */}
+                <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black via-black/20 to-transparent z-20 pointer-events-none" />
 
                 {/* Hero Text — top portion */}
                 <div className="pointer-events-none absolute z-10 mt-12 space-y-6 text-center">
@@ -74,22 +77,22 @@ export default function LandingPage() {
                 </div>
             </div>
 
-            <div id="path-to-hired">
+            <div id="path-to-hired" className="section-optimize">
                 <PathToHired />
             </div>
 
             {/* Padded Content Sections */}
-            <div className="relative z-10 px-4 md:px-12 lg:px-20 space-y-20 mb-20">
-                <div id="stats">
+            <div className="relative z-10 px-4 md:px-12 lg:px-20 overflow-hidden section-optimize">
+                <div id="stats" className="gpu-accelerate">
                     <StatsSection />
                 </div>
-                <div id="benefits">
+                <div id="benefits" className="gpu-accelerate">
                     <BenefitsSection />
                 </div>
-                <div id="featured-jobs">
+                <div id="featured-jobs" className="gpu-accelerate">
                     <FeaturedJobs />
                 </div>
-                <div id="categories">
+                <div id="categories" className="gpu-accelerate">
                     <CategoriesSection />
                 </div>
             </div>

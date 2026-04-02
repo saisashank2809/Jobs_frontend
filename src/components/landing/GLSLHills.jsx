@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 class Plane {
@@ -148,11 +148,24 @@ export function GLSLHills({
     width = "100vw",
     height = "100vh",
     cameraZ = 125,
-    planeSize = 256,
+    planeSize = 128,
     speed = 0.5,
 }) {
     const canvasRef = useRef(null);
     const containerRef = useRef(null);
+    const isVisibleRef = useRef(false);
+
+    // Intersection Observer to stop rendering when not in view
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                isVisibleRef.current = entry.isIntersecting;
+            },
+            { threshold: 0.01 }
+        );
+        if (containerRef.current) observer.observe(containerRef.current);
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         if (!canvasRef.current) return;
@@ -160,7 +173,11 @@ export function GLSLHills({
         const renderer = new THREE.WebGLRenderer({
             canvas: canvasRef.current,
             antialias: false,
+            powerPreference: "high-performance",
+            alpha: true
         });
+        renderer.setPixelRatio(1.0);
+
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(
             45,
@@ -174,18 +191,17 @@ export function GLSLHills({
         let animationId;
 
         const resize = () => {
-            const canvas = canvasRef.current;
-            if (!canvas) return;
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            if (!canvasRef.current) return;
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         };
 
         const render = () => {
-            plane.render(clock.getDelta());
-            renderer.render(scene, camera);
+            if (isVisibleRef.current) {
+                plane.render(clock.getDelta());
+                renderer.render(scene, camera);
+            }
         };
 
         const renderLoop = () => {
@@ -210,6 +226,8 @@ export function GLSLHills({
             window.removeEventListener("resize", resize);
             cancelAnimationFrame(animationId);
             renderer.dispose();
+            if (plane.mesh.geometry) plane.mesh.geometry.dispose();
+            if (plane.mesh.material) plane.mesh.material.dispose();
         };
     }, [cameraZ, planeSize, speed]);
 

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { MapPin, Briefcase } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { JobFlipCard } from "../ui/JobFlipCard";
 
 const jobs = [
     {
@@ -97,44 +98,20 @@ export function FeaturedJobs() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {jobs.map((job, index) => (
                         <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
+                            key={job.id}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            onClick={() => navigate('/jobs')}
-                            className="group border border-black/5 rounded-xl p-6 hover:border-black/20 hover:shadow-xl hover:shadow-black/5 transition-all cursor-pointer bg-white relative overflow-hidden"
+                            transition={{ 
+                                duration: 0.8, 
+                                delay: index * 0.1,
+                                ease: [0.21, 0.47, 0.32, 0.98]
+                            }}
                         >
-
-                            <div className="flex justify-between items-start mb-6">
-                                <div className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl ${job.color}`}>
-                                    {job.logo}
-                                </div>
-                                {job.global && (
-                                    <span className="text-[10px] uppercase font-bold tracking-tighter bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                                        Global
-                                    </span>
-                                )}
-                            </div>
-
-                            <h3 className="text-xl font-bold mb-1 transition-colors text-black group-hover:text-primary">
-                                {job.role}
-                            </h3>
-                            <p className="text-black/80 font-medium mb-4">{job.company}</p>
-
-                            <div className="flex flex-wrap gap-4 mt-auto pt-4 border-t border-black/5">
-                                <div className="flex items-center gap-1.5 text-xs text-black/50">
-                                    <MapPin className="w-3.5 h-3.5" />
-                                    {job.location}
-                                </div>
-                                <div className="flex items-center gap-1.5 text-xs text-black/50">
-                                    <Briefcase className="w-3.5 h-3.5" />
-                                    {job.type}
-                                </div>
-                            </div>
+                            <JobFlipCard job={job} />
                         </motion.div>
                     ))}
                 </div>

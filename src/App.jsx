@@ -44,7 +44,7 @@ const LandingPage = lazy(() => import('./pages/public/LandingPage'));
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<Loader fullScreen />}>
+      <Suspense fallback={<Loader fullScreen variant="logo" />}>
         <AuthProvider>
           <Routes>
             {/* Landing Page — standalone, outside AppShell */}

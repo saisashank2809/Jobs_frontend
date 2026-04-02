@@ -121,7 +121,7 @@ const JobDetailPage = () => {
 
     useEffect(() => { fetchJob(); }, [id]);
 
-    if (loading) return <Loader fullScreen />;
+    if (loading) return <Loader fullScreen variant="logo" />;
     if (!job) return <div className="min-h-screen grid place-items-center text-black font-black uppercase tracking-widest">Protocol Null / Object Not Found</div>;
 
     const containerVariants = {

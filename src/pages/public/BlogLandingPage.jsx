@@ -59,7 +59,7 @@ const BlogLandingPage = () => {
 
     const displayPosts = [...(posts || []), ...MOCK_POSTS].slice(0, 6);
 
-    if (loading) return <Loader fullScreen />;
+    if (loading) return <Loader fullScreen variant="logo" />;
 
     const container = {
         hidden: { opacity: 0 },
