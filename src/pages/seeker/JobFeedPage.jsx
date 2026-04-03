@@ -2,6 +2,9 @@ import { useState, useEffect, useMemo } from 'react';
 import { getJobFeed } from '../../api/jobsApi';
 import JobCard from '../../components/ui/JobCard';
 import Loader from '../../components/ui/Loader';
+import JobMatchButton from '../../components/ui/JobMatchButton';
+import MatchedJobsSection from '../../components/ui/MatchedJobsSection';
+import { matchAllJobs } from '../../api/jobsApi';
 import { Search, Sparkles, MapPin, Tag, X, ChevronDown, Filter, ArrowDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../hooks/useAuth';
@@ -12,6 +15,11 @@ const JobFeedPage = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [visibleCount, setVisibleCount] = useState(20);
+
+    // Matching State
+    const [matchedJobs, setMatchedJobs] = useState(null);
+    const [isMatching, setIsMatching] = useState(false);
+    const [matchError, setMatchError] = useState(null);
 
     // Filter State
     const [selectedLocation, setSelectedLocation] = useState('All Locations');
@@ -181,6 +189,32 @@ const JobFeedPage = () => {
         setSelectedSkills([]);
     };
 
+    const handleMatchJobs = async () => {
+        setIsMatching(true);
+        setMatchError(null);
+        try {
+            // Mock API or actual API
+            const result = await matchAllJobs();
+            // result could be list of objects with { id, title, company_name, match_score, ... }
+            if (Array.isArray(result) && result.length > 0) {
+                setMatchedJobs(result);
+            } else {
+                setMatchedJobs([]);
+            }
+        } catch (err) {
+            console.error('Match failed', err);
+            // Simulate incomplete profile scenario conditionally based on status
+            if (err.response?.status === 400 || err.response?.status === 403) {
+                setMatchError('incomplete_profile');
+                setMatchedJobs([]);
+            } else {
+                setMatchedJobs([]); // Fallback to "no matches" for this assignment
+            }
+        } finally {
+            setIsMatching(false);
+        }
+    };
+
     const hasFilters = searchTerm || 
         selectedLocation !== 'All Locations' || 
         selectedExperience !== 'All Experience' || 
@@ -192,7 +226,7 @@ const JobFeedPage = () => {
     return (
         <div className="min-h-screen bg-white">
             {/* Monochrome Header Section */}
-            <header className="relative z-20 py-16 px-6 border-b border-gray-100">
+            <header className="relative z-20 pt-16 pb-6 px-6 border-b border-gray-100">
                 {/* Minimal Grid Pattern Overlay */}
                 <div className="absolute inset-0 z-0 bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03]" />
 
@@ -226,15 +260,20 @@ const JobFeedPage = () => {
                     >
                         <div className="flex flex-col gap-4">
                             {/* Search Input Row */}
-                            <div className="relative w-full group">
-                                <Search size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-black group-focus-within:text-black transition-colors" />
-                                <input
-                                    type="text"
-                                    placeholder="SEARCH POSITIONS..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full pl-16 pr-8 py-5 bg-white border-2 border-black rounded-2xl text-black font-bold text-sm placeholder:text-gray-300 focus:outline-none focus:ring-4 focus:ring-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 placeholder:uppercase placeholder:tracking-widest"
-                                />
+                            <div className="flex flex-col md:flex-row gap-4 w-full">
+                                <div className="relative flex-1 group">
+                                    <Search size={20} className="absolute left-6 top-1/2 -translate-y-1/2 text-black group-focus-within:text-black transition-colors" />
+                                    <input
+                                        type="text"
+                                        placeholder="SEARCH POSITIONS..."
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        className="w-full pl-16 pr-8 py-5 bg-white border-2 border-black rounded-2xl text-black font-bold text-sm placeholder:text-gray-300 focus:outline-none focus:ring-4 focus:ring-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 placeholder:uppercase placeholder:tracking-widest"
+                                    />
+                                </div>
+                                <div className="flex md:w-auto w-full">
+                                    <JobMatchButton onMatch={handleMatchJobs} isLoading={isMatching} />
+                                </div>
                             </div>
 
                             {/* Options Row */}
@@ -356,7 +395,7 @@ const JobFeedPage = () => {
                         </div>
 
                         {/* Monochrome Skill Pills */}
-                        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                             <div className="flex items-center gap-2 text-[10px] font-black text-black uppercase tracking-[0.3em] mr-4 opacity-40">
                                 <Filter size={14} /> FILTER BY
                             </div>
@@ -387,7 +426,13 @@ const JobFeedPage = () => {
             </header>
 
             {/* Grid Container */}
-            <main className="max-w-7xl mx-auto py-20 px-6">
+            <main className="max-w-7xl mx-auto pt-2 pb-20 px-6">
+                
+                {/* 3. Matched Roles Section ABOVE Available Roles */}
+                {matchedJobs !== null && (
+                    <MatchedJobsSection matchedJobs={matchedJobs} isAuthenticated={isAuthenticated} error={matchError} />
+                )}
+
                 <div className="flex justify-between items-center mb-12 border-b-2 border-black pb-4">
                     <h2 className="text-2xl font-display font-black text-black uppercase tracking-tighter">
                         {filtered.length} AVAILABLE ROLES

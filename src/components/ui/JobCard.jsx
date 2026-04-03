@@ -68,25 +68,55 @@ const JobCard = ({ job, isAuthenticated = true }) => {
 
                 {/* 2. Top Zone (Pure White Surface) */}
                 <div className="p-6 relative z-10 flex-1">
-                    <div className="flex justify-between items-start mb-6">
-                        <div className="flex items-center gap-4">
+                    <div className="flex justify-between items-start mb-6 gap-4 w-full">
+                        <div className="flex items-start gap-4 min-w-0 flex-1">
                             {/* Company Avatar / Initial */}
-                            <div className="w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center font-display font-bold text-lg shadow-xl shadow-black/10 ring-1 ring-black/5">
+                            <div className="shrink-0 w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center font-display font-bold text-xl shadow-xl shadow-black/10 ring-1 ring-black/5">
                                 {(job.company_name || 'O').charAt(0)}
                             </div>
-                            <div>
-                                <h3 className="font-display font-semibold text-gray-900 tracking-tight leading-loose text-lg group-hover:text-black transition-colors line-clamp-2">
+                            <div className="min-w-0 flex-1">
+                                <h3 className="font-display font-semibold text-gray-900 tracking-tight leading-snug text-lg group-hover:text-black transition-colors line-clamp-2 break-words text-left">
                                     {cleanTitle}
                                 </h3>
-                                <div className="flex items-center gap-1.5 text-sm text-gray-500 font-medium">
-                                    <Building2 size={12} className="opacity-40" />
-                                    <span>{job.company_name}</span>
+                                <div className="flex items-center gap-1.5 text-sm text-gray-500 font-medium mt-1">
+                                    <Building2 size={12} className="shrink-0 opacity-40" />
+                                    <span className="truncate">{job.company_name}</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="flex items-center justify-center shrink-0 h-fit gap-1.5 px-3 py-1.5 bg-gray-50 rounded-full border border-black/[0.03] text-[10px] font-bold text-gray-400 uppercase tracking-widest shadow-sm">
-                            <Calendar size={10} />
-                            {displayTime}
+                        <div className="flex flex-col items-end gap-2 shrink-0 max-w-[30%]">
+                            {job.match_score != null && (() => {
+                                const score = job.match_score;
+                                const getColor = (val) => {
+                                    if (val >= 75) return '#22c55e';
+                                    if (val >= 50) return '#eab308';
+                                    if (val >= 25) return '#f97316';
+                                    return '#ef4444';
+                                };
+                                const color = getColor(score);
+                                const radius = 20;
+                                const circumference = 2 * Math.PI * radius;
+                                const strokeDashoffset = circumference - (score / 100) * circumference;
+
+                                return (
+                                    <div className="flex items-center justify-center relative shrink-0" title={`Match Score: ${score}%`}>
+                                        <svg className="w-[44px] h-[44px] transform -rotate-90">
+                                            <circle
+                                                cx="22" cy="22" r={radius} stroke="#f3f4f6" strokeWidth="4" fill="transparent"
+                                            />
+                                            <circle
+                                                cx="22" cy="22" r={radius} stroke={color} strokeWidth="4" fill="transparent"
+                                                strokeDasharray={circumference} strokeDashoffset={strokeDashoffset} strokeLinecap="round"
+                                            />
+                                        </svg>
+                                        <span className="absolute text-[11px] font-black text-black tracking-tighter">{score}</span>
+                                    </div>
+                                );
+                            })()}
+                            <div className="flex items-center justify-end shrink-0 gap-1.5 text-[11px] font-bold text-gray-400 uppercase tracking-widest whitespace-nowrap text-right w-full">
+                                <Calendar size={12} className="shrink-0" />
+                                <span className="truncate">{displayTime}</span>
+                            </div>
                         </div>
                     </div>
 

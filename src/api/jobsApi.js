@@ -43,3 +43,8 @@ export const downloadTailoredResume = async (jobTitle, tailoredResume) => {
     });
     return response.data;
 };
+
+export const matchAllJobs = async () => {
+    const response = await api.post('/jobs/match', {}, { timeout: 60000 });
+    return response.data;
+};
