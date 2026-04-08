@@ -14,7 +14,7 @@ export const uploadAvatar = async (userId, file) => {
     // 1. Define file path: avatars/userId/timestamp_name
     const fileExt = file.name.split('.').pop();
     const fileName = `${userId}/${Date.now()}.${fileExt}`;
-    const filePath = `avatars/${fileName}`;
+    // const filePath = `avatars/${fileName}`; // Not strictly needed
 
     // 2. Upload to Supabase Storage
     const { data, error } = await supabase.storage
