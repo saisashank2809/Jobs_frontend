@@ -42,7 +42,7 @@ const JobDetailPage = () => {
             if (isRefresh) setRefreshing(true);
             else setLoading(true);
             const data = await getJobDetails(id);
-            
+
             // Replicate JobCard Location Extractor OR use passed state from the Card Link directly
             let loc = passedLocation || data.location || 'REMOTE';
             let t = data.title || '';
@@ -50,7 +50,7 @@ const JobDetailPage = () => {
             const cities = ['BANGALORE', 'BENGALURU', 'HYDERABAD', 'PUNE', 'MUMBAI', 'DELHI', 'INDIA', 'NEW YORK', 'KARNATAKA'];
             for (const city of cities) {
                 const idx = t.toUpperCase().indexOf(city);
-                if (idx > 10) { 
+                if (idx > 10) {
                     let extracted = t.substring(idx).trim();
                     extracted = extracted.replace(/India.*/i, 'India');
                     extracted = extracted.replace(/Karnataka.*/i, 'Karnataka');
@@ -69,13 +69,13 @@ const JobDetailPage = () => {
                 setIsSummarizing(true);
                 setTimeout(() => {
                     const exp = data.experience_level === 0 ? "Fresher" : (data.experience_level || "Not Specified");
-                    
+
                     // Dynamic Heuristic Extraction for AI Mock
                     const rawJD = data.description_raw || '';
                     const cleanText = rawJD.replace(/<[^>]+>/g, '').trim();
                     const sentences = cleanText.split(/(?<=[.!?])\s+/);
                     const dynamicOverview = sentences.slice(0, 3).join(' ') || "We are looking for exceptional talent to join our team and drive key initiatives.";
-                    
+
                     let dynamicRequirements = '';
                     const bulletsReg = /(?:^|\n)[-•*]\s*([^.\n]+)/g;
                     let match;
@@ -152,18 +152,18 @@ const JobDetailPage = () => {
                     interests_score: response.interests_score || Math.max(score - 10, 0),
                     aspirations_score: response.aspirations_score || Math.max(score, 0),
                 };
-                matchData = { 
-                    score, 
-                    ...breakdown, 
+                matchData = {
+                    score,
+                    ...breakdown,
                     missing_skills: response.missing_skills || [],
                     gap_analysis: response.gap_analysis || "Analysis Stream Complete."
                 };
             } catch (err) {
-                 const score = 75;
-                 const breakdown = { skills_score: 80, interests_score: 70, aspirations_score: 65 };
-                 matchData = { 
-                    score, 
-                    ...breakdown, 
+                const score = 75;
+                const breakdown = { skills_score: 80, interests_score: 70, aspirations_score: 65 };
+                matchData = {
+                    score,
+                    ...breakdown,
                     missing_skills: [],
                     gap_analysis: "Analysis Stream complete (fallback)."
                 };
@@ -179,11 +179,11 @@ const JobDetailPage = () => {
                     const recommended = allMatches.filter(j => j.id !== id).slice(0, 3);
                     setRecommendedJobs(recommended);
                 }
-            } catch(err) {
+            } catch (err) {
                 console.error("Failed fetching recommended", err);
             }
 
-        } catch(error) {
+        } catch (error) {
             console.error(error);
         } finally {
             setIsMatching(false);
@@ -234,14 +234,13 @@ const JobDetailPage = () => {
                             <div className="flex flex-wrap justify-start gap-4 shrink-0 w-full">
                                 {user ? (
                                     <>
-                                        <button 
+                                        <button
                                             onClick={handleRunMatchIQ}
                                             disabled={isMatching}
-                                            className={`w-full sm:w-auto px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 shadow-xl ${
-                                                matchDetails && !isMatching 
-                                                    ? 'bg-white border border-zinc-900 text-zinc-900 hover:bg-zinc-900 hover:text-white' 
+                                            className={`w-full sm:w-auto px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 shadow-xl ${matchDetails && !isMatching
+                                                    ? 'bg-white border border-zinc-900 text-zinc-900 hover:bg-zinc-900 hover:text-white'
                                                     : 'bg-zinc-900 text-white hover:bg-zinc-800 shadow-zinc-900/10'
-                                            } disabled:opacity-50 active:scale-95`}
+                                                } disabled:opacity-50 active:scale-95`}
                                         >
                                             {isMatching ? (
                                                 <><RefreshCw size={18} className="animate-spin" /> Processing...</>
@@ -273,12 +272,12 @@ const JobDetailPage = () => {
 
                 {/* Left Column */}
                 <div className="lg:col-span-8 flex flex-col gap-12 min-w-0">
-                    
+
                     {/* MatchedIQModal Integration */}
-                    <MatchIQModal 
-                        isOpen={isMatchModalOpen} 
-                        onClose={() => setIsMatchModalOpen(false)} 
-                        matchData={matchDetails} 
+                    <MatchIQModal
+                        isOpen={isMatchModalOpen}
+                        onClose={() => setIsMatchModalOpen(false)}
+                        matchData={matchDetails}
                         job={job}
                         jobId={id}
                     />
@@ -298,18 +297,18 @@ const JobDetailPage = () => {
                                 <div className="h-4 bg-zinc-200 rounded-full w-4/6 relative z-10"></div>
                             </div>
                         ) : genZSummary ? (
-                            <motion.div 
-                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} 
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                                 className="w-full mb-12 p-10 rounded-[32px] border border-zinc-100 bg-[#FAFAFA] relative overflow-hidden group hover:bg-white transition-all shadow-sm"
                             >
                                 <div className="absolute -top-6 -right-6 p-6 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity rotate-12">
                                     <Sparkles size={160} className="text-zinc-900" />
                                 </div>
                                 <div className="flex items-center gap-2 text-zinc-400 mb-8 border-b border-zinc-100 pb-4 inline-flex w-full">
-                                     <Sparkles size={14} className="text-zinc-900" />
-                                     <span className="text-[10px] font-bold uppercase tracking-[0.3em]">AI Executive Synthesis</span>
+                                    <Sparkles size={14} className="text-zinc-900" />
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.3em]">AI Executive Synthesis</span>
                                 </div>
-                                <div 
+                                <div
                                     className="relative z-10 text-zinc-600 prose prose-zinc max-w-none"
                                     dangerouslySetInnerHTML={{ __html: genZSummary }}
                                 />

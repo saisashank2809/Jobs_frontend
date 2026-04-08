@@ -470,7 +470,7 @@ const MockInterviewPage = () => {
                                     <Radio size={20} className="text-white" />
                                 </div>
                                 <h1 className="text-4xl font-bold text-zinc-900 tracking-tight">
-                                    Interview Sim
+                                    Mock Interview Simulator
                                 </h1>
                             </div>
                             {(companyName || jobTitle) && (
@@ -619,7 +619,7 @@ const MockInterviewPage = () => {
                                 <>
                                     {!hasResume ? 'SYNC REQUIRED' : (
                                         <>
-                                            LAUNCH INTERVIEW SIM
+                                            LAUNCH MOCK INTERVIEW SIMULATOR
                                             <ChevronRight size={20} />
                                         </>
                                     )}

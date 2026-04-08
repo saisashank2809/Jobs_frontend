@@ -209,7 +209,7 @@ const MatchIQModal = ({ isOpen, onClose, matchData, job, jobId }) => {
                                     whileTap={{ scale: 0.98 }}
                                     className="group w-full h-full bg-white border border-zinc-100 text-zinc-900 py-4 px-8 rounded-full font-bold text-[11px] uppercase tracking-widest transition-all shadow-sm flex items-center justify-center gap-3 hover:bg-zinc-50"
                                 >
-                                    <Radio size={18} className="group-hover:animate-pulse" /> Interview Sim
+                                    <Radio size={18} className="group-hover:animate-pulse" /> Mock Interview Simulator
                                 </motion.button>
                             </Link>
                         </div>
