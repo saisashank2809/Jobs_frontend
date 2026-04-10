@@ -23,7 +23,7 @@ import {
     Calendar,
     Target
 } from 'lucide-react';
-import { DESIRED_JOB_ROLES } from '../../utils/constants';
+import { DESIRED_JOB_ROLES, WORK_PREFERENCES } from '../../utils/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ProfilePage = () => {
@@ -44,6 +44,7 @@ const ProfilePage = () => {
     const [aspirations, setAspirations] = useState([]);
     const [newSkill, setNewSkill] = useState('');
     const [newAspiration, setNewAspiration] = useState('');
+    const [workPreference, setWorkPreference] = useState(WORK_PREFERENCES.HYBRID);
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
     const [message, setMessage] = useState(null);
@@ -63,6 +64,7 @@ const ProfilePage = () => {
             setSkills(data.skills || []);
             setInterests(data.interests || '');
             setAspirations(data.aspirations || []);
+            setWorkPreference(data.work_preference || WORK_PREFERENCES.HYBRID);
         } catch (err) {
             console.error(err);
             setError("Failed to fetch profile details.");
@@ -145,7 +147,8 @@ const ProfilePage = () => {
                 dob: dob,
                 skills: skills,
                 interests: interests,
-                aspirations: aspirations
+                aspirations: aspirations,
+                work_preference: workPreference
             });
             setMessage("Profile updated successfully.");
             setEditMode(false);
@@ -473,6 +476,51 @@ const ProfilePage = () => {
                                     <p className="text-xs font-medium text-zinc-400">No competency data detected.</p>
                                 </div>
                             )}
+                        </div>
+                    </motion.div>
+                    
+                    {/* Work Preference Selector */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15 }}
+                        className="bg-white border border-zinc-100 rounded-[40px] p-10 shadow-sm relative overflow-hidden group"
+                    >
+                        <div className="flex items-center justify-between mb-12">
+                            <div>
+                                <h3 className="text-2xl font-bold text-zinc-900 tracking-tight">Work Preference</h3>
+                                <p className="text-[10px] font-black text-zinc-300 mt-2 uppercase tracking-[0.4em]">How do you prefer to work?</p>
+                            </div>
+                            <div className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest ${
+                                workPreference === WORK_PREFERENCES.REMOTE ? 'bg-emerald-50 text-emerald-600' :
+                                workPreference === WORK_PREFERENCES.ONSITE ? 'bg-blue-50 text-blue-600' :
+                                'bg-indigo-50 text-indigo-600'
+                            }`}>
+                                {workPreference}
+                            </div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-4">
+                            {[
+                                { id: WORK_PREFERENCES.ONSITE, label: 'Onsite', color: 'bg-blue-500' },
+                                { id: WORK_PREFERENCES.REMOTE, label: 'Remote', color: 'bg-emerald-500' },
+                                { id: WORK_PREFERENCES.HYBRID, label: 'Hybrid / Both', color: 'bg-indigo-400' }
+                            ].map((pref) => (
+                                <button
+                                    key={pref.id}
+                                    type="button"
+                                    disabled={!editMode}
+                                    onClick={() => setWorkPreference(pref.id)}
+                                    className={`flex items-center gap-3 px-6 py-4 rounded-[20px] transition-all duration-500 border font-bold text-[11px] uppercase tracking-widest ${
+                                        workPreference === pref.id
+                                            ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
+                                            : 'bg-white text-zinc-400 border-zinc-100 hover:border-zinc-300'
+                                    } ${!editMode ? 'cursor-default opacity-80' : 'hover:text-zinc-900'}`}
+                                >
+                                    <div className={`w-2.5 h-2.5 rounded-full ${pref.color}`} />
+                                    {pref.label}
+                                </button>
+                            ))}
                         </div>
                     </motion.div>
 

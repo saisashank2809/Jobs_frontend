@@ -38,8 +38,8 @@ const MatchedJobsSection = ({ matchedJobs, isAuthenticated, error }) => {
             <div className="relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 pb-6 border-b-2 border-black/5">
                     <div>
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-4 shadow-lg shadow-purple-500/20">
-                            <Target size={12} className="text-white" />
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-zinc-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-full mb-4 shadow-lg shadow-zinc-900/10">
+                            <Target size={12} className="text-zinc-400" />
                             Personalized
                         </div>
                         <h2 className="text-3xl font-display font-black text-black uppercase tracking-tighter mb-2">

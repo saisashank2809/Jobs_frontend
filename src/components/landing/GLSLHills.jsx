@@ -191,7 +191,7 @@ export function GLSLHills({
             1,
             10000
         );
-        const clock = new THREE.Clock();
+        const timer = new THREE.Timer();
         const plane = new Plane(planeSize, speed);
 
         let animationId;
@@ -205,7 +205,8 @@ export function GLSLHills({
 
         const render = () => {
             if (isVisibleRef.current) {
-                plane.render(clock.getDelta());
+                timer.update();
+                plane.render(timer.getDelta());
                 renderer.render(scene, camera);
             }
         };

@@ -68,9 +68,29 @@ const JobCard = ({ job, isAuthenticated = true }) => {
         return { title: t, loc, time };
     };
 
+    const simplifyLoc = (l, title) => {
+        const titleLower = (title || '').toLowerCase();
+        const locLower = (l || '').toLowerCase();
+        
+        // 1. Detect Remote
+        if (locLower.includes('remote') || titleLower.includes('remote')) {
+            return 'Remote';
+        }
+        
+        if (!l || l.toLowerCase() === 'remote') return 'Remote'; 
+        
+        // 2. Format Onsite
+        const first = l.split(/[,;]/)[0].trim();
+        const cityName = first.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+        
+        return `Onsite - ${cityName}`;
+    };
+
     const { title: cleanTitle, loc: parsedLoc, time: parsedTime } = parseJobData(job.title);
-    const displayLocation = parsedLoc || job.location || 'Remote';
+    const displayLocation = simplifyLoc(parsedLoc || job.location, cleanTitle);
     const displayTime = parsedTime ? `Posted ${parsedTime}` : formattedDate;
+
+
 
     // Match score from job data (if available from matchAllJobs)
     const rawScore = job.match_score ?? job.similarity_score;
@@ -176,11 +196,6 @@ const JobCard = ({ job, isAuthenticated = true }) => {
                         <Bookmark size={14} className={saved ? 'fill-white' : ''} />
                         {saved ? 'Saved' : 'Save'}
                     </button>
-                    {matchScore != null && (
-                        <span className="text-lg font-bold text-zinc-900 tabular-nums shrink-0">
-                            {matchScore}%
-                        </span>
-                    )}
                 </div>
             </div>
         </motion.div>

@@ -25,3 +25,10 @@ export const DESIRED_JOB_ROLES = [
     "Business Analyst",
     "Graphic Designer"
 ];
+
+export const WORK_PREFERENCES = {
+    ONSITE: 'Onsite',
+    REMOTE: 'Remote',
+    HYBRID: 'Hybrid / Both'
+};
+

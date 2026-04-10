@@ -36,10 +36,28 @@ const JobFeedPage = () => {
         const fetchJobs = async () => {
             try {
                 const data = await getJobFeed();
+                const simplifyLoc = (l, title = '') => {
+                    const titleLower = (title || '').toLowerCase();
+                    const locLower = (l || '').toLowerCase();
+                    
+                    if (locLower.includes('remote') || titleLower.includes('remote')) {
+                        return 'Remote';
+                    }
+                    
+                    if (!l || l.toLowerCase() === 'remote') return 'Remote'; 
+                    
+                    const first = l.split(/[,;]/)[0].trim();
+                    const cityName = first.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+                    
+                    return `Onsite - ${cityName}`;
+                };
+
+
                 // Natively clean job list so filters match generated JobCards
                 const cleanedData = data.map((job, index) => {
-                    let loc = job.location || 'Remote';
+                    let loc = simplifyLoc(job.location, job.title);
                     let t = job.title || '';
+
                     const cities = ['BANGALORE', 'BENGALURU', 'HYDERABAD', 'PUNE', 'MUMBAI', 'DELHI', 'INDIA', 'NEW YORK', 'KARNATAKA'];
                     for (const city of cities) {
                         const idx = t.toUpperCase().indexOf(city);
@@ -47,7 +65,7 @@ const JobFeedPage = () => {
                             let extracted = t.substring(idx).trim();
                             extracted = extracted.replace(/India.*/i, 'India');
                             extracted = extracted.replace(/Karnataka.*/i, 'Karnataka');
-                            loc = extracted;
+                            loc = simplifyLoc(extracted);
                             break;
                         }
                     }
@@ -172,6 +190,13 @@ const JobFeedPage = () => {
     useEffect(() => {
         setVisibleCount(20);
     }, [searchTerm, selectedLocation, selectedSkills]);
+    
+    // Auto-match on load for seekers
+    useEffect(() => {
+        if (isAuthenticated && role === ROLES.SEEKER && matchedJobs === null && !isMatching) {
+            handleMatchJobs();
+        }
+    }, [isAuthenticated, role]);
 
     const visibleJobs = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
     const hasMore = visibleCount < filtered.length;
@@ -414,12 +439,7 @@ const JobFeedPage = () => {
                             )}
                         </div>
 
-                        {/* Neural Match CTA - Only for Seekers */}
-                        {role === ROLES.SEEKER && (
-                            <div className="mt-12 flex justify-center">
-                                <JobMatchButton onMatch={handleMatchJobs} isLoading={isMatching} />
-                            </div>
-                        )}
+
                     </motion.div>
                 </div>
             </header>

@@ -20,7 +20,7 @@ import {
     Calendar,
     Target
 } from 'lucide-react';
-import { ROLES, DESIRED_JOB_ROLES } from '../../utils/constants';
+import { ROLES, DESIRED_JOB_ROLES, WORK_PREFERENCES } from '../../utils/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const RegisterPage = () => {
@@ -47,6 +47,7 @@ const RegisterPage = () => {
     const [newSkill, setNewSkill] = useState('');
     const [interests, setInterests] = useState('');
     const [aspirations, setAspirations] = useState([]);
+    const [workPreference, setWorkPreference] = useState(WORK_PREFERENCES.HYBRID);
     
     // UI State
     const [error, setError] = useState(null);
@@ -144,7 +145,7 @@ const RegisterPage = () => {
             }
 
             // 2. Submit all data including the avatar URL
-            await signUp(email, password, role, fullName, phone, location, skills, interests, dob, aspirations, finalAvatarUrl);
+            await signUp(email, password, role, fullName, phone, location, skills, interests, dob, aspirations, finalAvatarUrl, workPreference);
             navigate('/login');
         } catch (err) {
             setError(err.response?.data?.detail || 'Registration failed. Please try again.');
@@ -518,6 +519,41 @@ const RegisterPage = () => {
                                     {aspirations.length >= 5 && (
                                         <p className="text-[10px] font-bold text-rose-500 uppercase tracking-widest mt-6 ml-1 bg-rose-50/50 inline-block px-4 py-2 rounded-lg">Threshold reached.</p>
                                     )}
+                                </div>
+
+                                {/* Work Preference Selector */}
+                                <div className="mt-16 p-10 bg-zinc-50/50 border border-zinc-100 rounded-[40px] relative overflow-hidden group">
+                                    <div className="flex items-center justify-between mb-8">
+                                        <div>
+                                            <h3 className="text-xl font-bold text-zinc-900 tracking-tight">Work Preference</h3>
+                                            <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mt-1">How do you prefer to work?</p>
+                                        </div>
+                                        <div className="px-5 py-2 bg-emerald-50 border border-emerald-100 rounded-full text-[10px] font-bold text-emerald-600 uppercase tracking-widest">
+                                            {workPreference}
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-wrap gap-4">
+                                        {[
+                                            { id: WORK_PREFERENCES.ONSITE, label: 'Onsite', color: 'bg-blue-500' },
+                                            { id: WORK_PREFERENCES.REMOTE, label: 'Remote', color: 'bg-emerald-500' },
+                                            { id: WORK_PREFERENCES.HYBRID, label: 'Hybrid / Both', color: 'bg-indigo-400' }
+                                        ].map((pref) => (
+                                            <button
+                                                key={pref.id}
+                                                type="button"
+                                                onClick={() => setWorkPreference(pref.id)}
+                                                className={`flex items-center gap-3 px-6 py-4 rounded-[20px] transition-all duration-500 border font-bold text-[11px] uppercase tracking-widest ${
+                                                    workPreference === pref.id
+                                                        ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
+                                                        : 'bg-white text-zinc-400 border-zinc-100 hover:border-zinc-300 hover:text-zinc-600'
+                                                }`}
+                                            >
+                                                <div className={`w-2 h-2 rounded-full ${pref.color}`} />
+                                                {pref.label}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </motion.div>
                         )}

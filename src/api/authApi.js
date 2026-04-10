@@ -6,10 +6,11 @@ import api from './client';
  * The backend creates the user, auto-confirms, stores password, and
  * returns tokens which we set on the Supabase client for session continuity.
  */
-export const signUp = async (email, password, role, full_name, phone, location, skills = [], interests = "", dob = "", aspirations = [], avatar_url = "") => {
+export const signUp = async (email, password, role, full_name, phone, location, skills = [], interests = "", dob = "", aspirations = [], avatar_url = "", work_preference = "Hybrid / Both") => {
     const { data } = await api.post('/auth/signup', { 
-        email, password, role, full_name, phone, location, skills, interests, dob, aspirations, avatar_url 
+        email, password, role, full_name, phone, location, skills, interests, dob, aspirations, avatar_url, work_preference 
     });
+
 
     // Set the session on the Supabase client so AuthContext picks it up
     await supabase.auth.setSession({
