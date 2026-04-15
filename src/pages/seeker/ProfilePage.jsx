@@ -23,7 +23,7 @@ import {
     Calendar,
     Target
 } from 'lucide-react';
-import { DESIRED_JOB_ROLES, WORK_PREFERENCES } from '../../utils/constants';
+import { DESIRED_JOB_ROLES, WORK_PREFERENCES, EXPERIENCE_LEVELS, JOB_TITLES } from '../../utils/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ProfilePage = () => {
@@ -45,6 +45,10 @@ const ProfilePage = () => {
     const [newSkill, setNewSkill] = useState('');
     const [newAspiration, setNewAspiration] = useState('');
     const [workPreference, setWorkPreference] = useState(WORK_PREFERENCES.HYBRID);
+    const [experience, setExperience] = useState('');
+    const [workExperiencePosition, setWorkExperiencePosition] = useState('');
+    const [customPosition, setCustomPosition] = useState('');
+    const [workExperienceDescription, setWorkExperienceDescription] = useState('');
     const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
     const [message, setMessage] = useState(null);
@@ -65,6 +69,18 @@ const ProfilePage = () => {
             setInterests(data.interests || '');
             setAspirations(data.aspirations || []);
             setWorkPreference(data.work_preference || WORK_PREFERENCES.HYBRID);
+            setExperience(data.experience || '');
+            
+            const loadedPosition = data.work_experience_position || '';
+            if (loadedPosition && !JOB_TITLES.includes(loadedPosition)) {
+                setWorkExperiencePosition('Other');
+                setCustomPosition(loadedPosition);
+            } else {
+                setWorkExperiencePosition(loadedPosition);
+                setCustomPosition('');
+            }
+
+            setWorkExperienceDescription(data.work_experience_description || '');
         } catch (err) {
             console.error(err);
             setError("Failed to fetch profile details.");
@@ -148,7 +164,10 @@ const ProfilePage = () => {
                 skills: skills,
                 interests: interests,
                 aspirations: aspirations,
-                work_preference: workPreference
+                work_preference: workPreference,
+                experience: experience,
+                work_experience_position: workExperiencePosition === 'Other' ? customPosition : workExperiencePosition,
+                work_experience_description: workExperienceDescription
             });
             setMessage("Profile updated successfully.");
             setEditMode(false);
@@ -521,6 +540,99 @@ const ProfilePage = () => {
                                     {pref.label}
                                 </button>
                             ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Professional Experience Section */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.18 }}
+                        className="bg-white border border-zinc-100 rounded-[40px] p-10 shadow-sm"
+                    >
+                        <header className="flex items-center justify-between mb-12">
+                            <div>
+                                <h3 className="text-2xl font-bold text-black tracking-tight">Professional History</h3>
+                                <p className="text-[10px] font-black text-zinc-300 mt-2 uppercase tracking-[0.4em]">Your past and current experience</p>
+                            </div>
+                        </header>
+
+                        <div className="space-y-10">
+                            <div>
+                                <label className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em] block mb-4 ml-1">Total Tenure</label>
+                                {editMode ? (
+                                    <select
+                                        value={experience}
+                                        onChange={(e) => setExperience(e.target.value)}
+                                        className="w-full bg-zinc-50 border border-zinc-100 rounded-2xl px-6 py-5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none appearance-none cursor-pointer"
+                                    >
+                                        <option value="" disabled>Select Tenure</option>
+                                        {EXPERIENCE_LEVELS.map(exp => (
+                                            <option key={exp} value={exp}>{exp}</option>
+                                        ))}
+                                    </select>
+                                ) : (
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-white">
+                                            <Activity size={18} />
+                                        </div>
+                                        <p className="text-xl font-bold text-black">{experience || 'Not Specified'}</p>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="p-8 bg-zinc-50/50 rounded-[32px] border border-zinc-100 space-y-8">
+                                <div>
+                                    <label className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em] block mb-4 ml-1">Last / Current Position</label>
+                                    {editMode ? (
+                                        <select
+                                            value={workExperiencePosition}
+                                            onChange={(e) => setWorkExperiencePosition(e.target.value)}
+                                            className="w-full bg-white border border-zinc-100 rounded-2xl px-6 py-5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none appearance-none cursor-pointer"
+                                        >
+                                            <option value="" disabled>Select Role</option>
+                                            {JOB_TITLES.map(title => (
+                                                <option key={title} value={title}>{title}</option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        <p className="text-base font-bold text-zinc-600">{profile?.work_experience_position || 'No Position Logged'}</p>
+                                    )}
+                                </div>
+
+                                {editMode && workExperiencePosition === 'Other' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="space-y-4"
+                                    >
+                                        <label className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em] block ml-1">Specify Your Role</label>
+                                        <input
+                                            type="text"
+                                            value={customPosition}
+                                            onChange={(e) => setCustomPosition(e.target.value)}
+                                            className="w-full bg-zinc-50 border border-zinc-100 rounded-2xl px-6 py-5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none"
+                                            placeholder="Enter your specific job title..."
+                                        />
+                                    </motion.div>
+                                )}
+
+                                <div>
+                                    <label className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em] block mb-4 ml-1">Experience Description</label>
+                                    {editMode ? (
+                                        <textarea
+                                            value={workExperienceDescription}
+                                            onChange={(e) => setWorkExperienceDescription(e.target.value)}
+                                            className="w-full bg-white border border-zinc-100 rounded-2xl px-6 py-5 font-semibold text-xs focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none min-h-[120px] resize-none"
+                                            placeholder="Outline your impact and achievements..."
+                                        />
+                                    ) : (
+                                        <p className="text-sm font-medium text-zinc-500 leading-relaxed italic">
+                                            {workExperienceDescription || 'Briefly describe your experience here...'}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </motion.div>
 

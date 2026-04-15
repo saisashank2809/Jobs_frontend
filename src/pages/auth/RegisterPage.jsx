@@ -20,7 +20,7 @@ import {
     Calendar,
     Target
 } from 'lucide-react';
-import { ROLES, DESIRED_JOB_ROLES, WORK_PREFERENCES } from '../../utils/constants';
+import { ROLES, DESIRED_JOB_ROLES, WORK_PREFERENCES, EXPERIENCE_LEVELS, JOB_TITLES } from '../../utils/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const RegisterPage = () => {
@@ -49,13 +49,19 @@ const RegisterPage = () => {
     const [aspirations, setAspirations] = useState([]);
     const [workPreference, setWorkPreference] = useState(WORK_PREFERENCES.HYBRID);
     
+    // Experience Data
+    const [experience, setExperience] = useState('');
+    const [workExperiencePosition, setWorkExperiencePosition] = useState('');
+    const [customPosition, setCustomPosition] = useState('');
+    const [workExperienceDescription, setWorkExperienceDescription] = useState('');
+    
     // UI State
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [extracting, setExtracting] = useState(false);
     const fileInputRef = useRef(null);
 
-    const maxSteps = role === ROLES.PROVIDER ? 2 : 4;
+    const maxSteps = role === ROLES.PROVIDER ? 2 : 5;
 
     const handleRoleChange = (selectedRole) => {
         setRole(selectedRole);
@@ -145,7 +151,23 @@ const RegisterPage = () => {
             }
 
             // 2. Submit all data including the avatar URL
-            await signUp(email, password, role, fullName, phone, location, skills, interests, dob, aspirations, finalAvatarUrl, workPreference);
+            await signUp(
+                email, 
+                password, 
+                role, 
+                fullName, 
+                phone, 
+                location, 
+                skills, 
+                interests, 
+                dob, 
+                aspirations, 
+                finalAvatarUrl, 
+                workPreference,
+                experience,
+                workExperiencePosition === 'Other' ? customPosition : workExperiencePosition,
+                workExperienceDescription
+            );
             navigate('/login');
         } catch (err) {
             setError(err.response?.data?.detail || 'Registration failed. Please try again.');
@@ -484,8 +506,102 @@ const RegisterPage = () => {
                                 className="space-y-10"
                             >
                                 <div className="text-center mb-12">
+                                    <h2 className="text-4xl font-sans font-bold text-zinc-900 tracking-tight">Experience</h2>
+                                    <p className="text-[10px] font-bold text-zinc-400 mt-4 uppercase tracking-[0.3em]">Step 04 · Professional History</p>
+                                </div>
+
+                                <div className="space-y-8">
+                                    {/* Total Experience Dropdown */}
+                                    <div>
+                                        <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-1">Total Experience</label>
+                                        <select
+                                            value={experience}
+                                            onChange={(e) => setExperience(e.target.value)}
+                                            className="w-full px-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
+                                        >
+                                            <option value="" disabled>Select Tenure</option>
+                                            {EXPERIENCE_LEVELS.map(exp => (
+                                                <option key={exp} value={exp}>{exp}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    {/* Work Experience Section */}
+                                    <div className="p-8 bg-zinc-50/50 border border-zinc-100 rounded-[32px] space-y-6">
+                                        <div>
+                                            <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-1">Last / Current Position</label>
+                                            <select
+                                                value={workExperiencePosition}
+                                                onChange={(e) => setWorkExperiencePosition(e.target.value)}
+                                                className="w-full px-6 py-5 bg-white border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
+                                            >
+                                                <option value="" disabled>Select Role</option>
+                                                {JOB_TITLES.map(title => (
+                                                    <option key={title} value={title}>{title}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        {workExperiencePosition === 'Other' && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: -10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                className="relative group"
+                                            >
+                                                <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-1">Specify Role</label>
+                                                <input
+                                                    type="text"
+                                                    value={customPosition}
+                                                    onChange={(e) => setCustomPosition(e.target.value)}
+                                                    className="w-full px-6 py-5 bg-white border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                                    placeholder="Enter your job title..."
+                                                />
+                                            </motion.div>
+                                        )}
+
+                                        <div>
+                                            <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-1">Work Description</label>
+                                            <textarea
+                                                value={workExperienceDescription}
+                                                onChange={(e) => setWorkExperienceDescription(e.target.value)}
+                                                className="w-full px-6 py-5 bg-white border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-xs placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all h-32 resize-none"
+                                                placeholder="Describe your responsibilities and achievements..."
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-center">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setExperience('');
+                                                setWorkExperiencePosition('');
+                                                setWorkExperienceDescription('');
+                                                nextStep();
+                                            }}
+                                            className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.3em] hover:text-zinc-900 transition-colors py-2 px-4"
+                                        >
+                                            Skip this step
+                                        </button>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {step === 5 && (
+                            <motion.div
+                                key="step4"
+                                custom={1}
+                                variants={stepVariants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                                className="space-y-10"
+                            >
+                                <div className="text-center mb-12">
                                     <h2 className="text-4xl font-sans font-bold text-zinc-900 tracking-tight">Your Goals</h2>
-                                    <p className="text-[10px] font-bold text-zinc-400 mt-4 uppercase tracking-[0.3em]">Step 04 · Career Targets</p>
+                                    <p className="text-[10px] font-bold text-zinc-400 mt-4 uppercase tracking-[0.3em]">Step 05 · Career Targets</p>
                                 </div>
 
                                 <div>

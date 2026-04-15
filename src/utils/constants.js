@@ -32,3 +32,27 @@ export const WORK_PREFERENCES = {
     HYBRID: 'Hybrid / Both'
 };
 
+export const EXPERIENCE_LEVELS = [
+    "Fresher",
+    "0-1 Year",
+    "1-3 Years",
+    "3-5 Years",
+    "5-10 Years",
+    "10+ Years"
+];
+
+export const JOB_TITLES = [
+    "Software Engineer",
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+    "Product Manager",
+    "Data Scientist",
+    "UX/UI Designer",
+    "DevOps Engineer",
+    "QA Engineer",
+    "Project Manager",
+    "Marketing Specialist",
+    "Other"
+];
+

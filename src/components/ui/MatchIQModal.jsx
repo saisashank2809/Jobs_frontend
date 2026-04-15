@@ -10,7 +10,7 @@ const MatchIQModal = ({ isOpen, onClose, matchData, job, jobId }) => {
 
     if (!isOpen || !matchData) return null;
 
-    const { score, skills_score, interests_score, missing_skills = [], gap_analysis } = matchData;
+    const { score, skills_score, experience_score, interests_score, work_preference_score, missing_skills = [], gap_analysis } = matchData;
 
     // Handle "Chat with Coach"
     const handleStartChat = async () => {
@@ -103,11 +103,11 @@ const MatchIQModal = ({ isOpen, onClose, matchData, job, jobId }) => {
                                     </div>
                                 </div>
 
-                                <div className="space-y-10">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     {/* Skills Align */}
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-end px-1">
-                                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">Technical Compatibility</span>
+                                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">Skills Match</span>
                                             <span className="text-sm font-bold text-zinc-900">{skills_score}%</span>
                                         </div>
                                         <div className="h-2 w-full bg-zinc-50 rounded-full border border-zinc-100 overflow-hidden relative">
@@ -120,10 +120,26 @@ const MatchIQModal = ({ isOpen, onClose, matchData, job, jobId }) => {
                                         </div>
                                     </div>
 
+                                    {/* Experience Align */}
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-end px-1">
+                                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">Experience Match</span>
+                                            <span className="text-sm font-bold text-zinc-900">{experience_score}%</span>
+                                        </div>
+                                        <div className="h-2 w-full bg-zinc-50 rounded-full border border-zinc-100 overflow-hidden relative">
+                                            <motion.div 
+                                                className="h-full bg-zinc-900 rounded-full"
+                                                initial={{ width: 0 }}
+                                                animate={{ width: `${experience_score}%` }}
+                                                transition={{ duration: 1.5, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                            />
+                                        </div>
+                                    </div>
+
                                     {/* Interests Align */}
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-end px-1">
-                                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">Career Goals Alignment</span>
+                                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">Goals Alignment</span>
                                             <span className="text-sm font-bold text-zinc-900">{interests_score}%</span>
                                         </div>
                                         <div className="h-2 w-full bg-zinc-50 rounded-full border border-zinc-100 overflow-hidden relative">
@@ -132,6 +148,22 @@ const MatchIQModal = ({ isOpen, onClose, matchData, job, jobId }) => {
                                                 initial={{ width: 0 }}
                                                 animate={{ width: `${interests_score}%` }}
                                                 transition={{ duration: 1.5, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Work Preference Align */}
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-end px-1">
+                                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-400">Work Preference</span>
+                                            <span className="text-sm font-bold text-zinc-900">{work_preference_score}%</span>
+                                        </div>
+                                        <div className="h-2 w-full bg-zinc-50 rounded-full border border-zinc-100 overflow-hidden relative">
+                                            <motion.div 
+                                                className="h-full bg-zinc-400 rounded-full"
+                                                initial={{ width: 0 }}
+                                                animate={{ width: `${work_preference_score}%` }}
+                                                transition={{ duration: 1.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
                                             />
                                         </div>
                                     </div>

@@ -6,9 +6,9 @@ import api from './client';
  * The backend creates the user, auto-confirms, stores password, and
  * returns tokens which we set on the Supabase client for session continuity.
  */
-export const signUp = async (email, password, role, full_name, phone, location, skills = [], interests = "", dob = "", aspirations = [], avatar_url = "", work_preference = "Hybrid / Both") => {
+export const signUp = async (email, password, role, full_name, phone, location, skills = [], interests = "", dob = "", aspirations = [], avatar_url = "", work_preference = "Hybrid / Both", experience = "", work_experience_position = "", work_experience_description = "") => {
     const { data } = await api.post('/auth/signup', { 
-        email, password, role, full_name, phone, location, skills, interests, dob, aspirations, avatar_url, work_preference 
+        email, password, role, full_name, phone, location, skills, interests, dob, aspirations, avatar_url, work_preference, experience, work_experience_position, work_experience_description
     });
 
 

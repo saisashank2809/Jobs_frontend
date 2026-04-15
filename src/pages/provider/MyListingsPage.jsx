@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Loader from '../../components/ui/Loader';
-import { Trash2, AlertCircle, Briefcase, Eye, PlusCircle, Clock, Zap } from 'lucide-react';
+import { Trash2, AlertCircle, Briefcase, Eye, PlusCircle, Clock, Zap, Sparkles } from 'lucide-react';
 import { deleteJob, getProviderJobs } from '../../api/jobsApi';
 import { motion, AnimatePresence } from 'framer-motion';
 

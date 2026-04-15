@@ -148,15 +148,14 @@ const JobDetailPage = () => {
             let matchData = {};
             try {
                 const response = await getJobMatchScore(id);
-                const score = response.score || Math.round((response.similarity_score || 0) * 100) || 82;
-                const breakdown = {
-                    skills_score: response.skills_score || Math.max(score + 8, 0),
-                    interests_score: response.interests_score || Math.max(score - 10, 0),
-                    aspirations_score: response.aspirations_score || Math.max(score, 0),
-                };
+                const score = response.match_score || Math.round((response.similarity_score || 0) * 100) || 82;
                 matchData = {
                     score,
-                    ...breakdown,
+                    skills_score: response.skills_score,
+                    experience_score: response.experience_score,
+                    interests_score: response.interests_score,
+                    aspirations_score: response.aspirations_score,
+                    work_preference_score: response.work_preference_score,
                     missing_skills: response.missing_skills || [],
                     gap_analysis: response.gap_analysis || "Analysis Stream Complete."
                 };
