@@ -590,8 +590,8 @@ const MockInterviewPage = () => {
                                         key={type}
                                         onClick={() => setInterviewType(type)}
                                         className={`py-5 rounded-full border transition-all duration-500 font-bold text-[11px] uppercase tracking-widest ${interviewType === type
-                                                ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
-                                                : 'bg-zinc-50 text-zinc-400 border-zinc-100 hover:bg-zinc-100'
+                                            ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
+                                            : 'bg-zinc-50 text-zinc-400 border-zinc-100 hover:bg-zinc-100'
                                             }`}
                                     >
                                         {type === 'technical' ? 'Technical Interview' : 'Behavioral Interview'}
@@ -611,8 +611,8 @@ const MockInterviewPage = () => {
                                         key={d}
                                         onClick={() => setDuration(d)}
                                         className={`py-4 rounded-full border transition-all duration-500 font-bold text-[11px] uppercase tracking-widest ${duration === d
-                                                ? 'bg-zinc-900 text-white border-zinc-900 shadow-lg shadow-zinc-900/10'
-                                                : 'bg-zinc-50 text-zinc-400 border-zinc-100 hover:bg-zinc-100'
+                                            ? 'bg-zinc-900 text-white border-zinc-900 shadow-lg shadow-zinc-900/10'
+                                            : 'bg-zinc-50 text-zinc-400 border-zinc-100 hover:bg-zinc-100'
                                             }`}
                                     >
                                         {d}m
@@ -762,8 +762,8 @@ const MockInterviewPage = () => {
                                 onClick={() => setIsMuted((prev) => !prev)}
                                 disabled={!isActive}
                                 className={`flex items-center gap-2.5 px-6 py-3.5 rounded-full border font-bold text-[10px] uppercase tracking-widest transition-all disabled:opacity-30 ${isMuted
-                                        ? 'bg-zinc-900 text-white border-zinc-900'
-                                        : 'bg-white text-zinc-900 border-zinc-100 hover:border-zinc-900'
+                                    ? 'bg-zinc-900 text-white border-zinc-900'
+                                    : 'bg-white text-zinc-900 border-zinc-100 hover:border-zinc-900'
                                     }`}
                             >
                                 {isMuted ? <MicOff size={16} /> : <Mic size={16} />}

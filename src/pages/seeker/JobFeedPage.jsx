@@ -5,10 +5,12 @@ import Loader from '../../components/ui/Loader';
 import JobMatchButton from '../../components/ui/JobMatchButton';
 import MatchedJobsSection from '../../components/ui/MatchedJobsSection';
 import { matchAllJobs } from '../../api/jobsApi';
+
 import { Search, Sparkles, MapPin, Tag, X, ChevronDown, Filter, ArrowDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../hooks/useAuth';
 import { ROLES } from '../../utils/constants';
+import { getKeySkills } from '../../utils/jobOverview';
 
 const JobFeedPage = () => {
     const { isAuthenticated, role } = useAuth();
@@ -17,8 +19,13 @@ const JobFeedPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [visibleCount, setVisibleCount] = useState(20);
 
-    // Matching State
-    const [matchedJobs, setMatchedJobs] = useState(null);
+    // Matching State — persist matches across navigations
+    const [matchedJobs, setMatchedJobs] = useState(() => {
+        try {
+            const cached = sessionStorage.getItem('jobFeedMatchedJobs');
+            return cached ? JSON.parse(cached) : null;
+        } catch { return null; }
+    });
     const [isMatching, setIsMatching] = useState(false);
     const [matchError, setMatchError] = useState(null);
 
@@ -36,71 +43,32 @@ const JobFeedPage = () => {
         const fetchJobs = async () => {
             try {
                 const data = await getJobFeed();
-                const simplifyLoc = (l, title = '') => {
-                    const titleLower = (title || '').toLowerCase();
-                    const locLower = (l || '').toLowerCase();
-                    
-                    if (locLower.includes('remote') || titleLower.includes('remote')) {
-                        return 'Remote';
-                    }
-                    
-                    if (!l || l.toLowerCase() === 'remote') return 'Remote'; 
-                    
-                    const first = l.split(/[,;]/)[0].trim();
-                    const cityName = first.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-                    
-                    return `Onsite - ${cityName}`;
-                };
 
+                // Clean job list using backend-provided fields
+                const cleanedData = data.map((job) => {
+                    // Use backend-normalized location directly, with title-based fallback
+                    let loc = job.location || 'Remote';
 
-                // Natively clean job list so filters match generated JobCards
-                const cleanedData = data.map((job, index) => {
-                    let loc = simplifyLoc(job.location, job.title);
-                    let t = job.title || '';
-
-                    const cities = ['BANGALORE', 'BENGALURU', 'HYDERABAD', 'PUNE', 'MUMBAI', 'DELHI', 'INDIA', 'NEW YORK', 'KARNATAKA'];
-                    for (const city of cities) {
-                        const idx = t.toUpperCase().indexOf(city);
-                        if (idx > 10) { 
-                            let extracted = t.substring(idx).trim();
-                            extracted = extracted.replace(/India.*/i, 'India');
-                            extracted = extracted.replace(/Karnataka.*/i, 'Karnataka');
-                            loc = simplifyLoc(extracted);
-                            break;
-                        }
-                    }
-
-                    // --- MOCK INJECTIONS (Since Backend Is Missing These Fields currently) ---
+                    // Category inference from title (backend doesn't provide category yet)
                     let cat = job.category;
                     const validCats = ['Engineering', 'Data Science', 'Design', 'Product', 'Marketing', 'Operations', 'Finance'];
                     if (!cat || !validCats.includes(cat)) {
-                        const titleLower = t.toLowerCase();
+                        const titleLower = (job.title || '').toLowerCase();
                         if (titleLower.includes('software') || titleLower.includes('developer') || titleLower.includes('engineer') || titleLower.includes('hardware')) cat = 'Engineering';
                         else if (titleLower.includes('data') || titleLower.includes('analyst')) cat = 'Data Science';
                         else if (titleLower.includes('design') || titleLower.includes('ui/ux')) cat = 'Design';
                         else if (titleLower.includes('product') || titleLower.includes('manager')) cat = 'Product';
                         else if (titleLower.includes('market')) cat = 'Marketing';
-                        else {
-                            cat = validCats[index % validCats.length];
-                        }
+                        else cat = 'Engineering';
                     }
 
-                    let exp = job.experience_level;
-                    // strictly overwrite database garbage like "null" string, space, undefined, or unsupported tags
-                    const isExpValid = exp === 0 || ['Fresher', '1+ Years', '2+ Years', '3+ Years', '5+ Years', '10+ Years'].includes(exp);
-                    
-                    if (!isExpValid) {
-                        const titleLower = t.toLowerCase();
-                        if (titleLower.includes('senior') || titleLower.includes('sr ') || titleLower.includes('lead')) exp = '5+ Years';
-                        else if (titleLower.includes('junior') || titleLower.includes('jr ') || titleLower.includes('entry') || titleLower.includes('intern')) exp = 'Fresher';
-                        else if (titleLower.includes('staff') || titleLower.includes('principal')) exp = '10+ Years';
-                        else {
-                            const exps = ['Fresher', '1+ Years', '2+ Years', '3+ Years', '5+ Years'];
-                            exp = exps[index % exps.length];
-                        }
-                    }
-
-                    return { ...job, cleanLocation: loc, category: cat, experience_level: exp };
+                    return {
+                        ...job,
+                        cleanLocation: loc,
+                        category: cat,
+                        experience_level: job.experience_range || 'Not specified',
+                        key_skills: job.key_skills || getKeySkills(job, 8),
+                    };
                 });
                 setJobs(cleanedData);
             } catch (err) {
@@ -121,12 +89,13 @@ const JobFeedPage = () => {
     // Hardcoded experience options ensuring layout fallback
     const experiences = [
         'All Experience',
-        'Fresher',
-        '1+ Years',
-        '2+ Years',
-        '3+ Years',
-        '5+ Years',
-        '10+ Years'
+        'Freshers',
+        '0-1 years',
+        '0-2 years',
+        '1-3 years',
+        '3-5 years',
+        '5+ years',
+        'Not specified'
     ];
 
     const categories = useMemo(() => {
@@ -137,7 +106,7 @@ const JobFeedPage = () => {
     const topSkills = useMemo(() => {
         const counts = {};
         jobs.forEach(j => {
-            j.skills_required?.forEach(s => {
+            (j.key_skills || j.skills_required || []).forEach(s => {
                 counts[s] = (counts[s] || 0) + 1;
             });
         });
@@ -159,28 +128,15 @@ const JobFeedPage = () => {
 
             let matchesExperience = true;
             if (selectedExperience !== 'All Experience') {
-                const exp = job.experience_level;
-                if (exp == null) {
-                    matchesExperience = selectedExperience === 'Not Specified';
-                } else if (selectedExperience === 'Fresher') {
-                    matchesExperience = exp === 0 || String(exp).toLowerCase() === 'fresher';
-                } else {
-                    const minYearsMatch = selectedExperience.match(/(\d+)\+/);
-                    if (minYearsMatch) {
-                        const minYears = parseInt(minYearsMatch[1], 10);
-                        const expNum = parseInt(exp, 10);
-                        matchesExperience = (!isNaN(expNum) && expNum >= minYears) || String(exp) === selectedExperience;
-                    } else {
-                        matchesExperience = String(exp) === selectedExperience;
-                    }
-                }
+                const exp = job.experience_range || 'Not specified';
+                matchesExperience = exp === selectedExperience;
             }
 
             const matchesCategory = selectedCategory === 'All Categories' ||
                 (job.category || 'Uncategorized') === selectedCategory;
 
             const matchesSkills = selectedSkills.length === 0 ||
-                selectedSkills.every(s => job.skills_required?.includes(s));
+                selectedSkills.every(s => (job.key_skills || job.skills_required || []).includes(s));
 
             return matchesSearch && matchesLocation && matchesExperience && matchesCategory && matchesSkills;
         });
@@ -191,13 +147,6 @@ const JobFeedPage = () => {
         setVisibleCount(20);
     }, [searchTerm, selectedLocation, selectedSkills]);
     
-    // Auto-match on load for seekers
-    useEffect(() => {
-        if (isAuthenticated && role === ROLES.SEEKER && matchedJobs === null && !isMatching) {
-            handleMatchJobs();
-        }
-    }, [isAuthenticated, role]);
-
     const visibleJobs = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
     const hasMore = visibleCount < filtered.length;
 
@@ -219,27 +168,34 @@ const JobFeedPage = () => {
         setIsMatching(true);
         setMatchError(null);
         try {
-            // Mock API or actual API
             const result = await matchAllJobs();
-            // result could be list of objects with { id, title, company_name, match_score, ... }
             if (Array.isArray(result) && result.length > 0) {
                 setMatchedJobs(result);
+                try { sessionStorage.setItem('jobFeedMatchedJobs', JSON.stringify(result)); } catch {}
             } else {
                 setMatchedJobs([]);
+                try { sessionStorage.removeItem('jobFeedMatchedJobs'); } catch {}
             }
         } catch (err) {
             console.error('Match failed', err);
-            // Simulate incomplete profile scenario conditionally based on status
             if (err.response?.status === 400 || err.response?.status === 403) {
                 setMatchError('incomplete_profile');
                 setMatchedJobs([]);
             } else {
-                setMatchedJobs([]); // Fallback to "no matches" for this assignment
+                setMatchedJobs([]);
             }
+            try { sessionStorage.removeItem('jobFeedMatchedJobs'); } catch {}
         } finally {
             setIsMatching(false);
         }
     };
+
+    // Auto-fetch matched jobs for authenticated seekers if no cached data
+    useEffect(() => {
+        if (isAuthenticated && role === ROLES.SEEKER && matchedJobs === null && !isMatching) {
+            handleMatchJobs();
+        }
+    }, [isAuthenticated, role, matchedJobs, isMatching]);
 
     const hasFilters = searchTerm || 
         selectedLocation !== 'All Locations' || 
@@ -448,7 +404,7 @@ const JobFeedPage = () => {
             <main className="max-w-7xl mx-auto pt-8 pb-32 px-6">
                 
                 {/* 3. Matched Roles Section ABOVE Available Roles */}
-                {matchedJobs !== null && (
+                {isAuthenticated && role === ROLES.SEEKER && matchedJobs !== null && (
                     <MatchedJobsSection matchedJobs={matchedJobs} isAuthenticated={isAuthenticated} error={matchError} />
                 )}
 

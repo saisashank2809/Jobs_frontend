@@ -46,16 +46,16 @@ const Navbar = () => {
                 <div className="flex items-center gap-2">
                     {user ? (
                         <>
-                            <Link 
+                            <Link
                                 to="/profile"
                                 className="flex items-center gap-4 bg-white/50 pl-2 pr-5 py-2 rounded-full hover:bg-white transition-all duration-700 shadow-sm hover:shadow-xl hover:shadow-black/5 border border-white/50"
                             >
                                 <div className="w-8 h-8 bg-black rounded-full overflow-hidden flex items-center justify-center text-white ring-2 ring-white/50">
                                     {(profile?.avatar_url || user?.user_metadata?.avatar_url) ? (
-                                        <img 
-                                            src={profile?.avatar_url || user?.user_metadata?.avatar_url} 
-                                            alt={profile?.full_name || 'User'} 
-                                            className="w-full h-full object-cover" 
+                                        <img
+                                            src={profile?.avatar_url || user?.user_metadata?.avatar_url}
+                                            alt={profile?.full_name || 'User'}
+                                            className="w-full h-full object-cover"
                                         />
                                     ) : (
                                         <User size={16} />

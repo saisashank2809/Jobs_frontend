@@ -171,6 +171,7 @@ const ProfilePage = () => {
             });
             setMessage("Profile updated successfully.");
             setEditMode(false);
+            try { sessionStorage.removeItem('jobFeedMatchedJobs'); } catch {}
             fetchProfile(); // Refresh underlying profile data
         } catch (err) {
             setError(err.response?.data?.detail || "Update failed. Please try again.");
@@ -194,6 +195,7 @@ const ProfilePage = () => {
         try {
             const res = await uploadResume(file);
             setMessage(`Protocol Success: ${res.characters_extracted} units extracted.`);
+            try { sessionStorage.removeItem('jobFeedMatchedJobs'); } catch {}
             await fetchProfile();
         } catch (err) {
             setError(err.response?.data?.detail || 'Resume injection failed.');

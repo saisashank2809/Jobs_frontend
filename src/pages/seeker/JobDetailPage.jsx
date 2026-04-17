@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { getJobDetails, getJobMatchScore, matchAllJobs } from '../../api/jobsApi';
 import { useAuth } from '../../hooks/useAuth';
 import { ROLES } from '../../utils/constants';
 import { sanitizeHTML } from '../../utils/sanitize';
 import Loader from '../../components/ui/Loader';
-import MatchGauge from '../../components/ui/MatchGauge';
 import MatchIQModal from '../../components/ui/MatchIQModal';
 import MatchedJobsSection from '../../components/ui/MatchedJobsSection';
-import { Briefcase, MapPin, ExternalLink, CheckCircle, HelpCircle, FileText, Target, ArrowLeft, Sparkles, Clock, Building2, RefreshCw, Lock, ChevronDown, ChevronUp } from 'lucide-react';
+import JobOverviewCard from '../../components/ui/JobOverviewCard';
+import { getKeySkills, getRoleOverview } from '../../utils/jobOverview';
+import { MapPin, ExternalLink, CheckCircle, FileText, ArrowLeft, Sparkles, Building2, RefreshCw, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const BentoCard = ({ children, className = "", delay = 0 }) => (
@@ -30,10 +31,6 @@ const JobDetailPage = () => {
     const [job, setJob] = useState(null);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
-    // Gen Z Summary States
-    const [genZSummary, setGenZSummary] = useState(null);
-    const [isSummarizing, setIsSummarizing] = useState(false);
-    const [isSpecExpanded, setIsSpecExpanded] = useState(false);
     const [isMatching, setIsMatching] = useState(false);
     const [matchDetails, setMatchDetails] = useState(null);
     const [isMatchModalOpen, setIsMatchModalOpen] = useState(false);
@@ -61,76 +58,12 @@ const JobDetailPage = () => {
                     break;
                 }
             }
-            data.cleanLocation = loc;
+            data.cleanLocation = data.location || passedLocation || loc;
             data.cleanTitle = t;
+            data.role_overview = data.role_overview || getRoleOverview(data);
+            data.key_skills = data.key_skills || getKeySkills(data, 8);
 
             setJob(data);
-
-            // Trigger AI summarization automatically
-            if (!data.genz_summary && !data.executive_summary) {
-                setIsSummarizing(true);
-                setTimeout(() => {
-                    const exp = data.experience_level === 0 ? "Fresher" : (data.experience_level || "Not Specified");
-
-                    // Dynamic Heuristic Extraction for AI Mock
-                    const rawJD = data.description_raw || '';
-                    const cleanText = rawJD.replace(/<[^>]+>/g, '').trim();
-                    const sentences = cleanText.split(/(?<=[.!?])\s+/);
-                    const dynamicOverview = sentences.slice(0, 3).join(' ') || "We are looking for exceptional talent to join our team and drive key initiatives.";
-
-                    let dynamicRequirements = '';
-                    const bulletsReg = /(?:^|\n)[-•*]\s*([^.\n]+)/g;
-                    let match;
-                    const extractedBullets = [];
-                    while ((match = bulletsReg.exec(rawJD)) !== null && extractedBullets.length < 4) {
-                        extractedBullets.push(match[1].trim());
-                    }
-                    if (extractedBullets.length >= 2) {
-                        dynamicRequirements = extractedBullets.map(b => `<li>${b}</li>`).join('');
-                    } else if (sentences.length > 5) {
-                        dynamicRequirements = sentences.slice(3, 6).map(s => `<li>${s.trim()}</li>`).join('');
-                    } else {
-                        dynamicRequirements = `
-                            <li>Strong foundation in relevant engineering domains and system architecture.</li>
-                            <li>Proven ability to debug, test, and optimize complex software/hardware systems.</li>
-                            <li>Excellent analytical skills and ability to thrive in fast-paced collaborative environments.</li>
-                        `;
-                    }
-
-                    const fakeSummaryHTML = `
-                        <div style="font-size: 14px; line-height: 1.7; text-transform: none; color: #52525b;">
-                            <div style="margin-bottom: 24px; padding: 20px; background: #fafafa; border: 1px solid #f4f4f5; border-radius: 20px;">
-                                <div style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
-                                    <span style="color: #a1a1aa;">📍</span>
-                                    <span style="font-weight: 700; color: #18181b;">${data.cleanLocation}</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="color: #a1a1aa;">⏳</span>
-                                    <span style="font-weight: 700; color: #18181b;">${exp}</span>
-                                </div>
-                            </div>
-                            <p style="margin-bottom: 20px; font-weight: 500;">
-                                <strong style="color: #18181b; display: block; margin-bottom: 4px;">Role Overview</strong> ${dynamicOverview}
-                            </p>
-                            <div style="font-weight: 500;">
-                                <strong style="color: #18181b; display: block; margin-bottom: 8px;">Key Requirements</strong>
-                                <ul style="list-style-type: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
-                                    ${dynamicRequirements.split('<li>').filter(Boolean).map(item => `
-                                        <li style="display: flex; gap: 12px; align-items: flex-start;">
-                                            <span style="width: 6px; height: 6px; rounded-full; background: #e4e4e7; margin-top: 8px; flex-shrink: 0;"></span>
-                                            <span>${item.replace('</li>', '')}</span>
-                                        </li>
-                                    `).join('')}
-                                </ul>
-                            </div>
-                        </div>
-                    `;
-                    setGenZSummary(fakeSummaryHTML);
-                    setIsSummarizing(false);
-                }, 1200);
-            } else {
-                setGenZSummary(data.executive_summary || data.genz_summary);
-            }
         } catch (error) {
             console.error('Failed to fetch job:', error);
         } finally {
@@ -144,7 +77,6 @@ const JobDetailPage = () => {
     const handleRunMatchIQ = async () => {
         setIsMatching(true);
         try {
-            // Simulated breakdown fallback if backend isn't mapped
             let matchData = {};
             try {
                 const response = await getJobMatchScore(id);
@@ -172,11 +104,9 @@ const JobDetailPage = () => {
             setMatchDetails(matchData);
             setIsMatchModalOpen(true);
 
-            // Fetch recommended
             try {
                 const allMatches = await matchAllJobs();
                 if (Array.isArray(allMatches)) {
-                    // Exclude current job and get top 3
                     const recommended = allMatches.filter(j => j.id !== id).slice(0, 3);
                     setRecommendedJobs(recommended);
                 }
@@ -193,6 +123,16 @@ const JobDetailPage = () => {
 
     if (loading) return <Loader fullScreen variant="logo" />;
     if (!job) return <div className="min-h-screen grid place-items-center text-zinc-900 font-bold uppercase tracking-widest">Protocol Null / Object Not Found</div>;
+
+    const displayExperience = job.experience_range || (
+        job.experience === 0 || String(job.experience).toLowerCase() === '0'
+            ? 'Fresher'
+            : (job.experience || job.experience_level || 'Not Specified')
+    );
+    const displayQualification = job.qualification || null;
+    const displaySalary = job.salary_range || null;
+    const overviewSentences = job.role_overview || getRoleOverview(job);
+    const keySkills = job.key_skills || getKeySkills(job, 8);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -260,10 +200,8 @@ const JobDetailPage = () => {
                                             </Link>
                                         )}
                                         {job.external_apply_url && (
-                                            <a href={job.external_apply_url} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-                                                <button className="w-full bg-white border border-zinc-100 text-zinc-900 px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-zinc-50 transition-all flex items-center justify-center gap-3 shadow-sm active:scale-95">
-                                                    <ExternalLink size={20} /> Apply Now
-                                                </button>
+                                            <a href={job.external_apply_url} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto bg-white border border-zinc-100 text-zinc-900 px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-zinc-50 transition-all flex items-center justify-center gap-3 shadow-sm active:scale-95">
+                                                <ExternalLink size={20} /> Apply Now
                                             </a>
                                         )}
                                     </>
@@ -286,57 +224,15 @@ const JobDetailPage = () => {
                     />
 
                     <BentoCard className="overflow-hidden min-w-0 flex flex-col items-start relative border border-zinc-100">
-                        <h2 className="text-xs font-bold text-zinc-400 mb-12 pb-4 border-b border-zinc-100 flex items-center justify-start gap-3 uppercase tracking-[0.3em] w-full">
-                            <div className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
-                            Job Description
-                        </h2>
-                        {/* Gen Z Summary Display */}
-                        {isSummarizing ? (
-                            <div className="w-full mb-12 p-10 rounded-[32px] border border-zinc-100 bg-zinc-50/50 flex flex-col gap-5 relative overflow-hidden">
-                                <div className="absolute inset-0 z-0 bg-[linear-gradient(90deg,transparent_0%,rgba(0,0,0,0.03)_50%,transparent_100%)] animate-[shimmer_2s_infinite] w-[200%] -ml-[100%]" />
-                                <div className="h-4 bg-zinc-200 rounded-full w-1/3 relative z-10"></div>
-                                <div className="h-4 bg-zinc-200 rounded-full w-full relative z-10 mt-4"></div>
-                                <div className="h-4 bg-zinc-200 rounded-full w-5/6 relative z-10"></div>
-                                <div className="h-4 bg-zinc-200 rounded-full w-4/6 relative z-10"></div>
-                            </div>
-                        ) : genZSummary ? (
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                                className="w-full mb-12 p-10 rounded-[32px] border border-zinc-100 bg-[#FAFAFA] relative overflow-hidden group hover:bg-white transition-all shadow-sm"
-                            >
-                                <div className="absolute -top-6 -right-6 p-6 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity rotate-12">
-                                    <Sparkles size={160} className="text-zinc-900" />
-                                </div>
-                                <div className="flex items-center gap-2 text-zinc-400 mb-8 border-b border-zinc-100 pb-4 inline-flex w-full">
-                                    <Sparkles size={14} className="text-zinc-900" />
-                                    <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Smart Summary Analysis</span>
-                                </div>
-                                <div
-                                    className="relative z-10 text-zinc-600 prose prose-zinc max-w-none"
-                                    dangerouslySetInnerHTML={{ __html: sanitizeHTML(genZSummary) }}
-                                />
-                            </motion.div>
-                        ) : null}
-
-                        <div className="w-full relative overflow-hidden">
-                            <div
-                                className={`prose prose-zinc max-w-none text-zinc-600 font-medium leading-relaxed text-sm break-words text-left [&_*]:text-left [&_*]:break-words [&_*]:max-w-full [&_table]:max-w-full [&_table]:overflow-x-auto [&_table]:block [&_pre]:overflow-x-auto [&_img]:hidden w-full transition-all duration-500 will-change-[max-height] ${isSpecExpanded ? 'max-h-[8000px]' : 'max-h-[400px] overflow-hidden'}`}
-                                dangerouslySetInnerHTML={{ __html: sanitizeHTML(job.description_raw) }}
-                            />
-                            {!isSpecExpanded && (
-                                <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white to-transparent pointer-events-none" />
-                            )}
-                        </div>
-                        <button
-                            onClick={() => setIsSpecExpanded(!isSpecExpanded)}
-                            className="w-full mt-10 py-5 bg-white border border-zinc-100 rounded-full text-zinc-900 font-bold uppercase tracking-widest text-[10px] hover:bg-zinc-50 transition-all flex items-center justify-center gap-2.5 shadow-sm"
-                        >
-                            {isSpecExpanded ? (
-                                <>View Less <ChevronUp size={14} /></>
-                            ) : (
-                                <>View Full Specification <ChevronDown size={14} /></>
-                            )}
-                        </button>
+                        {/* Gen Z Summary Display only showing Role Overview & Skills */}
+                        <JobOverviewCard
+                            overviewSentences={overviewSentences}
+                            skills={keySkills}
+                            location={job.cleanLocation}
+                            experience={displayExperience}
+                            qualification={displayQualification}
+                            salary={displaySalary}
+                        />
                     </BentoCard>
 
                     <BentoCard delay={0.2} className="border border-zinc-100">
@@ -422,9 +318,9 @@ const JobDetailPage = () => {
                             <div className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
                             Competency Matrix
                         </h2>
-                        {job.skills_required?.length > 0 ? (
+                        {keySkills.length > 0 ? (
                             <div className="flex flex-wrap justify-start gap-2.5">
-                                {job.skills_required.map((skill, idx) => (
+                                {keySkills.map((skill, idx) => (
                                     <span key={idx} className="px-5 py-2.5 bg-zinc-900 text-white rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg shadow-zinc-900/10">
                                         {skill}
                                     </span>
