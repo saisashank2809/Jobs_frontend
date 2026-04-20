@@ -41,7 +41,7 @@ export default function LandingPage() {
                         className="hero-headline text-center font-extrabold leading-[1.0] tracking-tight"
                         style={{
                             fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
-                            fontSize: 'clamp(2.25rem, 6vw, 4.75rem)',
+                            fontSize: 'clamp(2rem, 5vw, 4rem)',
                             color: '#313851',
                             fontStyle: 'normal',
                             textShadow: '0 8px 32px rgba(246,243,237,0.5)',
@@ -56,7 +56,7 @@ export default function LandingPage() {
                         className="hero-subheadline text-center font-semibold"
                         style={{
                             fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
-                            fontSize: 'clamp(1.1rem, 2.5vw, 1.75rem)',
+                            fontSize: 'clamp(1rem, 2vw, 1.35rem)',
                             color: 'rgba(49, 56, 81, 0.72)',
                             fontStyle: 'normal',
                             marginBottom: '0.75rem',

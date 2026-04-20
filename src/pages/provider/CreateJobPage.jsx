@@ -37,7 +37,7 @@ const CreateJobPage = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto py-12 px-8">
+        <div className="max-w-[1600px] mx-auto pt-8 pb-12 px-6 md:px-10 bg-[#FBFBFB] min-h-screen">
             <header className="mb-12 flex flex-col items-center text-center">
                 <motion.div
                     initial={{ opacity: 0, y: -10 }}
@@ -58,7 +58,7 @@ const CreateJobPage = () => {
             <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white/80 backdrop-blur-xl rounded-[48px] border border-zinc-100 p-12 shadow-2xl shadow-zinc-900/5"
+                className="bg-white/80 backdrop-blur-xl rounded-[32px] border border-zinc-100 p-8 shadow-2xl shadow-zinc-900/5"
             >
                 <form onSubmit={handleSubmit} className="space-y-12">
                     {error && (
@@ -67,7 +67,7 @@ const CreateJobPage = () => {
                         </div>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="md:col-span-2">
                             <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-4">
                                 Requirement Title

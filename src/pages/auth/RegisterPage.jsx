@@ -219,7 +219,7 @@ const RegisterPage = () => {
                 <div className="mb-6 flex items-center justify-center gap-4">
                     {Array.from({ length: maxSteps }, (_, i) => i + 1).map(i => (
                         <div key={i} className="flex items-center gap-4">
-                            <div className={`w-10 h-10 rounded-[18px] flex items-center justify-center text-[10px] font-bold transition-all duration-700 border ${
+                            <div className={`w-10 h-10 card flex items-center justify-center text-[10px] font-bold transition-all duration-700 border ${
                                 step >= i ? 'bg-zinc-900 text-white border-zinc-900 shadow-lg shadow-zinc-900/10' : 'bg-white text-zinc-300 border-zinc-100'
                             }`}>
                                 {step > i ? <Check size={16} strokeWidth={3} /> : i}
@@ -238,7 +238,7 @@ const RegisterPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="bg-white rounded-[40px] border border-zinc-100 p-6 md:p-8 shadow-xl shadow-zinc-900/5"
+                    className="bg-white card border border-zinc-100 p-6 md:p-8 shadow-xl shadow-zinc-900/5"
                 >
                     <AnimatePresence mode="wait" custom={step}>
                         {step === 1 && (
@@ -260,7 +260,7 @@ const RegisterPage = () => {
                                 {/* Role Selector */}
                                 <div>
                                     <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-3 ml-1">Register As</label>
-                                    <div className="grid grid-cols-2 gap-3 bg-zinc-50/50 border border-zinc-100 p-1.5 rounded-[20px]">
+                                    <div className="grid grid-cols-2 gap-3 bg-zinc-50/50 border border-zinc-100 p-1.5 card">
                                         {[ROLES.SEEKER, ROLES.PROVIDER].map(r => (
                                             <button
                                                 key={r}
@@ -284,7 +284,7 @@ const RegisterPage = () => {
                                             type="email"
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="you@example.com"
                                         />
                                     </div>
@@ -294,7 +294,7 @@ const RegisterPage = () => {
                                             type="password"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Create Password (8+ chars)"
                                         />
                                     </div>
@@ -304,7 +304,7 @@ const RegisterPage = () => {
                                             type="password"
                                             value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Confirm Password"
                                         />
                                     </div>
@@ -371,7 +371,7 @@ const RegisterPage = () => {
                                             type="text"
                                             value={fullName}
                                             onChange={(e) => setFullName(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Full Name"
                                         />
                                     </div>
@@ -381,7 +381,7 @@ const RegisterPage = () => {
                                             type="tel"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="+91 Phone Number"
                                         />
                                     </div>
@@ -391,7 +391,7 @@ const RegisterPage = () => {
                                             type="text"
                                             value={location}
                                             onChange={(e) => setLocation(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Location (City, Country)"
                                         />
                                     </div>
@@ -401,7 +401,7 @@ const RegisterPage = () => {
                                             type="date"
                                             value={dob}
                                             onChange={(e) => setDob(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             required
                                         />
                                     </div>
@@ -449,13 +449,13 @@ const RegisterPage = () => {
                                             value={newSkill}
                                             onChange={(e) => setNewSkill(e.target.value)}
                                             onKeyPress={(e) => e.key === 'Enter' && handleAddSkill(e)}
-                                            className="flex-1 px-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-xs focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="flex-1 px-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-xs focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Add a skill..."
                                         />
                                         <button
                                             type="button"
                                             onClick={handleAddSkill}
-                                            className="w-16 bg-zinc-900 text-white rounded-[22px] flex items-center justify-center hover:bg-zinc-800 transition-all shadow-lg shadow-zinc-900/10"
+                                            className="w-16 bg-zinc-900 text-white card flex items-center justify-center hover:bg-zinc-800 transition-all shadow-lg shadow-zinc-900/10"
                                         >
                                             <Plus size={20} />
                                         </button>
@@ -487,7 +487,7 @@ const RegisterPage = () => {
                                     <textarea
                                         value={interests}
                                         onChange={(e) => setInterests(e.target.value)}
-                                        className="w-full px-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-xs placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all h-24 resize-none"
+                                        className="w-full px-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-xs placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all h-24 resize-none"
                                         placeholder="Outline your professional trajectory and core interests..."
                                     />
                                 </div>
@@ -517,7 +517,7 @@ const RegisterPage = () => {
                                         <select
                                             value={experience}
                                             onChange={(e) => setExperience(e.target.value)}
-                                            className="w-full px-6 py-3 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
+                                            className="w-full px-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
                                         >
                                             <option value="" disabled>Select Tenure</option>
                                             {EXPERIENCE_LEVELS.map(exp => (
@@ -527,13 +527,13 @@ const RegisterPage = () => {
                                     </div>
 
                                     {/* Work Experience Section */}
-                                    <div className="p-5 bg-zinc-50/50 border border-zinc-100 rounded-[32px] space-y-4">
+                                    <div className="p-5 bg-zinc-50/50 border border-zinc-100 card space-y-4">
                                         <div>
                                             <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-1">Last / Current Position</label>
                                             <select
                                                 value={workExperiencePosition}
                                                 onChange={(e) => setWorkExperiencePosition(e.target.value)}
-                                                className="w-full px-6 py-3 bg-white border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
+                                                className="w-full px-6 py-3 bg-white border border-zinc-100 card text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
                                             >
                                                 <option value="" disabled>Select Role</option>
                                                 {JOB_TITLES.map(title => (
@@ -553,7 +553,7 @@ const RegisterPage = () => {
                                                     type="text"
                                                     value={customPosition}
                                                     onChange={(e) => setCustomPosition(e.target.value)}
-                                                    className="w-full px-6 py-3 bg-white border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                                    className="w-full px-6 py-3 bg-white border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                                     placeholder="Enter your job title..."
                                                 />
                                             </motion.div>
@@ -564,7 +564,7 @@ const RegisterPage = () => {
                                             <textarea
                                                 value={workExperienceDescription}
                                                 onChange={(e) => setWorkExperienceDescription(e.target.value)}
-                                                className="w-full px-6 py-3 bg-white border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-xs placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all h-20 resize-none"
+                                                className="w-full px-6 py-3 bg-white border border-zinc-100 card text-zinc-900 font-semibold text-xs placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all h-20 resize-none"
                                                 placeholder="Describe your responsibilities and achievements..."
                                             />
                                         </div>
@@ -620,7 +620,7 @@ const RegisterPage = () => {
                                                             setAspirations([...aspirations, roleName]);
                                                         }
                                                     }}
-                                                    className={`px-5 py-2.5 border rounded-[18px] font-bold text-[10px] uppercase tracking-widest transition-all duration-300 ${
+                                                    className={`px-5 py-2.5 border card font-bold text-[10px] uppercase tracking-widest transition-all duration-300 ${
                                                         isSelected 
                                                         ? 'bg-zinc-900 text-white border-zinc-900 shadow-lg shadow-zinc-900/10 scale-[1.02]' 
                                                         : 'bg-white text-zinc-500 border-zinc-100 hover:border-zinc-300 hover:text-zinc-900'
@@ -638,7 +638,7 @@ const RegisterPage = () => {
                                 </div>
 
                                 {/* Work Preference Selector */}
-                                <div className="mt-8 p-6 bg-zinc-50/50 border border-zinc-100 rounded-[40px] relative overflow-hidden group">
+                                <div className="mt-8 p-6 bg-zinc-50/50 border border-zinc-100 card relative overflow-hidden group">
                                     <div className="flex items-center justify-between mb-5">
                                         <div>
                                             <h3 className="text-xl font-bold text-zinc-900 tracking-tight">Work Preference</h3>
@@ -659,7 +659,7 @@ const RegisterPage = () => {
                                                 key={pref.id}
                                                 type="button"
                                                 onClick={() => setWorkPreference(pref.id)}
-                                                className={`flex items-center gap-3 px-6 py-3 rounded-[20px] transition-all duration-500 border font-bold text-[11px] uppercase tracking-widest ${
+                                                className={`flex items-center gap-3 px-6 py-3 card transition-all duration-500 border font-bold text-[11px] uppercase tracking-widest ${
                                                     workPreference === pref.id
                                                         ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
                                                         : 'bg-white text-zinc-400 border-zinc-100 hover:border-zinc-300 hover:text-zinc-600'
@@ -679,7 +679,7 @@ const RegisterPage = () => {
                         <motion.p 
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="mt-6 text-[10px] font-bold text-rose-500 bg-rose-50/50 border border-rose-100 p-4 rounded-[20px] uppercase tracking-widest text-center"
+                            className="mt-6 text-[10px] font-bold text-rose-500 bg-rose-50/50 border border-rose-100 p-4 card uppercase tracking-widest text-center"
                         >
                             {error}
                         </motion.p>
@@ -691,7 +691,7 @@ const RegisterPage = () => {
                             <button
                                 type="button"
                                 onClick={prevStep}
-                                className="flex-1 border border-zinc-100 text-zinc-400 py-3.5 rounded-[22px] font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                                className="flex-1 border border-zinc-100 text-zinc-400 py-3.5 card font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                             >
                                 <ChevronLeft size={18} /> Back
                             </button>
@@ -701,7 +701,7 @@ const RegisterPage = () => {
                             <button
                                 type="button"
                                 onClick={nextStep}
-                                className="flex-[2] bg-zinc-900 text-white py-3.5 rounded-[22px] font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-zinc-900/10"
+                                className="flex-[2] bg-zinc-900 text-white py-3.5 card font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-zinc-900/10"
                             >
                                 Next Phase <ChevronRight size={18} />
                             </button>
@@ -710,7 +710,7 @@ const RegisterPage = () => {
                                 type="button"
                                 onClick={handleSubmit}
                                 disabled={loading}
-                                className="flex-[2] bg-zinc-900 text-white py-3.5 rounded-[22px] font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-800 active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-lg shadow-zinc-900/10 disabled:opacity-30"
+                                className="flex-[2] bg-zinc-900 text-white py-3.5 card font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-800 active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-lg shadow-zinc-900/10 disabled:opacity-30"
                             >
                                 {loading ? (
                                     <>

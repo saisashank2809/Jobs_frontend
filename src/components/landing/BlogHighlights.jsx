@@ -73,7 +73,7 @@ export function BlogHighlights() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: idx * 0.1, duration: 0.5 }}
-                            className="landing-card group flex flex-col p-8"
+                            className="landing-card group flex flex-col p-6"
                             style={{ minHeight: '320px' }}
                         >
                             {/* Meta */}

@@ -23,7 +23,7 @@ const Loader = ({ fullScreen = false, text = "Initializing...", variant = "termi
     }
 
     return (
-        <div className="flex justify-center p-12">
+        <div className="flex justify-center p-8">
             {renderContent()}
         </div>
     );

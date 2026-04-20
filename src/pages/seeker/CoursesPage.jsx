@@ -3,10 +3,10 @@ import { ExternalLink, Sparkles } from 'lucide-react';
 
 const CoursesPage = () => {
     return (
-        <div className="max-w-4xl mx-auto py-24 px-6 bg-[#FBFBFB]">
+        <div className="max-w-[1600px] mx-auto pt-8 pb-12 px-6 md:px-10 bg-[#FBFBFB] min-h-screen">
             {/* Page Header */}
-            <header className="mb-20 border-b border-zinc-100 pb-12">
-                <h1 className="text-4xl md:text-5xl font-sans font-bold text-zinc-900 tracking-tight">
+            <header className="mb-8 border-b border-zinc-100 pb-8">
+                <h1 className="text-2xl font-sans font-bold text-zinc-900 tracking-tight">
                     Learning Pathways
                 </h1>
                 <p className="text-[11px] font-bold text-zinc-400 uppercase tracking-[0.4em] mt-6 flex items-center gap-3">
@@ -20,10 +20,10 @@ const CoursesPage = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="group bg-white border border-zinc-100 rounded-[48px] overflow-hidden shadow-2xl shadow-zinc-900/5 hover:-translate-y-1 transition-all duration-500"
+                className="group bg-white border border-zinc-100 rounded-2xl overflow-hidden shadow-2xl shadow-zinc-900/5 hover:-translate-y-1 transition-all duration-500"
             >
                 {/* Top Zone — Hero Gradient */}
-                <div className="h-56 bg-zinc-900 p-10 relative overflow-hidden">
+                <div className="h-32 bg-zinc-900 p-6 relative overflow-hidden">
                     {/* Subtle design element */}
                     <div className="absolute top-0 right-0 w-96 h-96 bg-zinc-800 rounded-full blur-3xl opacity-50 -mr-20 -mt-20" />
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-zinc-700 rounded-full blur-3xl opacity-30 -ml-16 -mb-16" />
@@ -39,10 +39,10 @@ const CoursesPage = () => {
                 </div>
 
                 {/* Bottom Zone — Content */}
-                <div className="p-12 bg-white">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-8">
+                <div className="p-6 bg-white">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6">
                         <div>
-                            <h2 className="text-3xl font-bold text-zinc-900 tracking-tight mb-3">
+                            <h2 className="text-xl font-bold text-zinc-900 tracking-tight mb-2">
                                 AI Native Architect
                             </h2>
                             <p className="text-sm font-medium text-zinc-500 leading-relaxed max-w-xl">
@@ -62,7 +62,7 @@ const CoursesPage = () => {
                         href="https://learn.ottobon.in/course/ai-native-fullstack-developer"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-12 py-5 rounded-full bg-zinc-900 text-white text-[11px] font-bold uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-xl shadow-zinc-900/10 active:scale-95"
+                        className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-3 rounded-xl bg-zinc-900 text-white text-[11px] font-bold uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-xl shadow-zinc-900/10 active:scale-95"
                     >
                         Enroll Now
                         <ExternalLink size={16} />
@@ -71,7 +71,7 @@ const CoursesPage = () => {
             </motion.div>
 
             {/* Footer hint */}
-            <div className="mt-16 text-center">
+            <div className="mt-8 text-center">
                 <p className="text-[10px] font-bold text-zinc-300 uppercase tracking-[0.5em]">
                     New signals dropping soon
                 </p>

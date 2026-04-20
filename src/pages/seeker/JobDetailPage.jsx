@@ -16,7 +16,7 @@ const BentoCard = ({ children, className = "", delay = 0 }) => (
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-        className={`bg-white rounded-[40px] border border-zinc-100 p-8 md:p-12 flex flex-col shadow-xl shadow-zinc-900/5 overflow-hidden min-w-0 ${className}`}
+        className={`bg-white rounded-xl border border-zinc-100 p-5 md:p-5 flex flex-col shadow-xl shadow-zinc-900/5 overflow-hidden min-w-0 ${className}`}
     >
         {children}
     </motion.div>
@@ -200,69 +200,69 @@ const JobDetailPage = () => {
     };
 
     return (
-        <div className="min-h-screen pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto bg-[#FBFBFB] overflow-x-hidden">
-            <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="mb-16">
-                <Link to="/jobs" className="inline-flex items-center gap-2 text-zinc-400 font-bold uppercase text-xs tracking-widest hover:text-zinc-900 transition-all">
-                    <ArrowLeft size={16} /> Back to Job Board
+        <div className="min-h-screen pt-8 pb-12 px-6 md:px-10 max-w-[1600px] mx-auto bg-[#FBFBFB] overflow-x-hidden">
+            <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="mb-6">
+                <Link to="/jobs" className="inline-flex items-center gap-2 text-zinc-400 font-bold uppercase text-[10px] tracking-widest hover:text-zinc-900 transition-all">
+                    <ArrowLeft size={14} /> Back to Job Board
                 </Link>
             </motion.div>
 
-            <motion.div variants={containerVariants} initial="hidden" animate="visible" className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <motion.div variants={containerVariants} initial="hidden" animate="visible" className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* Header Card - Elite Minimalist */}
                 <div className="lg:col-span-12">
-                    <BentoCard className="relative overflow-hidden !py-16 !px-16 border border-zinc-100 shadow-2xl shadow-zinc-900/5">
-                        <div className="relative z-10 flex flex-col items-start gap-12 w-full">
+                    <BentoCard className="relative overflow-hidden !py-8 !px-8 border border-zinc-100 shadow-2xl shadow-zinc-900/5">
+                        <div className="relative z-10 flex flex-col items-start gap-5 w-full">
                             <div className="max-w-4xl min-w-0 w-full flex flex-col items-start">
-                                <h1 className="text-5xl md:text-7xl font-sans font-bold text-zinc-900 tracking-tight mb-8 leading-[1.05] break-words text-left">
+                                <h1 className="text-3xl font-sans font-bold text-zinc-900 tracking-tight mb-4 leading-[1.05] break-words text-left">
                                     {job.cleanTitle}
                                 </h1>
-                                <div className="flex flex-wrap justify-start gap-8 text-zinc-400 font-bold uppercase text-[11px] tracking-[0.2em]">
-                                    <span className="flex items-center gap-2.5">
-                                        <Building2 size={18} className="text-zinc-300" />
+                                <div className="flex flex-wrap justify-start gap-4 text-zinc-400 font-bold uppercase text-[10px] tracking-[0.2em]">
+                                    <span className="flex items-center gap-2">
+                                        <Building2 size={16} className="text-zinc-300" />
                                         {job.company_name || 'CONFIDENTIAL'}
                                     </span>
-                                    <span className="flex items-center gap-2.5">
-                                        <MapPin size={18} className="text-zinc-300" />
+                                    <span className="flex items-center gap-2">
+                                        <MapPin size={16} className="text-zinc-300" />
                                         {job.cleanLocation}
                                     </span>
-                                    <span className="flex items-center gap-2 px-4 py-1.5 bg-zinc-50 border border-zinc-100 rounded-full text-zinc-600 font-bold">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-zinc-900 animate-pulse mr-2" />
+                                    <span className="flex items-center gap-2 px-3 py-1 bg-zinc-50 border border-zinc-100 rounded-lg text-zinc-600 font-bold">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-zinc-900 animate-pulse mr-1" />
                                         ACTIVE
                                     </span>
                                 </div>
                             </div>
 
-                            <div className="flex flex-wrap justify-start gap-4 shrink-0 w-full">
+                            <div className="flex flex-wrap justify-start gap-3 shrink-0 w-full">
                                 {role === ROLES.SEEKER && (
                                     <>
                                         {user ? (
                                             <button
                                                 onClick={handleRunMatchIQ}
                                                 disabled={isMatching}
-                                                className={`w-full sm:w-auto px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 shadow-xl ${matchDetails && !isMatching
+                                                className={`w-full sm:w-auto px-8 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-xl ${matchDetails && !isMatching
                                                         ? 'bg-white border border-zinc-900 text-zinc-900 hover:bg-zinc-900 hover:text-white'
                                                         : 'bg-zinc-900 text-white hover:bg-zinc-800 shadow-zinc-900/10'
                                                     } disabled:opacity-50 active:scale-95`}
                                             >
                                                 {isMatching ? (
-                                                    <><RefreshCw size={18} className="animate-spin" /> Analyzing...</>
+                                                    <><RefreshCw size={14} className="animate-spin" /> Analyzing...</>
                                                 ) : matchDetails ? (
-                                                    <><RefreshCw size={18} /> Re-run Match Analysis</>
+                                                    <><RefreshCw size={14} /> Re-run Match Analysis</>
                                                 ) : (
-                                                    <><Sparkles size={18} /> Analyze Job Fit</>
+                                                    <><Sparkles size={14} /> Analyze Job Fit</>
                                                 )}
                                             </button>
                                         ) : (
                                             <Link to="/login" className="w-full sm:w-auto">
-                                                <button className="w-full bg-zinc-900 text-white px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-zinc-800 transition-all flex items-center justify-center gap-3 shadow-xl active:scale-95">
-                                                    <Sparkles size={18} /> Analyze Job Fit <Lock size={14} className="opacity-40" />
+                                                <button className="w-full bg-zinc-900 text-white px-8 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-zinc-800 transition-all flex items-center justify-center gap-2 shadow-xl active:scale-95">
+                                                    <Sparkles size={14} /> Analyze Job Fit <Lock size={12} className="opacity-40" />
                                                 </button>
                                             </Link>
                                         )}
                                         {job.external_apply_url && (
                                             <a href={job.external_apply_url} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-                                                <button className="w-full bg-white border border-zinc-100 text-zinc-900 px-12 py-5 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-zinc-50 transition-all flex items-center justify-center gap-3 shadow-sm active:scale-95">
-                                                    <ExternalLink size={20} /> Apply Now
+                                                <button className="w-full bg-white border border-zinc-100 text-zinc-900 px-8 py-2.5 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-zinc-50 transition-all flex items-center justify-center gap-2 shadow-sm active:scale-95">
+                                                    <ExternalLink size={14} /> Apply Now
                                                 </button>
                                             </a>
                                         )}
@@ -274,7 +274,7 @@ const JobDetailPage = () => {
                 </div>
 
                 {/* Left Column */}
-                <div className="lg:col-span-8 flex flex-col gap-12 min-w-0">
+                <div className="lg:col-span-8 flex flex-col gap-8 min-w-0">
 
                     {/* MatchedIQModal Integration */}
                     <MatchIQModal
@@ -286,30 +286,29 @@ const JobDetailPage = () => {
                     />
 
                     <BentoCard className="overflow-hidden min-w-0 flex flex-col items-start relative border border-zinc-100">
-                        <h2 className="text-xs font-bold text-zinc-400 mb-12 pb-4 border-b border-zinc-100 flex items-center justify-start gap-3 uppercase tracking-[0.3em] w-full">
+                        <h2 className="text-[10px] font-bold text-zinc-400 mb-6 pb-2 border-b border-zinc-100 flex items-center justify-start gap-3 uppercase tracking-[0.3em] w-full">
                             <div className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
                             Job Description
                         </h2>
                         {/* Gen Z Summary Display */}
                         {isSummarizing ? (
-                            <div className="w-full mb-12 p-10 rounded-[32px] border border-zinc-100 bg-zinc-50/50 flex flex-col gap-5 relative overflow-hidden">
+                            <div className="w-full mb-6 p-5 rounded-xl border border-zinc-100 bg-zinc-50/50 flex flex-col gap-3 relative overflow-hidden">
                                 <div className="absolute inset-0 z-0 bg-[linear-gradient(90deg,transparent_0%,rgba(0,0,0,0.03)_50%,transparent_100%)] animate-[shimmer_2s_infinite] w-[200%] -ml-[100%]" />
-                                <div className="h-4 bg-zinc-200 rounded-full w-1/3 relative z-10"></div>
-                                <div className="h-4 bg-zinc-200 rounded-full w-full relative z-10 mt-4"></div>
-                                <div className="h-4 bg-zinc-200 rounded-full w-5/6 relative z-10"></div>
-                                <div className="h-4 bg-zinc-200 rounded-full w-4/6 relative z-10"></div>
+                                <div className="h-3 bg-zinc-200 rounded-full w-1/4 relative z-10"></div>
+                                <div className="h-3 bg-zinc-200 rounded-full w-full relative z-10 mt-2"></div>
+                                <div className="h-3 bg-zinc-200 rounded-full w-5/6 relative z-10"></div>
                             </div>
                         ) : genZSummary ? (
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                                className="w-full mb-12 p-10 rounded-[32px] border border-zinc-100 bg-[#FAFAFA] relative overflow-hidden group hover:bg-white transition-all shadow-sm"
+                                className="w-full mb-6 p-5 rounded-xl border border-zinc-100 bg-[#FAFAFA] relative overflow-hidden group hover:bg-white transition-all shadow-sm"
                             >
                                 <div className="absolute -top-6 -right-6 p-6 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity rotate-12">
                                     <Sparkles size={160} className="text-zinc-900" />
                                 </div>
-                                <div className="flex items-center gap-2 text-zinc-400 mb-8 border-b border-zinc-100 pb-4 inline-flex w-full">
-                                    <Sparkles size={14} className="text-zinc-900" />
-                                    <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Smart Summary Analysis</span>
+                                <div className="flex items-center gap-2 text-zinc-400 mb-4 border-b border-zinc-100 pb-2 inline-flex w-full">
+                                    <Sparkles size={12} className="text-zinc-900" />
+                                    <span className="text-[9px] font-bold uppercase tracking-[0.3em]">Smart Summary Analysis</span>
                                 </div>
                                 <div
                                     className="relative z-10 text-zinc-600 prose prose-zinc max-w-none"
@@ -320,7 +319,7 @@ const JobDetailPage = () => {
 
                         <div className="w-full relative overflow-hidden">
                             <div
-                                className={`prose prose-zinc max-w-none text-zinc-600 font-medium leading-relaxed text-sm break-words text-left [&_*]:text-left [&_*]:break-words [&_*]:max-w-full [&_table]:max-w-full [&_table]:overflow-x-auto [&_table]:block [&_pre]:overflow-x-auto [&_img]:hidden w-full transition-all duration-500 will-change-[max-height] ${isSpecExpanded ? 'max-h-[8000px]' : 'max-h-[400px] overflow-hidden'}`}
+                                className={`prose prose-zinc max-w-none text-zinc-600 font-medium leading-relaxed text-[13px] break-words text-left [&_*]:text-left [&_*]:break-words [&_*]:max-w-full [&_table]:max-w-full [&_table]:overflow-x-auto [&_table]:block [&_pre]:overflow-x-auto [&_img]:hidden w-full transition-all duration-500 will-change-[max-height] ${isSpecExpanded ? 'max-h-[8000px]' : 'max-h-[300px] overflow-hidden'}`}
                                 dangerouslySetInnerHTML={{ __html: sanitizeHTML(job.description_raw) }}
                             />
                             {!isSpecExpanded && (
@@ -329,18 +328,18 @@ const JobDetailPage = () => {
                         </div>
                         <button
                             onClick={() => setIsSpecExpanded(!isSpecExpanded)}
-                            className="w-full mt-10 py-5 bg-white border border-zinc-100 rounded-full text-zinc-900 font-bold uppercase tracking-widest text-[10px] hover:bg-zinc-50 transition-all flex items-center justify-center gap-2.5 shadow-sm"
+                            className="w-full mt-6 py-2.5 bg-white border border-zinc-100 rounded-xl text-zinc-900 font-bold uppercase tracking-widest text-[9px] hover:bg-zinc-50 transition-all flex items-center justify-center gap-2 shadow-sm"
                         >
                             {isSpecExpanded ? (
-                                <>View Less <ChevronUp size={14} /></>
+                                <>View Less <ChevronUp size={12} /></>
                             ) : (
-                                <>View Full Specification <ChevronDown size={14} /></>
+                                <>View Full Specification <ChevronDown size={12} /></>
                             )}
                         </button>
                     </BentoCard>
 
                     <BentoCard delay={0.2} className="border border-zinc-100">
-                        <h2 className="text-xs font-bold text-zinc-400 mb-12 pb-4 border-b border-zinc-100 flex items-center gap-3 uppercase tracking-[0.3em]">
+                        <h2 className="text-[10px] font-bold text-zinc-400 mb-8 pb-3 border-b border-zinc-100 flex items-center gap-3 uppercase tracking-[0.3em]">
                             <div className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
                             Interview Preparation
                         </h2>
@@ -352,15 +351,15 @@ const JobDetailPage = () => {
                                             const question = typeof item === 'string' ? item : item.question;
                                             const strategy = typeof item === 'string' ? "DEPLOY STAR METHOD" : item.answer_strategy;
                                             return (
-                                                <div key={idx} className="p-10 bg-white rounded-[32px] border border-zinc-100 hover:border-zinc-200 transition-all flex flex-col items-start text-left shadow-sm">
-                                                    <div className="px-4 py-1.5 bg-zinc-900 text-white rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">
+                                                <div key={idx} className="p-5 bg-white rounded-xl border border-zinc-100 hover:border-zinc-200 transition-all flex flex-col items-start text-left shadow-sm">
+                                                    <div className="px-3 py-1 bg-zinc-900 text-white rounded-lg text-[9px] font-bold uppercase tracking-widest mb-4">
                                                         Vector {idx + 1}
                                                     </div>
-                                                    <p className="font-bold text-zinc-900 mb-10 text-base leading-relaxed">{question}</p>
-                                                    <div className="text-[11px] text-zinc-500 font-medium flex items-start justify-start gap-4 p-6 bg-zinc-50 rounded-[20px] border border-zinc-100/50 leading-[1.8] w-full">
-                                                        <Sparkles size={16} className="mt-0.5 text-zinc-900 shrink-0" />
+                                                    <p className="font-bold text-zinc-900 mb-6 text-sm leading-relaxed">{question}</p>
+                                                    <div className="text-[10px] text-zinc-500 font-medium flex items-start justify-start gap-3 p-4 bg-zinc-50 rounded-xl border border-zinc-100/50 leading-[1.8] w-full">
+                                                        <Sparkles size={14} className="mt-0.5 text-zinc-900 shrink-0" />
                                                         <span>
-                                                            <span className="text-zinc-400 font-bold uppercase tracking-widest mr-2 text-[9px]">Strategy</span>
+                                                            <span className="text-zinc-400 font-bold uppercase tracking-widest mr-2 text-[8px]">Strategy</span>
                                                             {strategy}
                                                         </span>
                                                     </div>
@@ -369,7 +368,7 @@ const JobDetailPage = () => {
                                         })}
                                     </div>
                                 ) : (
-                                    <div className="flex flex-col items-center justify-center p-20 text-center bg-zinc-50/50 rounded-[32px] border border-dashed border-zinc-200">
+                                    <div className="flex flex-col items-center justify-center p-20 text-center bg-zinc-50/50 card border border-dashed border-zinc-200">
                                         <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-sm mb-10">
                                             <Sparkles className="text-zinc-200" size={32} />
                                         </div>
@@ -386,8 +385,8 @@ const JobDetailPage = () => {
                                 )}
                             </div>
                             {!user && (
-                                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-12 text-center backdrop-blur-3xl bg-white/10 rounded-[32px]">
-                                    <div className="w-20 h-20 bg-zinc-900 text-white rounded-[24px] flex items-center justify-center mb-10 shadow-2xl shadow-zinc-900/30">
+                                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-8 text-center backdrop-blur-3xl bg-white/10 card">
+                                    <div className="w-20 h-20 bg-zinc-900 text-white card flex items-center justify-center mb-10 shadow-2xl shadow-zinc-900/30">
                                         <Lock size={32} />
                                     </div>
                                     <h3 className="text-2xl font-bold text-zinc-900 tracking-tight mb-3">Protocol Locked</h3>
@@ -416,16 +415,16 @@ const JobDetailPage = () => {
                 </div>
 
                 {/* Right Column */}
-                <div className="lg:col-span-4 flex flex-col gap-12 min-w-0">
+                <div className="lg:col-span-4 flex flex-col gap-8 min-w-0">
                     <BentoCard delay={0.1} className="flex flex-col items-start border border-zinc-100">
                         <h2 className="text-xs font-bold text-zinc-400 mb-10 pb-4 border-b border-zinc-100 flex items-center justify-start gap-3 uppercase tracking-[0.3em] w-full">
                             <div className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
                             Competency Matrix
                         </h2>
                         {job.skills_required?.length > 0 ? (
-                            <div className="flex flex-wrap justify-start gap-2.5">
+                            <div className="flex flex-wrap justify-start gap-2">
                                 {job.skills_required.map((skill, idx) => (
-                                    <span key={idx} className="px-5 py-2.5 bg-zinc-900 text-white rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg shadow-zinc-900/10">
+                                    <span key={idx} className="px-3 py-1.5 bg-zinc-900 text-white rounded-lg text-[9px] font-bold uppercase tracking-widest shadow-lg shadow-zinc-900/10">
                                         {skill}
                                     </span>
                                 ))}
@@ -447,11 +446,11 @@ const JobDetailPage = () => {
                                 {job.resume_guide_generated?.length > 0 ? (
                                     <ul className="space-y-4 w-full">
                                         {job.resume_guide_generated.map((point, idx) => (
-                                            <li key={idx} className="flex gap-4 items-start justify-start p-6 bg-zinc-50 rounded-[24px] border border-zinc-100/50 hover:bg-zinc-100 transition-colors">
-                                                <div className="w-5 h-5 rounded-full bg-zinc-900 flex items-center justify-center shrink-0 mt-1">
-                                                    <CheckCircle size={12} className="text-white" />
+                                            <li key={idx} className="flex gap-3 items-start justify-start p-3.5 bg-zinc-50 rounded-xl border border-zinc-100/50 hover:bg-zinc-100 transition-colors">
+                                                <div className="w-5 h-5 rounded-full bg-zinc-900 flex items-center justify-center shrink-0 mt-0.5">
+                                                    <CheckCircle size={10} className="text-white" />
                                                 </div>
-                                                <span className="text-zinc-600 text-xs font-medium leading-relaxed">{point}</span>
+                                                <span className="text-zinc-600 text-[11px] font-medium leading-relaxed">{point}</span>
                                             </li>
                                         ))}
                                     </ul>

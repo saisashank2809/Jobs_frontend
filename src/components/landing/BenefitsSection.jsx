@@ -90,7 +90,7 @@ export function BenefitsSection() {
             <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
 
                 {/* Job Seekers */}
-                <div className="py-24 px-8 lg:px-16 xl:px-24 flex justify-center lg:justify-end" style={{ backgroundColor: '#ffffff' }}>
+                <div className="py-16 px-8 lg:px-16 xl:px-24 flex justify-center lg:justify-end" style={{ backgroundColor: '#ffffff' }}>
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export function BenefitsSection() {
                         className="max-w-xl w-full flex flex-col justify-center"
                     >
                         <p className="section-label mb-4">Got talent?</p>
-                        <h2 className="text-4xl md:text-5xl mb-12" style={sectionHeadingStyle}>
+                        <h2 className="text-3xl md:text-3xl mb-12" style={sectionHeadingStyle}>
                             Why job seekers love us
                         </h2>
 
@@ -129,7 +129,7 @@ export function BenefitsSection() {
                 </div>
 
                 {/* Recruiters */}
-                <div className="py-24 px-8 lg:px-16 xl:px-24 flex justify-center lg:justify-start" style={{ backgroundColor: '#F6F3ED' }}>
+                <div className="py-16 px-8 lg:px-16 xl:px-24 flex justify-center lg:justify-start" style={{ backgroundColor: '#F6F3ED' }}>
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +138,7 @@ export function BenefitsSection() {
                         className="max-w-xl w-full flex flex-col justify-center"
                     >
                         <p className="section-label mb-4">Need talent?</p>
-                        <h2 className="text-4xl md:text-5xl mb-12" style={sectionHeadingStyle}>
+                        <h2 className="text-3xl md:text-3xl mb-12" style={sectionHeadingStyle}>
                             Why recruiters love us
                         </h2>
 

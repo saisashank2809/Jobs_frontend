@@ -70,7 +70,7 @@ export function FeaturedJobs() {
     const navigate = useNavigate();
 
     return (
-        <section className="py-24" style={{ backgroundColor: '#ffffff' }}>
+        <section className="py-16" style={{ backgroundColor: '#ffffff' }}>
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-14 gap-4">
                     <div>
@@ -112,7 +112,7 @@ export function FeaturedJobs() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {jobs.map((job, index) => (
                         <motion.div
                             key={job.id}

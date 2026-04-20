@@ -252,11 +252,11 @@ const JobFeedPage = () => {
     return (
         <div className="min-h-screen bg-[#FBFBFB]">
             {/* Minimalist Header Section */}
-            <header className="relative z-20 pt-8 pb-1 px-6">
+            <header className="relative z-20 pt-8 pb-1 px-6 md:px-10">
                 {/* Refined Background Accent */}
                 <div className="absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-zinc-50 to-transparent pointer-events-none opacity-40" />
 
-                <div className="max-w-7xl mx-auto relative z-10 text-center">
+                <div className="max-w-[1600px] mx-auto relative z-10 text-center">
                     {/* 1. Title Section - Moved to top for UX hierarchy */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -435,7 +435,7 @@ const JobFeedPage = () => {
             </header>
 
             {/* Content Container */}
-            <main className="max-w-7xl mx-auto pt-6 pb-24 px-6">
+            <main className="max-w-[1600px] mx-auto pt-6 pb-20 px-6 md:px-10">
                 
                 {/* 3. Matched Roles Section ABOVE Available Roles */}
                 {matchedJobs !== null && (
@@ -460,8 +460,8 @@ const JobFeedPage = () => {
                     {visibleJobs.length > 0 ? (
                         visibleJobs.map(job => <JobCard key={job.id} job={job} isAuthenticated={isAuthenticated} />)
                     ) : (
-                        <div className="col-span-full text-center py-32 bg-white rounded-[40px] border border-zinc-100 shadow-sm">
-                            <div className="w-24 h-24 bg-zinc-50 rounded-[32px] grid place-items-center mx-auto mb-8">
+                        <div className="col-span-full text-center py-20 bg-white card border border-zinc-100 shadow-sm">
+                            <div className="w-24 h-24 bg-zinc-50 card grid place-items-center mx-auto mb-8">
                                 <Search size={40} className="text-zinc-200" />
                             </div>
                             <h3 className="text-2xl font-sans font-bold text-zinc-900 mb-2">No results found</h3>

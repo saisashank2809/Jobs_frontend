@@ -127,7 +127,7 @@ const JobCard = ({ job, isAuthenticated = true }) => {
             className="group relative h-full"
         >
             <div
-                className="relative h-full overflow-hidden rounded-[32px] border premium-shadow premium-hover flex flex-col pt-0"
+                className="relative h-full overflow-hidden card border premium-shadow premium-hover flex flex-col pt-0"
                 style={{ backgroundColor: 'var(--color-job-card)', borderColor: 'var(--color-accent)' }}
             >
 

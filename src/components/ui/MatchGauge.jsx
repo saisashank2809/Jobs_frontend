@@ -19,7 +19,7 @@ const MatchGauge = ({ score, skillsScore, interestsScore, aspirationsScore }) =>
         <div className="bg-white rounded-[2rem] p-8 border-2 border-black/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-10 w-full relative overflow-hidden">
             <div className="absolute -top-32 -right-32 w-64 h-64 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-black/5 via-transparent to-transparent opacity-50 blur-3xl pointer-events-none" />
             
-            <div className="flex flex-col md:flex-row gap-10 items-center justify-between relative z-10 w-full">
+            <div className="flex flex-col md:flex-row gap-8 items-center justify-between relative z-10 w-full">
                 
                 {/* Main Gauge */}
                 <div className="flex flex-col items-center justify-center shrink-0">

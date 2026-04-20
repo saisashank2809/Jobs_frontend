@@ -134,7 +134,7 @@ const EvalReport = ({ evaluation }) => {
 
     const components = {
         table: ({ children }) => (
-            <div className="overflow-x-auto my-8 border border-zinc-100 rounded-[24px] bg-white shadow-sm font-sans">
+            <div className="overflow-x-auto my-8 border border-zinc-100 card bg-white shadow-sm font-sans">
                 <table className="w-full border-collapse">
                     {children}
                 </table>
@@ -169,7 +169,7 @@ const EvalReport = ({ evaluation }) => {
             ref={reportRef}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-[40px] border border-zinc-100 p-8 shadow-xl shadow-zinc-900/5 space-y-8 relative overflow-hidden"
+            className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-xl shadow-zinc-900/5 space-y-8 relative overflow-hidden"
         >
             {/* Download Action Bar */}
             <div id="download-action-bar" className="absolute top-8 right-8 z-10">
@@ -217,7 +217,7 @@ const EvalReport = ({ evaluation }) => {
                 <>
                     {/* Fallback to legacy structure if no markdown */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="p-6 bg-[#FAFAFA] rounded-[24px] border border-zinc-100">
+                        <div className="p-6 bg-[#FAFAFA] card border border-zinc-100">
                             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6 text-zinc-400">Strengths</h3>
                             <ul className="space-y-4">
                                 {strengths.length > 0 ? (
@@ -231,7 +231,7 @@ const EvalReport = ({ evaluation }) => {
                                 )}
                             </ul>
                         </div>
-                        <div className="p-6 bg-[#FAFAFA] rounded-[24px] border border-zinc-100">
+                        <div className="p-6 bg-[#FAFAFA] card border border-zinc-100">
                             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6 text-zinc-400">Areas for Improvement</h3>
                             <ul className="space-y-4">
                                 {areas_for_improvement.length > 0 ? (
@@ -248,7 +248,7 @@ const EvalReport = ({ evaluation }) => {
                     </div>
 
                     {detailed_feedback && (
-                        <div className="p-8 bg-[#FAFAFA] rounded-[32px] border border-zinc-100">
+                        <div className="p-8 bg-[#FAFAFA] rounded-2xl border border-zinc-100">
                             <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6 text-zinc-400">Core Evaluation</h3>
                             <p className="text-base font-medium leading-relaxed text-zinc-600">{detailed_feedback}</p>
                         </div>
@@ -540,12 +540,12 @@ const MockInterviewPage = () => {
     // ── ENTRY SCREEN ──────────────────────────────────────────
     if (step === 'entry') {
         return (
-            <div className="min-h-screen pt-12 pb-24 px-4 md:px-8 bg-[#FBFBFB] flex flex-col items-center justify-center">
+            <div className="min-h-screen py-8 px-4 md:px-6 bg-[#FBFBFB] flex flex-col items-center justify-center">
                 <div className="w-full max-w-2xl">
                     <motion.div
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="mb-8"
+                        className="mb-6"
                     >
                         <Link
                             to={id ? `/jobs/${id}` : '/jobs'}
@@ -559,15 +559,15 @@ const MockInterviewPage = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="bg-white rounded-[40px] border border-zinc-100 p-8 shadow-xl shadow-zinc-900/5"
+                        className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-xl shadow-zinc-900/5"
                     >
                         {/* Header */}
-                        <div className="mb-8">
+                        <div className="mb-6">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
                                     <Radio size={20} className="text-white" />
                                 </div>
-                                <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">
+                                <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">
                                     Mock Interview
                                 </h1>
                             </div>
@@ -580,16 +580,16 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* Interview Type */}
-                        <div className="mb-10">
+                        <div className="mb-6">
                             <p className="text-[10px] font-bold uppercase tracking-[0.4em] mb-6 text-zinc-300">
                                 01 / SELECT MODE
                             </p>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-3">
                                 {['technical', 'hr'].map((type) => (
                                     <button
                                         key={type}
                                         onClick={() => setInterviewType(type)}
-                                        className={`py-5 rounded-full border transition-all duration-300 font-bold text-[11px] uppercase tracking-widest ${interviewType === type
+                                        className={`py-3 rounded-xl border transition-all duration-300 font-bold text-[11px] uppercase tracking-widest ${interviewType === type
                                                 ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
                                                 : 'bg-zinc-50 text-zinc-400 border-zinc-100 premium-tag'
                                             }`}
@@ -601,16 +601,16 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* Duration */}
-                        <div className="mb-10">
+                        <div className="mb-6">
                             <p className="text-[10px] font-bold uppercase tracking-[0.4em] mb-6 text-zinc-300">
                                 02 / INTERVIEW DURATION
                             </p>
-                            <div className="grid grid-cols-4 gap-4">
+                            <div className="grid grid-cols-4 gap-3">
                                 {[5, 10, 15, 20].map((d) => (
                                     <button
                                         key={d}
                                         onClick={() => setDuration(d)}
-                                        className={`py-4 rounded-full border transition-all duration-500 font-bold text-[11px] uppercase tracking-widest ${duration === d
+                                        className={`py-2.5 rounded-xl border transition-all duration-500 font-bold text-[11px] uppercase tracking-widest ${duration === d
                                                 ? 'bg-zinc-900 text-white border-zinc-900 shadow-lg shadow-zinc-900/10'
                                                 : 'bg-zinc-50 text-zinc-400 border-zinc-100 hover:bg-zinc-100'
                                             }`}
@@ -622,7 +622,7 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* Proctor Toggle */}
-                        <div className="mb-12 p-6 bg-zinc-50/50 rounded-[32px] border border-zinc-100 flex items-center justify-between">
+                        <div className="mb-6 p-6 bg-zinc-50/50 rounded-2xl border border-zinc-100 flex items-center justify-between">
                             <div>
                                 <p className="font-bold text-xs uppercase tracking-widest text-zinc-900">Enable Proctoring</p>
                                 <p className="text-[10px] font-medium text-zinc-400 uppercase tracking-wide mt-1">
@@ -631,22 +631,22 @@ const MockInterviewPage = () => {
                             </div>
                             <button
                                 onClick={() => setProctorMode((prev) => !prev)}
-                                className={`w-14 h-8 rounded-full border transition-all duration-500 flex items-center ${proctorMode ? 'bg-zinc-900 border-zinc-900' : 'bg-zinc-200 border-zinc-200'
+                                className={`w-12 h-7 rounded-full border transition-all duration-500 flex items-center ${proctorMode ? 'bg-zinc-900 border-zinc-900' : 'bg-zinc-200 border-zinc-200'
                                     }`}
                             >
                                 <div
-                                    className={`w-5 h-5 bg-white rounded-full mx-1 transition-transform duration-500 ${proctorMode ? 'translate-x-[26px]' : ''
+                                    className={`w-5 h-5 bg-white rounded-full mx-1 transition-transform duration-500 ${proctorMode ? 'translate-x-[20px]' : ''
                                         }`}
                                 />
                             </button>
                         </div>
 
                         {/* Resume Status */}
-                        <div className="mb-12">
+                        <div className="mb-6">
                             <p className="text-[10px] font-bold uppercase tracking-[0.4em] mb-6 text-zinc-300">
                                 03 / RESUME CONTEXT
                             </p>
-                            <div className={`p-8 rounded-[32px] border transition-all duration-500 ${hasResume ? 'border-zinc-100 bg-[#FAFAFA]' : 'border-red-100 bg-red-50/50'
+                            <div className={`p-6 rounded-2xl border transition-all duration-500 ${hasResume ? 'border-zinc-100 bg-[#FAFAFA]' : 'border-red-100 bg-red-50/50'
                                 }`}>
                                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                                     <div className="flex items-center gap-4">
@@ -690,7 +690,7 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* Advisory */}
-                        <div className="mb-12 p-6 bg-zinc-50 border border-zinc-100 rounded-[32px]">
+                        <div className="mb-6 p-6 bg-zinc-50 border border-zinc-100 rounded-2xl">
                             <p className="text-[11px] font-medium text-zinc-400 uppercase tracking-widest leading-relaxed flex items-center gap-3">
                                 <Zap size={16} className="text-zinc-900 shrink-0" />
                                 Optimal results require a silent environment and high-fidelity audio input.
@@ -727,14 +727,14 @@ const MockInterviewPage = () => {
     // ── INTERVIEW SCREEN ──────────────────────────────────────
     return (
         <>
-            <div className="min-h-screen pt-24 pb-32 px-4 md:px-8 bg-[#FBFBFB]">
-                <div className="max-w-7xl mx-auto space-y-8">
+            <div className="min-h-screen pt-8 pb-12 px-6 md:px-10 bg-[#FBFBFB]">
+                <div className="max-w-[1600px] mx-auto space-y-8">
                     {/* Top bar */}
                     <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b border-zinc-100">
                         <div className="flex items-center gap-6">
                             <SiriVisualizer isActive={isSpeaking} />
                             <div>
-                                <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">
+                                <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">
                                     Practice Interview
                                 </h1>
                                 {(companyName || jobTitle) && (
@@ -795,17 +795,17 @@ const MockInterviewPage = () => {
 
                     {/* Error Banner */}
                     {errorMsg && (
-                        <div className="p-5 bg-red-50 border border-red-100 rounded-[32px] flex items-center gap-3">
+                        <div className="p-5 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3">
                             <AlertTriangle size={18} className="text-red-500" />
                             <p className="text-red-600 font-bold text-xs uppercase tracking-widest">{errorMsg}</p>
                         </div>
                     )}
 
                     {/* Transcript + Response panels */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Participant Transcript */}
-                        <div className="bg-white rounded-[40px] border border-zinc-100 p-10 shadow-2xl shadow-zinc-900/5">
-                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] mb-8 flex items-center gap-4 pb-6 border-b border-zinc-100 text-zinc-400">
+                        <div className="bg-white rounded-2xl border border-zinc-100 p-8 shadow-2xl shadow-zinc-900/5">
+                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] mb-6 flex items-center gap-4 pb-6 border-b border-zinc-100 text-zinc-400">
                                 <User size={18} className="text-zinc-300" /> Participant Signal
                             </h2>
                             <div
@@ -832,8 +832,8 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* AI Response */}
-                        <div className="bg-white rounded-[40px] border border-zinc-100 p-10 shadow-2xl shadow-zinc-900/5">
-                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] mb-8 flex items-center gap-4 pb-6 border-b border-zinc-100 text-zinc-400">
+                        <div className="bg-white rounded-2xl border border-zinc-100 p-8 shadow-2xl shadow-zinc-900/5">
+                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] mb-6 flex items-center gap-4 pb-6 border-b border-zinc-100 text-zinc-400">
                                 <Bot size={18} className="text-zinc-300" /> AI Interviewer
                             </h2>
                             <div
@@ -868,7 +868,7 @@ const MockInterviewPage = () => {
 
                     {/* Evaluation */}
                     {isEvaluating && (
-                        <div className="bg-white rounded-[40px] border border-zinc-100 p-12 shadow-2xl shadow-zinc-900/5 flex items-center justify-center gap-6">
+                        <div className="bg-white rounded-2xl border border-zinc-100 p-8 shadow-2xl shadow-zinc-900/5 flex items-center justify-center gap-6">
                             <BarChart2 size={28} className="text-zinc-300 animate-pulse" />
                             <p className="font-bold uppercase tracking-[0.4em] text-[11px] text-zinc-400 animate-pulse">
                                 Synthesizing job match analysis...
@@ -886,21 +886,21 @@ const MockInterviewPage = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex flex-col items-center justify-center text-center p-12 bg-white/80 backdrop-blur-2xl"
+                        className="fixed inset-0 z-50 flex flex-col items-center justify-center text-center p-8 bg-white/80 backdrop-blur-2xl"
                     >
-                        <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-10">
+                        <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6">
                             <AlertTriangle size={40} className="text-red-500" />
                         </div>
                         <h2 className="text-zinc-900 text-4xl font-bold tracking-tight mb-6">
                             Focus Interrupted
                         </h2>
-                        <p className="text-zinc-500 text-base max-w-md mb-10 font-medium leading-relaxed">
+                        <p className="text-zinc-500 text-base max-w-md mb-6 font-medium leading-relaxed">
                             Sim session requires absolute cognitive focus. This interruption has been logged in the performance matrix.
                         </p>
-                        <div className="flex items-center gap-4 mb-12">
+                        <div className="flex items-center gap-4 mb-6">
                             <div className="px-6 py-4 bg-zinc-50 rounded-3xl border border-zinc-100">
                                 <p className="text-[10px] font-bold text-zinc-300 uppercase tracking-widest mb-1">Total Violations</p>
-                                <p className="text-3xl font-bold text-zinc-900">{violationCount}</p>
+                                <p className="text-2xl font-bold text-zinc-900">{violationCount}</p>
                             </div>
                         </div>
                         <button

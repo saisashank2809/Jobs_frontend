@@ -7,7 +7,7 @@ const FeatureCard = ({ icon: Icon, title, description, delay }) => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay }}
-        className="landing-card group flex flex-col p-8"
+        className="landing-card group flex flex-col p-6"
         style={{ minHeight: '240px' }}
     >
         {/* Icon box */}
@@ -46,7 +46,7 @@ const FeatureCard = ({ icon: Icon, title, description, delay }) => (
 
 export function MockInterviewSection() {
     return (
-        <section className="py-32 px-6 md:px-12 lg:px-20 overflow-hidden relative" style={{ backgroundColor: '#F6F3ED' }}>
+        <section className="py-16 px-6 md:px-12 lg:px-20 overflow-hidden relative" style={{ backgroundColor: '#F6F3ED' }}>
             <div className="max-w-7xl mx-auto relative z-10">
                 <div className="flex flex-col lg:flex-row items-center gap-20">
 
@@ -92,7 +92,7 @@ export function MockInterviewSection() {
 
                             {/* Dark quote panel */}
                             <div
-                                className="group relative overflow-hidden rounded-xl p-8 text-white shadow-[0_24px_58px_-34px_rgba(49,56,81,0.55)]"
+                                className="group relative overflow-hidden rounded-xl p-6 text-white shadow-[0_24px_58px_-34px_rgba(49,56,81,0.55)]"
                                 style={{ backgroundColor: '#313851' }}
                             >
                                 <div className="absolute top-0 right-0 p-4 opacity-10 transition-opacity group-hover:opacity-20">

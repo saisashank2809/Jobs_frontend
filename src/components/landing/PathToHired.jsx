@@ -6,14 +6,14 @@ import { ShaderAnimation } from "../ui/ShaderAnimation";
 
 export function PathToHired() {
     return (
-        <section className="relative py-24 overflow-hidden" style={{ backgroundColor: '#313851' }}>
+        <section className="relative py-16 overflow-hidden" style={{ backgroundColor: '#313851' }}>
             {/* Shader Background */}
             <div className="absolute inset-0 z-0 opacity-70">
                 <ShaderAnimation />
             </div>
 
             <div className="container mx-auto px-4 max-w-6xl relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-20 gap-8">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-20 gap-6">
                     <h2
                         className="font-extrabold tracking-tight leading-[0.95] text-white"
                         style={{
@@ -35,7 +35,7 @@ export function PathToHired() {
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-20">
                     {[
                         {
                             icon: User,

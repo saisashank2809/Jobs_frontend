@@ -6,7 +6,7 @@ const MatchedJobsSection = ({ matchedJobs, isAuthenticated, error }) => {
     if (error === 'incomplete_profile') {
         return (
             <section className="mb-8">
-                 <div className="bg-orange-50 rounded-3xl p-10 border-2 border-orange-100 flex flex-col items-center justify-center text-center">
+                 <div className="bg-orange-50 rounded-3xl p-8 border-2 border-orange-100 flex flex-col items-center justify-center text-center">
                     <Target size={32} className="text-orange-400 mb-4" />
                     <h3 className="text-xl font-display font-black text-orange-900 uppercase tracking-widest mb-2">Profile Incomplete</h3>
                     <p className="text-orange-700 font-medium max-w-md">
@@ -20,7 +20,7 @@ const MatchedJobsSection = ({ matchedJobs, isAuthenticated, error }) => {
     if (!matchedJobs || matchedJobs.length === 0) {
         return (
             <section className="mb-8">
-                <div className="bg-gray-50/50 rounded-3xl p-10 border-2 border-gray-100 flex flex-col items-center justify-center text-center">
+                <div className="bg-gray-50/50 rounded-3xl p-8 border-2 border-gray-100 flex flex-col items-center justify-center text-center">
                     <Target size={32} className="text-gray-300 mb-4" />
                     <h3 className="text-xl font-display font-black text-gray-900 uppercase tracking-widest mb-2">No strong matches found</h3>
                     <p className="text-gray-500 font-medium max-w-md">
@@ -49,7 +49,7 @@ const MatchedJobsSection = ({ matchedJobs, isAuthenticated, error }) => {
                     </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {matchedJobs.map((job, idx) => (
                         <JobCard key={job.id || idx} job={job} isAuthenticated={isAuthenticated} />
                     ))}

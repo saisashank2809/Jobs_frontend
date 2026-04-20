@@ -45,7 +45,7 @@ const ChatPage = () => {
     };
 
     return (
-        <div className="h-[calc(100vh-140px)] flex flex-col overflow-hidden">
+        <div className="h-[calc(100vh-140px)] max-w-[1600px] mx-auto px-6 md:px-10 flex flex-col overflow-hidden">
             {/* Minimalist Header - Fixed (Non-shrinking) */}
             <header className="shrink-0 relative z-10 pb-8 flex items-center justify-between">
                 <motion.div
@@ -73,13 +73,13 @@ const ChatPage = () => {
                 </Link>
             </header>
 
-            <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 gap-10 min-h-0 overflow-hidden pb-2">
+            <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 gap-8 min-h-0 overflow-hidden pb-2">
                 {/* Sidebar - Fixed/H-Full */}
                 <div className="col-span-1 h-full overflow-hidden">
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white/80 backdrop-blur-xl rounded-[32px] border border-zinc-100 flex flex-col h-full overflow-hidden shadow-sm"
+                        className="bg-white/80 backdrop-blur-xl card border border-zinc-100 flex flex-col h-full overflow-hidden shadow-sm"
                     >
                         <div className="p-6 border-b border-zinc-50 bg-zinc-50/30">
                             <h2 className="text-[11px] font-bold text-zinc-400 flex items-center gap-3 uppercase tracking-[0.3em]">
@@ -92,7 +92,7 @@ const ChatPage = () => {
                             {loadingList ? (
                                 <div className="p-4 text-center text-[10px] font-bold text-zinc-400 uppercase tracking-widest animate-pulse">Syncing...</div>
                             ) : sessions.length === 0 ? (
-                                <div className="p-10 text-center text-zinc-300 text-[10px] font-bold uppercase tracking-widest leading-relaxed">
+                                <div className="p-8 text-center text-zinc-300 text-[10px] font-bold uppercase tracking-widest leading-relaxed">
                                     No active streams.
                                 </div>
                             ) : (
@@ -150,10 +150,10 @@ const ChatPage = () => {
                         <motion.div 
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-white/50 backdrop-blur-sm rounded-[40px] border border-dashed border-zinc-200 h-full grid place-items-center text-center p-16"
+                            className="bg-white/50 backdrop-blur-sm card border border-dashed border-zinc-200 h-full grid place-items-center text-center p-8"
                         >
                             <div>
-                                <div className="w-24 h-24 bg-zinc-100 rounded-[32px] grid place-items-center mx-auto mb-10 shadow-inner">
+                                <div className="w-24 h-24 bg-zinc-100 card grid place-items-center mx-auto mb-10 shadow-inner">
                                     <Bot size={48} className="text-zinc-300" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-zinc-900 mb-4 tracking-tight">Select a Session</h3>
@@ -191,7 +191,7 @@ const ChatWindow = ({ sessionId }) => {
     };
 
     return (
-        <div className="bg-white rounded-[40px] border border-zinc-100 h-full flex flex-col overflow-hidden shadow-sm hover:shadow-xl hover:shadow-zinc-900/5 transition-all duration-500">
+        <div className="bg-white card border border-zinc-100 h-full flex flex-col overflow-hidden shadow-sm hover:shadow-xl hover:shadow-zinc-900/5 transition-all duration-500">
             {/* Header */}
             <div className="py-5 px-10 border-b border-zinc-50 flex justify-between items-center text-[9px] font-bold text-zinc-400 uppercase tracking-[0.2em] bg-zinc-50/30 backdrop-blur-md">
                 <div className="flex items-center gap-4">
@@ -207,7 +207,7 @@ const ChatWindow = ({ sessionId }) => {
             </div>
 
             {/* Messages */}
-            <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-10 space-y-12 bg-[#FDFDFD]">
+            <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-8 space-y-12 bg-[#FDFDFD]">
                 {messages.length === 0 && !isTyping && (
                     <div className="h-full grid place-items-center">
                         <div className="text-center opacity-20">
@@ -235,7 +235,7 @@ const ChatWindow = ({ sessionId }) => {
                                 {isUser ? <User size={18} /> : isAdmin ? <Shield size={18} /> : <Bot size={18} />}
                             </div>
                             <div className={`max-w-[85%] space-y-2 ${isUser ? 'text-right' : 'text-left'}`}>
-                                <div className={`p-6 rounded-[28px] text-[13px] font-medium leading-relaxed ${isUser
+                                <div className={`p-6 card text-[13px] font-medium leading-relaxed ${isUser
                                     ? 'bg-zinc-900 text-white rounded-tr-sm shadow-lg shadow-zinc-900/10'
                                     : 'bg-white border border-zinc-100 text-zinc-700 rounded-tl-sm shadow-sm'
                                     }`}>
@@ -276,7 +276,7 @@ const ChatWindow = ({ sessionId }) => {
                         <div className="w-10 h-10 rounded-2xl grid place-items-center bg-white border border-zinc-100 text-zinc-400">
                             <Bot size={18} />
                         </div>
-                        <div className="p-6 rounded-[28px] rounded-tl-sm bg-zinc-50/50 border border-zinc-100 w-24">
+                        <div className="p-6 card rounded-tl-sm bg-zinc-50/50 border border-zinc-100 w-24">
                             <div className="flex gap-2 justify-center">
                                 <span className="w-1.5 h-1.5 bg-zinc-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                                 <span className="w-1.5 h-1.5 bg-zinc-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -289,14 +289,14 @@ const ChatWindow = ({ sessionId }) => {
 
             {/* Input Form */}
             <div className="p-8 border-t border-zinc-50 bg-white">
-                <form onSubmit={handleSend} className="relative flex items-center max-w-5xl mx-auto w-full">
+                <form onSubmit={handleSend} className="relative flex items-center max-w-4xl mx-auto w-full">
                     <input
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder={isConnected ? "Message Coach..." : "Connecting..."}
                         disabled={!isConnected}
-                        className="w-full bg-zinc-50/50 border border-zinc-100 rounded-[32px] px-10 py-6 pr-24 text-zinc-900 font-medium text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all shadow-sm"
+                        className="w-full bg-zinc-50/50 border border-zinc-100 card px-10 py-6 pr-24 text-zinc-900 font-medium text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all shadow-sm"
                     />
                     <motion.button
                         type="submit"

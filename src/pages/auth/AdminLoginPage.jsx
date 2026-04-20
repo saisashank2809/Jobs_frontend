@@ -41,14 +41,14 @@ const AdminLoginPage = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full max-w-md bg-[#111] rounded-[40px] border border-white/10 p-12 shadow-2xl relative overflow-hidden"
+                className="w-full max-w-md bg-[#111] card border border-white/10 p-8 shadow-2xl relative overflow-hidden"
             >
                 {/* Background Glow */}
                 <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/20 blur-[100px] pointer-events-none" />
                 <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-500/10 blur-[100px] pointer-events-none" />
 
                 <div className="text-center mb-12 relative z-10">
-                    <div className="w-20 h-20 bg-white/5 border border-white/10 rounded-[32px] grid place-items-center mx-auto mb-8 shadow-xl">
+                    <div className="w-20 h-20 bg-white/5 border border-white/10 card grid place-items-center mx-auto mb-8 shadow-xl">
                         <Shield size={32} className="text-white" />
                     </div>
                     <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 text-white/40 text-[10px] font-bold uppercase tracking-[0.3em] mb-6 border border-white/5">

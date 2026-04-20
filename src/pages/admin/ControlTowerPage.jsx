@@ -45,11 +45,11 @@ const ControlTowerPage = () => {
     if (loading) return <Loader fullScreen />;
 
     return (
-        <div className="max-w-6xl mx-auto py-20 px-8 bg-[#FBFBFB] min-h-screen">
+        <div className="max-w-[1600px] mx-auto pt-8 pb-12 px-6 md:px-10 bg-[#FBFBFB] min-h-screen">
             <header className="mb-20 border-b border-zinc-100 pb-12 flex justify-between items-end">
                 <div>
                     <h1 className="text-4xl font-sans font-bold text-zinc-900 tracking-tight flex items-center gap-6">
-                        <div className="w-16 h-16 bg-zinc-900 rounded-[24px] grid place-items-center shadow-lg shadow-zinc-900/20">
+                        <div className="w-16 h-16 bg-zinc-900 card grid place-items-center shadow-lg shadow-zinc-900/20">
                             <Ear size={32} className="text-white" />
                         </div>
                         System Administration
@@ -65,9 +65,9 @@ const ControlTowerPage = () => {
                 </button>
             </header>
 
-            <div className="grid md:grid-cols-2 gap-10 mb-20">
+            <div className="grid md:grid-cols-2 gap-8 mb-20">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                    <div className="bg-white border border-zinc-100 rounded-[40px] p-10 shadow-xl shadow-zinc-900/5 h-full">
+                    <div className="bg-white border border-zinc-100 card p-8 shadow-xl shadow-zinc-900/5 h-full">
                         <h2 className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.3em] mb-10 flex items-center gap-3">
                             <Shield size={16} className="text-zinc-900" /> Connect to Session
                         </h2>
@@ -87,7 +87,7 @@ const ControlTowerPage = () => {
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-                    <div className="bg-zinc-900 rounded-[40px] p-10 shadow-2xl shadow-zinc-900/20 h-full flex items-center justify-between text-white relative overflow-hidden">
+                    <div className="bg-zinc-900 card p-8 shadow-2xl shadow-zinc-900/20 h-full flex items-center justify-between text-white relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-3xl" />
                         <div className="relative z-10">
                             <p className="text-[9px] font-bold text-white/40 uppercase tracking-[0.3em] mb-3">Active Sessions</p>
@@ -107,7 +107,7 @@ const ControlTowerPage = () => {
 
             <div className="space-y-6">
                 {sessions.length === 0 && (
-                    <div className="text-center py-32 bg-zinc-50 border border-zinc-100 rounded-[40px] border-dashed">
+                    <div className="text-center py-20 bg-zinc-50 border border-zinc-100 card border-dashed">
                         <p className="text-[10px] font-bold text-zinc-300 uppercase tracking-[0.4em]">No Live Sessions Found</p>
                     </div>
                 )}
@@ -119,7 +119,7 @@ const ControlTowerPage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.05 }}
                     >
-                        <div className="bg-white border border-zinc-100 rounded-[32px] p-10 flex flex-col md:flex-row justify-between items-center gap-8 hover:shadow-2xl hover:shadow-zinc-900/5 transition-all duration-500 group">
+                        <div className="bg-white border border-zinc-100 card p-8 flex flex-col md:flex-row justify-between items-center gap-8 hover:shadow-2xl hover:shadow-zinc-900/5 transition-all duration-500 group">
                             <div className="flex gap-8 items-center flex-1">
                                 <div className="relative">
                                     <div className={`w-3 h-3 rounded-full ${session.status === 'active_human' ? 'bg-zinc-900' : 'bg-zinc-100'}`} />
@@ -134,7 +134,7 @@ const ControlTowerPage = () => {
                                     <p className="text-[10px] text-zinc-300 font-bold mt-2 uppercase tracking-[0.2em]">{session.id.slice(0, 18)}...</p>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-12">
+                            <div className="flex items-center gap-8">
                                 <div className="text-right">
                                     <p className="text-[8px] font-bold text-zinc-300 uppercase tracking-[0.2em] mb-1">Time Started</p>
                                     <span className="text-xs font-bold text-zinc-900 tabular-nums">

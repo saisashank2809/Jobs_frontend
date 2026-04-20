@@ -42,10 +42,10 @@ const LoginPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full max-w-md bg-white rounded-[40px] border border-zinc-100 p-8 shadow-xl shadow-zinc-900/5"
+                className="w-full max-w-md bg-white card border border-zinc-100 p-8 shadow-xl shadow-zinc-900/5"
             >
                 <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-zinc-50 border border-zinc-100 rounded-[28px] grid place-items-center mx-auto mb-4 shadow-sm">
+                    <div className="w-16 h-16 bg-zinc-50 border border-zinc-100 card grid place-items-center mx-auto mb-4 shadow-sm">
                         <Briefcase size={28} className="text-zinc-400" />
                     </div>
                     <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-zinc-50 text-zinc-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 border border-zinc-100">

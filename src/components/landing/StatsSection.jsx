@@ -9,9 +9,9 @@ const stats = [
 
 export function StatsSection() {
     return (
-        <section className="py-24 border-y border-[#C2CBD3]/50" style={{ backgroundColor: '#F6F3ED' }}>
+        <section className="py-16 border-y border-[#C2CBD3]/50" style={{ backgroundColor: '#F6F3ED' }}>
             <div className="container mx-auto px-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {stats.map((stat, index) => (
                         <motion.div
                             key={index}
@@ -25,7 +25,7 @@ export function StatsSection() {
                                 className="font-extrabold mb-2"
                                 style={{
                                     fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
-                                    fontSize: 'clamp(2.25rem, 4vw, 3rem)',
+                                    fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
                                     color: '#313851',
                                     fontStyle: 'normal',
                                     letterSpacing: '-0.02em',

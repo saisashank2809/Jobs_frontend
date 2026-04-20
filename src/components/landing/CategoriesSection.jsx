@@ -31,11 +31,11 @@ export function CategoriesSection() {
     };
 
     return (
-        <section id="categories" className="py-32 overflow-hidden" style={{ backgroundColor: '#F6F3ED' }}>
+        <section id="categories" className="py-16 overflow-hidden" style={{ backgroundColor: '#F6F3ED' }}>
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">
 
                 {/* Section Header */}
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-12">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-6">
                     <div className="max-w-3xl">
                         <p className="section-label mb-5">Job Categories</p>
                         <h2
@@ -79,7 +79,7 @@ export function CategoriesSection() {
                 </div>
 
                 {/* Staggered Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {categories.map((category, index) => (
                         <motion.div
                             key={category.name}

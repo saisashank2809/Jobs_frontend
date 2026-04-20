@@ -50,7 +50,7 @@ const MyListingsPage = () => {
     if (loading) return <Loader fullScreen />;
 
     return (
-        <div className="max-w-6xl mx-auto py-12 px-8">
+        <div className="max-w-[1600px] mx-auto pt-8 pb-12 px-6 md:px-10 bg-[#FBFBFB] min-h-screen">
             <header className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
                 <div>
                     <motion.div
@@ -72,7 +72,7 @@ const MyListingsPage = () => {
                     <motion.button 
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="bg-zinc-900 text-white px-10 py-5 rounded-[24px] font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-black transition-all flex items-center gap-3 shadow-xl shadow-zinc-900/10"
+                        className="bg-zinc-900 text-white px-10 py-5 card font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-black transition-all flex items-center gap-3 shadow-xl shadow-zinc-900/10"
                     >
                         <PlusCircle size={20} /> Inject New Signal
                     </motion.button>
@@ -80,7 +80,7 @@ const MyListingsPage = () => {
             </header>
 
             {error && (
-                <div className="mb-10 p-6 bg-rose-50 text-rose-600 rounded-[24px] border border-rose-100 flex items-center gap-4 text-xs font-bold uppercase tracking-widest">
+                <div className="mb-10 p-6 bg-rose-50 text-rose-600 card border border-rose-100 flex items-center gap-4 text-xs font-bold uppercase tracking-widest">
                     <AlertCircle size={20} />
                     {error}
                 </div>
@@ -90,7 +90,7 @@ const MyListingsPage = () => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-32 bg-zinc-50/30 backdrop-blur-sm rounded-[48px] border border-dashed border-zinc-200"
+                    className="text-center py-20 bg-zinc-50/30 backdrop-blur-sm card border border-dashed border-zinc-200"
                 >
                     <div className="w-20 h-20 bg-white rounded-[28px] grid place-items-center mx-auto mb-8 shadow-sm">
                         <Briefcase size={32} className="text-zinc-200" />
@@ -100,7 +100,7 @@ const MyListingsPage = () => {
                         System: Online
                     </span>
                     <Link to="/provider/create">
-                        <button className="bg-zinc-900 text-white px-12 py-5 rounded-[24px] font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-black transition-all shadow-lg">
+                        <button className="bg-zinc-900 text-white px-12 py-5 card font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-black transition-all shadow-lg">
                             Initialize First Signal
                         </button>
                     </Link>
@@ -117,7 +117,7 @@ const MyListingsPage = () => {
                                 exit={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: idx * 0.05 }}
                             >
-                                <div className="bg-white rounded-[40px] border border-zinc-100 p-8 md:p-10 flex flex-col md:flex-row justify-between items-center gap-8 shadow-sm hover:shadow-xl hover:shadow-zinc-900/5 transition-all duration-700 group">
+                                <div className="bg-white card border border-zinc-100 p-8 md:p-8 flex flex-col md:flex-row justify-between items-center gap-8 shadow-sm hover:shadow-xl hover:shadow-zinc-900/5 transition-all duration-700 group">
                                     <div className="flex-1 w-full overflow-hidden">
                                         <div className="flex items-center gap-4 mb-4">
                                             <div className="w-1.5 h-8 bg-zinc-900 rounded-full" />
@@ -150,7 +150,7 @@ const MyListingsPage = () => {
                                         <Link to={`/jobs/${job.id}`} className="flex-1 md:flex-none">
                                             <motion.button 
                                                 whileHover={{ scale: 1.02 }}
-                                                className="w-full bg-white border border-zinc-100 text-zinc-900 px-8 py-5 rounded-[24px] font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-zinc-50 hover:border-zinc-200 transition-all flex items-center justify-center gap-3 shadow-sm"
+                                                className="w-full bg-white border border-zinc-100 text-zinc-900 px-8 py-5 card font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-zinc-50 hover:border-zinc-200 transition-all flex items-center justify-center gap-3 shadow-sm"
                                             >
                                                 <Eye size={18} /> View Signal
                                             </motion.button>
@@ -160,7 +160,7 @@ const MyListingsPage = () => {
                                             whileHover={{ scale: 1.1, backgroundColor: '#FEF2F2', color: '#EF4444' }}
                                             whileTap={{ scale: 0.9 }}
                                             onClick={() => handleDelete(job.id)}
-                                            className="p-5 bg-zinc-50 text-zinc-300 rounded-[24px] border border-zinc-100 transition-all duration-300 flex items-center justify-center"
+                                            className="p-5 bg-zinc-50 text-zinc-300 card border border-zinc-100 transition-all duration-300 flex items-center justify-center"
                                         >
                                             <Trash2 size={20} />
                                         </motion.button>

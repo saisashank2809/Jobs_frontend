@@ -12,7 +12,7 @@ export function CategoryCard({ name, icon: Icon, count, onClick }) {
             onKeyDown={(e) => e.key === 'Enter' && onClick?.()}
             className={cn(
                 "group relative overflow-hidden cursor-pointer",
-                "bg-white rounded-[2.5rem] p-10",
+                "bg-white rounded-[2.5rem] p-8",
                 "transition-all duration-700 cubic-bezier(0.23, 1, 0.32, 1)",
                 "hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-2",
                 "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-black/5"
