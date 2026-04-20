@@ -5,12 +5,13 @@ import Sidebar from './Sidebar';
 
 const AppShell = () => {
     const { role } = useAuth();
+    const isProvider = role === 'provider';
 
     return (
         <div className="h-screen overflow-hidden flex bg-zinc-50/50 relative">
             <Sidebar />
 
-            <div className="header-and-content flex-1 h-screen overflow-hidden flex flex-col">
+            <div className="flex-1 h-screen overflow-hidden flex flex-col header-and-content">
                 <Navbar />
 
                 {/* Main Content Area - Locked Viewport Layout */}

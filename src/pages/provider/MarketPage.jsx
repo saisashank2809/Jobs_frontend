@@ -14,11 +14,11 @@ const COLORS = ['#313851', '#C2CBD3', '#F6F3ED'];
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-white/80 backdrop-blur-xl border border-zinc-100 shadow-xl rounded-2xl px-4 py-3 text-zinc-900">
-                <p className="text-[10px] font-bold mb-2 uppercase tracking-widest text-zinc-400">{label}</p>
+            <div className="glass-card premium-shadow px-4 py-3" style={{ backgroundColor: 'var(--color-job-card)', borderColor: 'var(--color-accent)' }}>
+                <p className="text-[10px] font-bold mb-2 uppercase tracking-widest" style={{ color: 'var(--color-accent)' }}>{label}</p>
                 {payload.map((entry, index) => (
-                    <p key={index} className="text-xs font-bold flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
+                    <p key={index} className="text-xs font-bold flex items-center gap-2" style={{ color: 'var(--color-primary)' }}>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--color-primary)' }} />
                         {entry.name}: <span className="font-extrabold">{entry.value}</span>
                     </p>
                 ))}
@@ -57,37 +57,30 @@ const MarketPage = () => {
         </div>
     );
 
-    const { total_jobs, top_skills, salary_trends, top_companies, work_styles, experience_levels } = stats;
+    const { total_jobs, top_skills, salary_trends, work_styles, experience_levels } = stats;
 
     return (
         <div className="min-h-screen pt-8 pb-12 px-6 md:px-10 max-w-[1600px] mx-auto bg-[#FBFBFB] overflow-x-hidden">
-            {/* Minimalist Header */}
-            <header className="relative z-10 pt-6 pb-8">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="max-w-4xl"
-                >
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-zinc-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 border border-zinc-100 shadow-sm">
-                        <Sparkles size={11} className="text-zinc-400" />
-                        Market Insights
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16 relative">
+                <div className="w-full">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-transparent text-zinc-500 text-[10px] font-bold uppercase tracking-[0.15em] mb-8 border border-zinc-200">
+                        <span className="text-zinc-400 text-xs">#</span> MARKET INTELLIGENCE
                     </div>
-                    <h1 className="text-3xl font-sans font-bold mb-4 tracking-tight text-zinc-900">
-                        Analytics
+                    <h1 className="text-5xl md:text-6xl font-sans font-bold mb-4 tracking-tight text-[#1a1a1a]">
+                        Analytics Engine
                     </h1>
-                    <p className="text-zinc-500 text-sm max-w-2xl leading-relaxed font-medium">
+                    <p className="text-zinc-500 max-w-xl text-lg leading-relaxed font-medium">
                         Real-time streaming intelligence from the Ottobon network. Verified opportunities, zero noise.
                     </p>
-                </motion.div>
+                </div>
             </header>
 
             <main className="space-y-10 pb-20">
                 {/* KPI Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <StatCard icon={<Briefcase size={20} />} label="Total Listings" value={total_jobs} delay={0} />
-                    <StatCard icon={<TrendingUp size={20} />} label="Top Skill" value={top_skills[0]?.name || "N/A"} sub={`${top_skills[0]?.count || 0} listings`} delay={0.05} />
-                    <StatCard icon={<DollarSign size={20} />} label="Salary Peak" value={`$${(salary_trends[0]?.avg_max / 1000).toFixed(0)}k`} sub={salary_trends[0]?.role || "N/A"} delay={0.1} />
+                    <StatCard icon={<TrendingUp size={20} />} label="Top Skill" value={top_skills?.[0]?.name || "N/A"} sub={`${top_skills?.[0]?.count || 0} listings`} delay={0.05} />
+                    <StatCard icon={<DollarSign size={20} />} label="Salary Peak" value={`$${((salary_trends?.[0]?.avg_max || 0) / 1000).toFixed(0)}k`} sub={salary_trends?.[0]?.role || "N/A"} delay={0.1} />
                     <StatCard icon={<Globe size={20} />} label="Remote Presence" value={`${((work_styles?.find(w => w.name === 'Remote')?.value || 0) / total_jobs * 100).toFixed(0)}%`} sub="Global Distribution" delay={0.15} />
                 </div>
 
@@ -189,18 +182,19 @@ const StatCard = ({ icon, label, value, sub, delay }) => (
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay }}
-        className="bg-white rounded-xl border border-zinc-100 p-5 shadow-sm hover:shadow-xl hover:shadow-zinc-900/5 transition-all duration-500 overflow-hidden relative group"
+        className="glass-card premium-shadow-sm premium-hover p-5 overflow-hidden relative group"
+        style={{ backgroundColor: 'var(--color-job-card)', borderColor: 'var(--color-accent)' }}
     >
-        <div className="absolute top-0 right-0 w-20 h-20 bg-zinc-50 rounded-bl-[48px] transition-transform duration-500 group-hover:scale-110 -z-0" />
+        <div className="absolute top-0 right-0 w-20 h-20 rounded-bl-[48px] transition-transform duration-500 group-hover:scale-110 -z-0" style={{ backgroundColor: '#F6F3ED', opacity: 0.1 }} />
         
         <div className="relative z-10">
-            <div className="w-10 h-10 bg-white border border-zinc-100 text-zinc-900 rounded-xl grid place-items-center mb-4 shadow-sm">
+            <div className="w-10 h-10 border rounded-xl grid place-items-center mb-4 transition-colors" style={{ backgroundColor: 'transparent', borderColor: 'var(--color-accent)', color: 'var(--color-primary)' }}>
                 {icon}
             </div>
             <div>
-                <p className="text-[9px] font-black text-zinc-400 uppercase tracking-widest mb-1">{label}</p>
-                <h3 className="text-xl font-bold text-zinc-900 leading-none tracking-tight">{value}</h3>
-                {sub && <p className="text-[10px] font-medium text-zinc-400 mt-2">{sub}</p>}
+                <p className="text-[9px] font-black uppercase tracking-widest mb-1" style={{ color: 'var(--color-accent)' }}>{label}</p>
+                <h3 className="text-xl font-bold leading-none tracking-tight" style={{ color: 'var(--color-primary)' }}>{value}</h3>
+                {sub && <p className="text-[10px] font-medium mt-2" style={{ color: 'var(--color-accent)' }}>{sub}</p>}
             </div>
         </div>
     </motion.div>
@@ -210,9 +204,10 @@ const ChartCard = ({ title, children }) => (
     <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white rounded-xl border border-zinc-100 p-5 shadow-sm hover:shadow-xl hover:shadow-zinc-900/5 transition-all duration-500"
+        className="glass-card premium-shadow-sm premium-hover p-5"
+        style={{ backgroundColor: 'var(--color-job-card)', borderColor: 'var(--color-accent)' }}
     >
-        <h3 className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] mb-6 border-b border-zinc-50 pb-3">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] mb-6 border-b pb-3" style={{ color: 'var(--color-accent)', borderColor: 'var(--color-accent)' }}>
             {title}
         </h3>
         {children}

@@ -62,8 +62,8 @@ const Navbar = () => {
                                     )}
                                 </div>
                                 <div className="hidden lg:flex flex-col">
-                                    <span className="text-[10px] font-black text-black uppercase tracking-widest leading-none">
-                                        {profile?.full_name?.split(' ')[0] || user.email?.split('@')[0]}
+                                    <span className="text-[10px] font-black text-[#09090b] uppercase tracking-widest leading-none">
+                                        {role === 'provider' ? 'PROVIDER' : (profile?.full_name?.split(' ')[0] || user.email?.split('@')[0])}
                                     </span>
                                 </div>
                             </Link>

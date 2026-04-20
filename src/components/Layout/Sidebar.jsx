@@ -12,7 +12,8 @@ import {
     Settings, 
     LogOut,
     ChevronRight,
-    Briefcase
+    Briefcase,
+    PlusCircle
 } from 'lucide-react';
 import { supabase } from '../../api/client';
 
@@ -22,21 +23,33 @@ const Sidebar = () => {
 
     if (!role) return null;
 
-    const navItems = [
-        { to: '/jobs', title: 'Job Board', icon: Search },
-        { to: '/saved', title: 'Saved Jobs', icon: Bookmark },
-        { to: '/profile', title: 'My Profile', icon: User },
-        { to: '/courses', title: 'Skills & Courses', icon: BookOpen },
-        { to: '/mock-interview', title: 'Interview Prep', icon: Mic2 },
-        { to: '/chat', title: 'Messages', icon: MessageSquare },
-        { to: '/market-intelligence', title: 'Market Analytics', icon: TrendingUp },
-        { to: '/blogs', title: 'Career Blog', icon: Newspaper },
-    ];
-
     const handleLogout = async () => {
         await supabase.auth.signOut();
         navigate('/login');
     };
+
+    let navItems = [];
+
+    if (role === 'provider') {
+        navItems = [
+            { to: '/jobs', title: 'Job Board', icon: Search },
+            { to: '/provider/create', title: 'Post a Job', icon: PlusCircle },
+            { to: '/provider/listings', title: 'My Listings', icon: Briefcase },
+            { to: '/market-intelligence', title: 'Market Analytics', icon: TrendingUp },
+            { to: '/blogs', title: 'Career Blog', icon: Newspaper },
+        ];
+    } else {
+        navItems = [
+            { to: '/jobs', title: 'Job Board', icon: Search },
+            { to: '/saved', title: 'Saved Jobs', icon: Bookmark },
+            { to: '/profile', title: 'My Profile', icon: User },
+            { to: '/courses', title: 'Skills & Courses', icon: BookOpen },
+            { to: '/mock-interview', title: 'Interview Prep', icon: Mic2 },
+            { to: '/chat', title: 'Messages', icon: MessageSquare },
+            { to: '/market-intelligence', title: 'Market Analytics', icon: TrendingUp },
+            { to: '/blogs', title: 'Career Blog', icon: Newspaper },
+        ];
+    }
 
     return (
         <aside 
@@ -154,7 +167,7 @@ const Sidebar = () => {
                         background: #313851;
                         border-radius: 0 4px 4px 0;
                     }
-                `},StartLine:48,TargetContent:
+                `}
             </style>
 
             {/* Top Arrow Button - Enterprise Positioning */}
