@@ -150,7 +150,7 @@ const MatchPage = () => {
 
     if (loading) return <Loader fullScreen variant="logo" />;
 
-    if (missing_resume) {
+    if (missingResume) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#FBFBFB]">
                 <motion.div {...fadeUp} className="max-w-xl w-full bg-white rounded-[40px] border border-zinc-100 p-16 text-center shadow-xl shadow-zinc-900/5">
@@ -275,7 +275,7 @@ const MatchPage = () => {
                                 <div
                                     className={`w-full flex items-center justify-center gap-3 py-5 rounded-full font-bold text-xs border transition-all
                                         ${
-                                            reupload_success
+                                            reuploadSuccess
                                                 ? 'border-green-100 bg-green-50 text-green-600'
                                                 : reuploading
                                                 ? 'border-zinc-100 bg-zinc-50 text-zinc-400 opacity-60 cursor-not-allowed'
@@ -284,7 +284,7 @@ const MatchPage = () => {
                                 >
                                     {reuploading ? (
                                         <><RefreshCw size={18} className="animate-spin" /> Processing...</>
-                                    ) : reupload_success ? (
+                                    ) : reuploadSuccess ? (
                                         <><CheckCircle size={18} /> Uploaded!</>
                                     ) : (
                                         <><Upload size={18} className="text-zinc-400" /> Re-upload resume</>
@@ -295,7 +295,7 @@ const MatchPage = () => {
                                     className="hidden"
                                     accept=".pdf,.docx"
                                     onChange={handleReupload}
-                                    disabled={reuploading || reupload_success}
+                                    disabled={reuploading || reuploadSuccess}
                                 />
                             </label>
 

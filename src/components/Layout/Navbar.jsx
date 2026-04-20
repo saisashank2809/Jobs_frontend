@@ -1,17 +1,35 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { LogOut, User, Briefcase, Search } from 'lucide-react';
+import { useNotifications } from '../../context/NotificationContext';
+import { LogOut, User, Briefcase, Search, Bell, Trash2, Clock } from 'lucide-react';
 import { supabase } from '../../api/client';
+import { useState, useRef, useEffect } from 'react';
+import { formatDistanceToNow } from 'date-fns';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
     const { user, role, profile } = useAuth();
+    const { notifications, unreadCount, markAsRead, clearAll } = useNotifications();
     const navigate = useNavigate();
     const location = useLocation();
+    const [isNotifOpen, setIsNotifOpen] = useState(false);
+    const notifRef = useRef(null);
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
         navigate('/login');
     };
+
+    // Close dropdown on click outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (notifRef.current && !notifRef.current.contains(event.target)) {
+                setIsNotifOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     return (
         <nav className="fixed top-6 left-8 right-8 z-50 h-20 glass-panel rounded-[32px] border-none shadow-2xl shadow-black/5">
@@ -43,12 +61,93 @@ const Navbar = () => {
                 )}
 
                 {/* User Actions */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
                     {user ? (
                         <>
+                            {/* Notification Bell */}
+                            <div className="relative" ref={notifRef}>
+                                <button
+                                    onClick={() => setIsNotifOpen(!isNotifOpen)}
+                                    className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 relative leading-none ${isNotifOpen ? 'bg-zinc-100 text-black' : 'text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50'}`}
+                                >
+                                    <Bell size={18} />
+                                    {unreadCount > 0 && (
+                                        <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-red-500 text-white text-[8px] font-black flex items-center justify-center rounded-full ring-2 ring-white">
+                                            {unreadCount}
+                                        </span>
+                                    )}
+                                </button>
+
+                                <AnimatePresence>
+                                    {isNotifOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            className="absolute top-14 right-0 w-80 glass-panel border-none shadow-2xl overflow-hidden p-0 rounded-[32px]"
+                                        >
+                                            <div className="p-6 border-b border-zinc-100 bg-white/50 flex items-center justify-between">
+                                                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-black">Notifications</h3>
+                                                {notifications.length > 0 && (
+                                                    <button 
+                                                        onClick={clearAll}
+                                                        className="text-zinc-400 hover:text-red-500 transition-colors p-1"
+                                                        title="Clear all"
+                                                    >
+                                                        <Trash2 size={12} />
+                                                    </button>
+                                                )}
+                                            </div>
+
+                                            <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
+                                                {notifications.length === 0 ? (
+                                                    <div className="p-12 flex flex-col items-center justify-center text-center gap-4">
+                                                        <div className="w-12 h-12 bg-zinc-50 rounded-2xl flex items-center justify-center text-zinc-300">
+                                                            <Bell size={20} />
+                                                        </div>
+                                                        <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Everything is up to date</p>
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex flex-col">
+                                                        {notifications.map((n) => (
+                                                            <button
+                                                                key={n.id}
+                                                                onClick={() => {
+                                                                    markAsRead(n.id);
+                                                                    if (n.link) navigate(n.link);
+                                                                    setIsNotifOpen(false);
+                                                                }}
+                                                                className={`p-6 text-left hover:bg-zinc-50/50 transition-all border-b border-zinc-50 last:border-0 relative group ${!n.isRead ? 'bg-zinc-50/30' : ''}`}
+                                                            >
+                                                                {!n.isRead && (
+                                                                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-black" />
+                                                                )}
+                                                                <div className="flex flex-col gap-1.5">
+                                                                    <div className="flex justify-between items-center">
+                                                                        <span className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">{n.type}</span>
+                                                                        <div className="flex items-center gap-1.5 text-zinc-300 group-hover:text-zinc-400 transition-colors">
+                                                                            <Clock size={10} />
+                                                                            <span className="text-[8px] font-bold uppercase tracking-tighter">
+                                                                                {formatDistanceToNow(new Date(n.timestamp), { addSuffix: true })}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h4 className="text-[11px] font-bold text-black group-hover:translate-x-1 transition-transform">{n.title}</h4>
+                                                                    <p className="text-[10px] text-zinc-500 leading-relaxed line-clamp-2">{n.message}</p>
+                                                                </div>
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
                             <Link
                                 to="/profile"
-                                className="flex items-center gap-4 bg-white/50 pl-2 pr-5 py-2 rounded-full hover:bg-white transition-all duration-700 shadow-sm hover:shadow-xl hover:shadow-black/5 border border-white/50"
+                                className="flex items-center gap-3 bg-white/50 pl-1 pr-5 py-1 rounded-full hover:bg-white transition-all duration-700 shadow-sm hover:shadow-xl hover:shadow-black/5 border border-white/50 h-10"
                             >
                                 <div className="w-8 h-8 bg-black rounded-full overflow-hidden flex items-center justify-center text-white ring-2 ring-white/50">
                                     {(profile?.avatar_url || user?.user_metadata?.avatar_url) ? (
@@ -70,7 +169,7 @@ const Navbar = () => {
 
                             <button
                                 onClick={handleLogout}
-                                className="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50 rounded-full transition-all duration-300"
+                                className="w-10 h-10 flex items-center justify-center text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50 rounded-full transition-all duration-300 leading-none"
                                 title="Logout"
                             >
                                 <LogOut size={18} />

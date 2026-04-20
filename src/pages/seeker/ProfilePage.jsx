@@ -254,9 +254,9 @@ const ProfilePage = () => {
                 <div>
                     <div>
                         <h1 className="text-6xl font-bold text-black tracking-tight leading-none">Identity</h1>
-                        <p className="text-[10px] font-black text-zinc-400 mt-4 uppercase tracking-[0.4em] flex items-center gap-3">
+                        <div className="text-[10px] font-black text-zinc-400 mt-4 uppercase tracking-[0.4em] flex items-center gap-3">
                             <div className="w-10 h-[1px] bg-zinc-200" /> Your Professional Dashboard
-                        </p>
+                        </div>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">

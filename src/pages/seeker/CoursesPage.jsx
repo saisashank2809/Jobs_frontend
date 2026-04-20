@@ -9,10 +9,10 @@ const CoursesPage = () => {
                 <h1 className="text-4xl md:text-5xl font-sans font-bold text-zinc-900 tracking-tight">
                     Learning Pathways
                 </h1>
-                <p className="text-[11px] font-bold text-zinc-400 uppercase tracking-[0.4em] mt-6 flex items-center gap-3">
+                <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-[0.4em] mt-6 flex items-center gap-3">
                     <div className="w-8 h-[1px] bg-zinc-200" />
                     Exclusive cohorts and upskilling resources to bridge your gaps.
-                </p>
+                </div>
             </header>
 
             {/* Flagship Course Card */}
@@ -45,10 +45,10 @@ const CoursesPage = () => {
                             <h2 className="text-3xl font-bold text-zinc-900 tracking-tight mb-3">
                                 AI Native Architect
                             </h2>
-                            <p className="text-sm font-medium text-zinc-500 leading-relaxed max-w-xl">
+                            <div className="text-sm font-medium text-zinc-500 leading-relaxed max-w-xl">
                                 Master high-performance system architecture and LLM integration. 
                                 Deep dive into React, Hexagonal Architecture, and Production AI Ops.
-                            </p>
+                            </div>
                         </div>
                         <div className="hidden md:block">
                             <div className="w-16 h-16 rounded-3xl bg-zinc-50 flex items-center justify-center text-zinc-900 border border-zinc-100">
