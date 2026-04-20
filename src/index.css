@@ -751,3 +751,10 @@ canvas~div>a {
 .rounded {
   border-radius: 12px !important;
 }
+
+.work-preference .hybrid-btn {
+  background: #313851 !important;
+  color: #F6F3ED !important;
+  margin-top: 8px !important;   /* slight downward shift for perfect alignment */
+  border-radius: 12px;
+}

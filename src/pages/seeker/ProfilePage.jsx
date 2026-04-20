@@ -477,7 +477,7 @@ const ProfilePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 }}
-                        className="bg-white border border-zinc-100 rounded-xl p-5 shadow-sm relative overflow-hidden group"
+                        className="bg-white border border-zinc-100 rounded-xl p-5 shadow-sm relative overflow-hidden group work-preference"
                     >
                         <div className="flex items-center justify-between mb-6">
                             <div>
@@ -508,9 +508,9 @@ const ProfilePage = () => {
                                         workPreference === pref.id
                                             ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
                                             : 'bg-white text-zinc-400 border-zinc-100 hover:border-zinc-300'
-                                    } ${!editMode ? 'cursor-default opacity-80' : 'hover:text-zinc-900'}`}
+                                    } ${!editMode ? 'cursor-default opacity-80' : 'hover:text-zinc-900'} ${pref.id === WORK_PREFERENCES.HYBRID && workPreference === pref.id ? 'hybrid-btn' : ''}`}
                                 >
-                                    <div className={`w-2.5 h-2.5 rounded-full ${pref.color}`} />
+                                    <div className={`w-2.5 h-2.5 rounded-full ${pref.id === WORK_PREFERENCES.HYBRID && workPreference === pref.id ? 'bg-[#F6F3ED]' : pref.color}`} />
                                     {pref.label}
                                 </button>
                             ))}
