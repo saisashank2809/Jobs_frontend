@@ -34,7 +34,7 @@ const JobFeedPage = () => {
     const [selectedExperience, setSelectedExperience] = useState('All Experience');
     const [selectedCategory, setSelectedCategory] = useState('All Categories');
     const [selectedSkills, setSelectedSkills] = useState([]);
-    
+
     const [isLocationOpen, setIsLocationOpen] = useState(false);
     const [isExperienceOpen, setIsExperienceOpen] = useState(false);
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -146,7 +146,7 @@ const JobFeedPage = () => {
     useEffect(() => {
         setVisibleCount(20);
     }, [searchTerm, selectedLocation, selectedSkills]);
-    
+
     const visibleJobs = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
     const hasMore = visibleCount < filtered.length;
 
@@ -171,10 +171,10 @@ const JobFeedPage = () => {
             const result = await matchAllJobs();
             if (Array.isArray(result) && result.length > 0) {
                 setMatchedJobs(result);
-                try { sessionStorage.setItem('jobFeedMatchedJobs', JSON.stringify(result)); } catch {}
+                try { sessionStorage.setItem('jobFeedMatchedJobs', JSON.stringify(result)); } catch { }
             } else {
                 setMatchedJobs([]);
-                try { sessionStorage.removeItem('jobFeedMatchedJobs'); } catch {}
+                try { sessionStorage.removeItem('jobFeedMatchedJobs'); } catch { }
             }
         } catch (err) {
             console.error('Match failed', err);
@@ -184,7 +184,7 @@ const JobFeedPage = () => {
             } else {
                 setMatchedJobs([]);
             }
-            try { sessionStorage.removeItem('jobFeedMatchedJobs'); } catch {}
+            try { sessionStorage.removeItem('jobFeedMatchedJobs'); } catch { }
         } finally {
             setIsMatching(false);
         }
@@ -197,10 +197,10 @@ const JobFeedPage = () => {
         }
     }, [isAuthenticated, role, matchedJobs, isMatching]);
 
-    const hasFilters = searchTerm || 
-        selectedLocation !== 'All Locations' || 
-        selectedExperience !== 'All Experience' || 
-        selectedCategory !== 'All Categories' || 
+    const hasFilters = searchTerm ||
+        selectedLocation !== 'All Locations' ||
+        selectedExperience !== 'All Experience' ||
+        selectedCategory !== 'All Categories' ||
         selectedSkills.length > 0;
 
     if (loading) return <Loader fullScreen variant="logo" />;
@@ -402,7 +402,7 @@ const JobFeedPage = () => {
 
             {/* Content Container */}
             <main className="max-w-7xl mx-auto pt-8 pb-32 px-6">
-                
+
                 {/* 3. Matched Roles Section ABOVE Available Roles */}
                 {isAuthenticated && role === ROLES.SEEKER && matchedJobs !== null && (
                     <MatchedJobsSection matchedJobs={matchedJobs} isAuthenticated={isAuthenticated} error={matchError} />
