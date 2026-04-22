@@ -6,20 +6,19 @@ import { ShaderAnimation } from "../ui/ShaderAnimation";
 
 export function PathToHired() {
     return (
-        <section className="relative py-16 overflow-hidden" style={{ backgroundColor: '#313851' }}>
+        <section className="relative py-24 overflow-hidden bg-[#F6F3ED]">
             {/* Shader Background */}
-            <div className="absolute inset-0 z-0 opacity-70">
+            <div className="absolute inset-0 z-0 opacity-10">
                 <ShaderAnimation />
             </div>
 
             <div className="container mx-auto px-4 max-w-6xl relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-20 gap-6">
                     <h2
-                        className="font-extrabold tracking-tight leading-[0.95] text-white"
+                        className="font-medium tracking-tight leading-[0.95] text-[#313851]"
                         style={{
-                            fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
+                            fontFamily: "'Inter', system-ui, sans-serif",
                             fontSize: 'clamp(3rem, 7vw, 5.5rem)',
-                            fontStyle: 'normal',
                         }}
                     >
                         YOUR NEW <br />
@@ -28,8 +27,7 @@ export function PathToHired() {
                     </h2>
                     <Link
                         to="/register"
-                        className="font-bold px-8 py-3 rounded-xl transition-transform hover:scale-105 cursor-pointer inline-block text-white"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.25)' }}
+                        className="font-bold px-8 py-3 rounded-xl transition-all hover:scale-105 cursor-pointer inline-block bg-[#313851] text-[#F6F3ED]"
                     >
                         Get started free
                     </Link>
@@ -61,23 +59,22 @@ export function PathToHired() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay }}
+                            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
                             className="space-y-6"
                         >
-                            <div className="w-12 h-12 rounded-full flex items-center justify-center border" style={{ backgroundColor: 'rgba(255,255,255,0.10)', borderColor: 'rgba(255,255,255,0.20)' }}>
-                                <Icon className="w-6 h-6 text-white" />
+                            <div className="w-12 h-12 rounded-full flex items-center justify-center border bg-[#313851]/[0.06] border-[#313851]/[0.14]">
+                                <Icon className="w-5 h-5 text-[#313851]" />
                             </div>
                             <h3
-                                className="font-bold text-white tracking-tight"
+                                className="font-medium text-[#313851] tracking-tight"
                                 style={{
-                                    fontFamily: "'Poppins', 'Inter', system-ui, sans-serif",
+                                    fontFamily: "'Inter', system-ui, sans-serif",
                                     fontSize: '1.1rem',
-                                    fontStyle: 'normal',
                                 }}
                             >
                                 {title}
                             </h3>
-                            <p className="text-sm leading-relaxed font-medium" style={{ color: 'rgba(255,255,255,0.68)' }}>
+                            <p className="text-sm leading-relaxed font-medium text-[#313851]/85">
                                 {body}
                             </p>
                         </motion.div>

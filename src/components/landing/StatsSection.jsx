@@ -9,7 +9,7 @@ const stats = [
 
 export function StatsSection() {
     return (
-        <section className="py-16 border-y border-[#C2CBD3]/50" style={{ backgroundColor: '#F6F3ED' }}>
+        <section className="py-16 border-y border-[#C2CBD3]/[0.14] bg-[#313851]">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {stats.map((stat, index) => (
@@ -22,20 +22,19 @@ export function StatsSection() {
                             className="text-center"
                         >
                             <div
-                                className="font-extrabold mb-2"
+                                className="font-medium mb-2"
                                 style={{
-                                    fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
+                                    fontFamily: "'Inter', system-ui, sans-serif",
                                     fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
-                                    color: '#313851',
-                                    fontStyle: 'normal',
+                                    color: '#F6F3ED',
                                     letterSpacing: '-0.02em',
                                 }}
                             >
                                 {stat.value}
                             </div>
                             <div
-                                className="font-semibold uppercase tracking-widest"
-                                style={{ fontSize: '0.7rem', color: 'rgba(49, 56, 81, 0.48)', letterSpacing: '0.18em' }}
+                                className="font-medium uppercase tracking-[0.2em] text-[#F6F3ED]/65"
+                                style={{ fontSize: '0.65rem' }}
                             >
                                 {stat.label}
                             </div>

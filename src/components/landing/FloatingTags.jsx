@@ -47,9 +47,9 @@ const sizeClasses = {
 
 const variantClasses = {
     filled:
-        "bg-[#313851] text-white shadow-[0_12px_32px_-24px_rgba(49,56,81,0.6)]",
+        "bg-[#313851] text-[#F6F3ED] shadow-[0_12px_32px_-24px_rgba(49,56,81,0.4)]",
     outlined:
-        "bg-[#F6F3ED]/78 border border-[#C2CBD3] text-[#313851]/76 shadow-[0_12px_32px_-26px_rgba(49,56,81,0.55)] backdrop-blur-sm",
+        "bg-[#F6F3ED]/80 border border-[#C2CBD3] text-[#313851]/85 shadow-[0_12px_32px_-26px_rgba(49,56,81,0.3)] backdrop-blur-sm",
 };
 
 export function FloatingTags({ tagCount = 8, className, minY = 120 }) {

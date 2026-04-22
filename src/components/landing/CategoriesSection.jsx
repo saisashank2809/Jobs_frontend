@@ -31,28 +31,26 @@ export function CategoriesSection() {
     };
 
     return (
-        <section id="categories" className="py-16 overflow-hidden" style={{ backgroundColor: '#F6F3ED' }}>
+        <section id="categories" className="py-24 overflow-hidden bg-[#F6F3ED]">
             <div className="container mx-auto px-6 md:px-12 max-w-7xl">
 
                 {/* Section Header */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-6">
                     <div className="max-w-3xl">
-                        <p className="section-label mb-5">Job Categories</p>
+                        <p className="text-[#313851]/65 text-xs font-bold uppercase tracking-[0.2em] mb-5">Job Categories</p>
                         <h2
-                            className="font-extrabold tracking-tight leading-tight"
+                            className="font-medium tracking-tight leading-tight text-[#313851]"
                             style={{
-                                fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
+                                fontFamily: "'Inter', system-ui, sans-serif",
                                 fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-                                color: '#313851',
-                                fontStyle: 'normal',
                             }}
                         >
                             Browse by <br />
-                            <span style={{ color: 'rgba(49, 56, 81, 0.30)' }}>Job Categories.</span>
+                            <span className="text-[#313851]/30">Job Categories.</span>
                         </h2>
                         <p
-                            className="mt-6 font-medium leading-relaxed max-w-xl"
-                            style={{ fontSize: '1.1rem', color: 'rgba(49, 56, 81, 0.60)' }}
+                            className="mt-6 font-medium leading-relaxed max-w-xl text-[#313851]/85"
+                            style={{ fontSize: '1.1rem' }}
                         >
                             Explore top-tier opportunities across global tech hubs.
                             We filter the noise, presenting only the elite professional matches.
@@ -65,14 +63,13 @@ export function CategoriesSection() {
                             className="group flex flex-col items-start gap-4"
                         >
                             <span
-                                className="font-bold uppercase transition-colors group-hover:opacity-100"
-                                style={{ fontSize: '0.68rem', letterSpacing: '0.36em', color: 'rgba(49, 56, 81, 0.45)' }}
+                                className="font-bold uppercase transition-colors text-[#313851]/65 group-hover:text-[#313851]"
+                                style={{ fontSize: '0.68rem', letterSpacing: '0.36em' }}
                             >
                                 Explore Jobs
                             </span>
                             <div
-                                className="h-[2px] transition-all duration-700 group-hover:w-40"
-                                style={{ width: '5rem', backgroundColor: 'rgba(49, 56, 81, 0.18)' }}
+                                className="h-[2px] transition-all duration-700 w-20 group-hover:w-40 bg-[#313851]/20 group-hover:bg-[#313851]"
                             />
                         </button>
                     </div>
@@ -108,7 +105,7 @@ export function CategoriesSection() {
                     ))}
                 </div>
 
-                <div className="mt-24 h-px w-full" style={{ background: 'linear-gradient(to right, transparent, rgba(49, 56, 81, 0.10), transparent)' }} />
+                <div className="mt-24 h-px w-full" style={{ background: 'linear-gradient(to right, transparent, rgba(194, 203, 211, 0.10), transparent)' }} />
             </div>
         </section>
     );

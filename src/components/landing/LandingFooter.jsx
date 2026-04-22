@@ -3,31 +3,28 @@ import { Briefcase } from "lucide-react";
 
 export function LandingFooter() {
     return (
-        <footer className="pt-16 pb-8 border-t" style={{ backgroundColor: '#313851', borderColor: 'rgba(194,203,211,0.12)' }}>
+        <footer className="pt-24 pb-12 border-t border-[#F6F3ED]/10 bg-[#313851]">
             <div className="container mx-auto px-4 max-w-7xl">
                 {/* Brand Logo */}
-                <div className="mb-12">
+                <div className="mb-16">
                     <Link to="/" className="flex items-center gap-3 group w-fit">
                         <div
-                            className="w-10 h-10 rounded-xl grid place-items-center group-hover:scale-110 transition-transform duration-500"
-                            style={{ backgroundColor: '#F6F3ED' }}
+                            className="w-10 h-10 rounded-xl grid place-items-center group-hover:scale-110 transition-all duration-500 bg-[#C2CBD3]"
                         >
-                            <Briefcase size={20} style={{ color: '#313851' }} />
+                            <Briefcase size={20} className="text-[#313851]" />
                         </div>
                         <span
-                            className="font-black text-2xl tracking-tighter uppercase"
+                            className="font-medium text-2xl tracking-tighter uppercase text-[#F6F3ED]"
                             style={{
-                                fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
-                                color: '#F6F3ED',
-                                fontStyle: 'normal',
+                                fontFamily: "'Inter', system-ui, sans-serif",
                             }}
                         >
-                            Ottobon<span style={{ opacity: 0.4 }}>/</span>Jobs
+                            Ottobon<span className="opacity-30">/</span>Jobs
                         </span>
                     </Link>
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
                     {[
                         [
                             { label: "Explore Jobs", to: "/jobs" },
@@ -54,10 +51,7 @@ export function LandingFooter() {
                                 <li key={item.label}>
                                     <Link
                                         to={item.to}
-                                        className="text-sm font-medium transition-colors hover:opacity-100"
-                                        style={{ color: 'rgba(194, 203, 211, 0.65)' }}
-                                        onMouseEnter={e => e.currentTarget.style.color = '#F6F3ED'}
-                                        onMouseLeave={e => e.currentTarget.style.color = 'rgba(194, 203, 211, 0.65)'}
+                                        className="text-sm font-medium transition-all text-[#F6F3ED]/85 hover:text-[#C2CBD3]"
                                     >
                                         {item.label}
                                     </Link>
@@ -69,16 +63,13 @@ export function LandingFooter() {
 
                 {/* Bottom Bar */}
                 <div
-                    className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-medium border-t"
-                    style={{ color: 'rgba(194, 203, 211, 0.45)', borderColor: 'rgba(194, 203, 211, 0.12)' }}
+                    className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-medium border-t border-[#F6F3ED]/10 text-[#F6F3ED]/65"
                 >
                     <div className="flex gap-6">
                         {['Cookies Policy', 'Legal Terms', 'Privacy Policy'].map(t => (
                             <span
                                 key={t}
-                                className="cursor-pointer transition-colors"
-                                onMouseEnter={e => e.currentTarget.style.color = '#F6F3ED'}
-                                onMouseLeave={e => e.currentTarget.style.color = 'rgba(194, 203, 211, 0.45)'}
+                                className="cursor-pointer transition-all hover:text-[#F6F3ED]"
                             >
                                 {t}
                             </span>

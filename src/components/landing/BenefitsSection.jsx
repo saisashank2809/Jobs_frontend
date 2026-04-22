@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { TrendingUp, BookOpen, MousePointerClick, Star, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { cn } from "../../utils/cn";
 
 const jobSeekerBenefits = [
     {
@@ -45,11 +46,9 @@ const recruiterBenefits = [
 ];
 
 const sectionHeadingStyle = {
-    fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
-    fontStyle: 'normal',
-    fontWeight: 800,
+    fontFamily: "'Inter', system-ui, sans-serif",
+    fontWeight: 500,
     letterSpacing: '-0.025em',
-    color: '#313851',
 };
 
 export function BenefitsSection() {
@@ -58,27 +57,36 @@ export function BenefitsSection() {
         if (el) el.scrollIntoView({ behavior: 'smooth' });
     };
 
-    const BenefitItem = ({ benefit, index }) => (
+    const BenefitItem = ({ benefit, index, isDark }) => (
         <div
             key={index}
-            className="flex gap-5 sm:gap-6 items-center sm:items-start p-5 sm:p-6 rounded-2xl border bg-white transition-all duration-300 group cursor-default hover:-translate-y-1 hover:shadow-xl"
-            style={{ borderColor: '#C2CBD3' }}
-            onMouseEnter={e => e.currentTarget.style.borderColor = '#313851'}
-            onMouseLeave={e => e.currentTarget.style.borderColor = '#C2CBD3'}
+            className={cn(
+                "flex gap-5 sm:gap-6 items-center sm:items-start p-5 sm:p-6 rounded-2xl border transition-all duration-300 group cursor-default hover:-translate-y-1",
+                isDark 
+                    ? "border-[#C2CBD3]/[0.14] bg-[#F6F3ED]/[0.06] backdrop-blur-xl hover:border-[#C2CBD3]/[0.3]" 
+                    : "border-[#313851]/[0.14] bg-[#313851]/[0.06] backdrop-blur-xl hover:border-[#313851]/[0.3]"
+            )}
         >
             <div
-                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-[#313851]"
-                style={{ backgroundColor: 'rgba(49, 56, 81, 0.07)' }}
+                className={cn(
+                    "w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300",
+                    isDark ? "bg-[#F6F3ED]/[0.12] group-hover:bg-[#C2CBD3]" : "bg-[#313851]/[0.12] group-hover:bg-[#313851]"
+                )}
             >
                 <benefit.icon
-                    className="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300 group-hover:text-white"
-                    style={{ color: '#313851' }}
+                    className={cn(
+                        "w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-300",
+                        isDark ? "text-[#C2CBD3] group-hover:text-[#313851]" : "text-[#313851] group-hover:text-[#F6F3ED]"
+                    )}
                     strokeWidth={1.5}
                 />
             </div>
             <p
-                className="font-medium leading-relaxed sm:pt-2 max-sm:text-sm transition-colors duration-300"
-                style={{ fontSize: '0.94rem', color: 'rgba(49, 56, 81, 0.78)' }}
+                className={cn(
+                    "font-medium leading-relaxed sm:pt-2 max-sm:text-sm",
+                    isDark ? "text-[#F6F3ED]/85" : "text-[#313851]/85"
+                )}
+                style={{ fontSize: '0.94rem' }}
             >
                 {benefit.title}
             </p>
@@ -90,37 +98,35 @@ export function BenefitsSection() {
             <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
 
                 {/* Job Seekers */}
-                <div className="py-16 px-8 lg:px-16 xl:px-24 flex justify-center lg:justify-end" style={{ backgroundColor: '#ffffff' }}>
+                <div className="py-24 px-8 lg:px-16 xl:px-24 flex justify-center lg:justify-end bg-[#313851]">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                         className="max-w-xl w-full flex flex-col justify-center"
                     >
-                        <p className="section-label mb-4">Got talent?</p>
-                        <h2 className="text-3xl md:text-3xl mb-12" style={sectionHeadingStyle}>
+                        <p className="text-[#F6F3ED]/65 text-xs font-bold uppercase tracking-[0.2em] mb-4">Got talent?</p>
+                        <h2 className="text-3xl md:text-4xl mb-12 text-[#F6F3ED]" style={sectionHeadingStyle}>
                             Why job seekers love us
                         </h2>
 
                         <div className="space-y-4">
                             {jobSeekerBenefits.map((benefit, index) => (
-                                <BenefitItem key={index} benefit={benefit} index={index} />
+                                <BenefitItem key={index} benefit={benefit} index={index} isDark={true} />
                             ))}
                         </div>
 
                         <div className="mt-16 flex items-center gap-4">
                             <button
                                 onClick={() => scrollToSection('featured-jobs')}
-                                className="px-6 py-2.5 rounded-xl border font-semibold hover:opacity-75 transition-opacity text-sm cursor-pointer"
-                                style={{ borderColor: '#C2CBD3', color: '#313851' }}
+                                className="px-8 py-3 rounded-xl border border-[#C2CBD3] font-bold hover:bg-[#C2CBD3]/10 transition-all text-sm cursor-pointer text-[#C2CBD3]"
                             >
                                 Learn more
                             </button>
                             <Link
                                 to="/register"
-                                className="px-6 py-2.5 rounded-xl font-semibold transition-opacity hover:opacity-90 shadow-sm text-sm cursor-pointer inline-block text-center text-white"
-                                style={{ backgroundColor: '#313851' }}
+                                className="px-8 py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-sm text-sm cursor-pointer inline-block text-center text-[#313851] bg-[#C2CBD3]"
                             >
                                 Sign up
                             </Link>
@@ -129,37 +135,35 @@ export function BenefitsSection() {
                 </div>
 
                 {/* Recruiters */}
-                <div className="py-16 px-8 lg:px-16 xl:px-24 flex justify-center lg:justify-start" style={{ backgroundColor: '#F6F3ED' }}>
+                <div className="py-24 px-8 lg:px-16 xl:px-24 flex justify-center lg:justify-start bg-[#F6F3ED]">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
                         className="max-w-xl w-full flex flex-col justify-center"
                     >
-                        <p className="section-label mb-4">Need talent?</p>
-                        <h2 className="text-3xl md:text-3xl mb-12" style={sectionHeadingStyle}>
+                        <p className="text-[#313851]/65 text-xs font-bold uppercase tracking-[0.2em] mb-4">Need talent?</p>
+                        <h2 className="text-3xl md:text-4xl mb-12 text-[#313851]" style={sectionHeadingStyle}>
                             Why recruiters love us
                         </h2>
 
                         <div className="space-y-4">
                             {recruiterBenefits.map((benefit, index) => (
-                                <BenefitItem key={index} benefit={benefit} index={index} />
+                                <BenefitItem key={index} benefit={benefit} index={index} isDark={false} />
                             ))}
                         </div>
 
                         <div className="mt-16 flex items-center gap-4">
                             <button
                                 onClick={() => scrollToSection('stats')}
-                                className="px-6 py-2.5 rounded-xl border font-semibold hover:opacity-75 transition-opacity text-sm cursor-pointer"
-                                style={{ borderColor: '#C2CBD3', color: '#313851' }}
+                                className="px-8 py-3 rounded-xl border border-[#313851]/20 font-bold hover:bg-[#313851]/5 transition-all text-sm cursor-pointer text-[#313851]"
                             >
                                 Learn more
                             </button>
                             <Link
                                 to="/register"
-                                className="px-6 py-2.5 rounded-xl font-semibold transition-opacity hover:opacity-90 shadow-sm text-sm cursor-pointer inline-block text-center text-white"
-                                style={{ backgroundColor: '#313851' }}
+                                className="px-8 py-3 rounded-xl font-bold transition-all hover:scale-105 shadow-sm text-sm cursor-pointer inline-block text-center text-[#F6F3ED] bg-[#313851]"
                             >
                                 Sign up
                             </Link>

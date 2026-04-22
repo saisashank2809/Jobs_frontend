@@ -70,42 +70,38 @@ export function FeaturedJobs() {
     const navigate = useNavigate();
 
     return (
-        <section className="py-16" style={{ backgroundColor: '#ffffff' }}>
+        <section className="py-24 bg-[#F6F3ED]">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-14 gap-4">
                     <div>
-                        <p className="section-label mb-3">Curated Picks</p>
+                        <p className="text-[#313851]/65 text-xs font-bold uppercase tracking-[0.2em] mb-4">Curated Picks</p>
                         <h2
-                            className="font-extrabold tracking-tight mb-3"
+                            className="font-medium tracking-tight mb-3 text-[#313851]"
                             style={{
-                                fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
+                                fontFamily: "'Inter', system-ui, sans-serif",
                                 fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
-                                color: '#313851',
-                                fontStyle: 'normal',
                             }}
                         >
                             Featured Opportunities
                         </h2>
                         <p
-                            className="max-w-xl font-medium"
-                            style={{ color: 'rgba(49, 56, 81, 0.58)', fontSize: '0.975rem' }}
+                            className="max-w-xl font-medium text-[#313851]/85"
+                            style={{ fontSize: '0.975rem' }}
                         >
-                            Discover roles at leading Indian startups and global tech giants.
+                            Discover roles at leading startups and global tech giants.
                             Find your next career move with us.
                         </p>
                     </div>
                     <div className="flex items-center gap-6">
                         <Link
                             to="/register"
-                            className="font-semibold px-6 py-2.5 rounded-xl text-sm shadow-sm transition-opacity hover:opacity-90 cursor-pointer inline-block text-white"
-                            style={{ backgroundColor: '#313851' }}
+                            className="font-semibold px-6 py-2.5 rounded-xl text-sm shadow-sm transition-all hover:scale-105 cursor-pointer inline-block bg-[#313851] text-[#F6F3ED]"
                         >
                             Get started
                         </Link>
                         <Link
                             to="/jobs"
-                            className="inline-flex items-center gap-2 font-semibold text-sm transition-colors cursor-pointer hover:opacity-70"
-                            style={{ color: '#313851', borderBottom: '2px solid #313851', paddingBottom: '2px' }}
+                            className="inline-flex items-center gap-2 font-semibold text-sm transition-colors cursor-pointer text-[#313851] border-b-2 border-[#313851]/20 hover:border-[#313851] pb-1"
                         >
                             View All Jobs <ArrowRight size={14} />
                         </Link>

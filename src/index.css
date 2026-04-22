@@ -7,8 +7,8 @@
     --color-foreground: #313851;
 
     --font-sans: 'Inter', system-ui, sans-serif;
-    --font-display: 'Outfit', 'Inter', system-ui, sans-serif;
-    --font-heading: 'Poppins', 'Inter', system-ui, sans-serif;
+    --font-display: 'Inter', system-ui, sans-serif;
+    --font-heading: 'Inter', system-ui, sans-serif;
 
     --radius-sm: 12px;
     --radius-md: 12px;
@@ -19,36 +19,39 @@
 
     --animate-spin-slow: spin 8s linear infinite;
 
-    /* Enterprise job platform palette */
+    /* Brand Palette */
     --color-primary: #313851;
     --color-accent: #C2CBD3;
     --color-background-soft: #F6F3ED;
-    --color-job-card: #FFFFFF;
-    --color-on-primary: #FFFFFF;
+    --color-job-card: rgba(49, 56, 81, 0.12);
+    --color-on-primary: #F6F3ED;
 
-    --bg-primary: var(--color-background-soft);
-    --bg-surface: var(--color-background-soft);
-    --bg-surface-solid: var(--color-background-soft);
-    --bg-surface-hover: var(--color-background-soft);
+    --bg-primary: #F6F3ED;
+    --bg-surface: rgba(49, 56, 81, 0.12);
+    --bg-surface-solid: #F6F3ED;
+    --bg-surface-hover: rgba(49, 56, 81, 0.22);
+    --bg-dark: #313851;
 
-    --accent: var(--color-primary);
-    --accent-hover: var(--color-primary);
-    --accent-primary: var(--color-primary);
-    --accent-secondary: var(--color-accent);
-    --accent-tertiary: var(--color-accent);
+    --accent: #C2CBD3;
+    --accent-hover: #313851;
+    --accent-primary: #C2CBD3;
+    --accent-secondary: rgba(194, 203, 211, 0.65);
+    --accent-tertiary: rgba(194, 203, 211, 0.14);
 
-    --danger: var(--color-primary);
-    --warning: var(--color-accent);
-    --success: var(--color-accent);
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --success: #10b981;
 
-    --text-main: var(--color-primary);
-    --text-primary: var(--color-primary);
-    --text-muted: var(--color-accent);
-    --text-subtle: var(--color-accent);
+    --text-main: #313851;
+    --text-primary: #313851;
+    --text-muted: rgba(49, 56, 81, 0.85);
+    --text-subtle: rgba(49, 56, 81, 0.65);
+    --text-on-dark: #F6F3ED;
+    --text-muted-on-dark: rgba(246, 243, 237, 0.85);
     
-    --border-main: var(--color-accent);
-    --border-color: var(--color-accent);
-    --border-subtle: var(--color-accent);
+    --border-main: rgba(194, 203, 211, 0.14);
+    --border-color: rgba(194, 203, 211, 0.14);
+    --border-subtle: rgba(194, 203, 211, 0.07);
 
     --background: var(--bg-primary);
     --foreground: var(--text-main);
@@ -591,7 +594,8 @@ canvas~div>a {
 [class~="hover:bg-black"]:hover,
 [class~="hover:bg-black/90"]:hover,
 [class~="hover:bg-zinc-800"]:hover {
-  background-color: var(--color-primary) !important;
+  background-color: #C2CBD3 !important;
+  color: #050505 !important;
 }
 
 [class~="text-black"],
@@ -607,7 +611,7 @@ canvas~div>a {
 [class~="group-hover:text-black"],
 .group:hover [class~="group-hover:text-black"],
 .group:hover [class~="group-hover:text-zinc-600"] {
-  color: var(--color-primary) !important;
+  color: var(--color-foreground) !important;
 }
 
 [class~="text-zinc-200"],
@@ -625,7 +629,7 @@ canvas~div>a {
 [class~="text-green-700"],
 [class~="placeholder:text-zinc-300"]::placeholder,
 [class~="placeholder:text-zinc-400"]::placeholder {
-  color: var(--color-accent) !important;
+  color: var(--text-muted) !important;
 }
 
 [class~="border-black"],

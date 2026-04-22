@@ -8,100 +8,87 @@ import { BenefitsSection } from '../../components/landing/BenefitsSection';
 import { LandingFooter } from '../../components/landing/LandingFooter';
 import { MockInterviewSection } from '../../components/landing/MockInterviewSection';
 import { BlogHighlights } from '../../components/landing/BlogHighlights';
+import { UpskillSection } from '../../components/landing/UpskillSection';
 import { Link } from 'react-router-dom';
 
 const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
 
 export default function LandingPage() {
-    const scrollToJobs = () => {
+    const scrollToCategories = () => {
         const el = document.getElementById('categories');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
-        <main style={{ backgroundColor: '#F6F3ED' }}>
+        <main className="bg-[#F6F3ED]">
             {/* ── Hero Section ─────────────────────────── */}
-            <div className="relative flex h-dvh w-full flex-col items-center overflow-hidden">
-                <div className="pointer-events-none">
+            <div className="relative flex h-dvh w-full flex-col items-center overflow-hidden bg-[#313851]">
+                <div className="pointer-events-none absolute inset-0">
                     <GLSLHills />
                 </div>
 
                 {/* Gradient fade into next section */}
-                <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-[#313851] via-[#313851]/20 to-transparent z-20 pointer-events-none" />
+                <div className="absolute inset-x-0 bottom-0 h-72 bg-gradient-to-t from-[#F6F3ED] via-[#F6F3ED]/20 to-transparent z-20 pointer-events-none" />
 
                 {/* ── Hero Content ───────────────────── */}
-                <div className="absolute z-30 top-0 left-0 right-0 flex flex-col items-center pt-14 px-6">
+                <div className="absolute z-30 top-0 left-0 right-0 flex flex-col items-center pt-24 px-6">
                     {/* Eyebrow label */}
-                    <p className="section-label mb-3 opacity-70">
-                        Your career, elevated
+                    <p className="text-[#F6F3ED]/65 text-xs font-bold uppercase tracking-[0.2em] mb-4">
+                        The best companies are looking for proven talent.
                     </p>
 
                     {/* Main headline */}
                     <h1
-                        className="hero-headline text-center font-extrabold leading-[1.0] tracking-tight"
+                        className="hero-headline text-center font-medium leading-[1.1] tracking-tight max-w-4xl"
                         style={{
-                            fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
-                            fontSize: 'clamp(2rem, 5vw, 4rem)',
-                            color: '#313851',
-                            fontStyle: 'normal',
-                            textShadow: '0 8px 32px rgba(246,243,237,0.5)',
-                            marginBottom: '0.5rem',
+                            fontFamily: "'Inter', system-ui, sans-serif",
+                            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+                            marginBottom: '1.5rem',
                         }}
                     >
-                        Land Your Dream Job
+                        <span className="text-[#F6F3ED]">Your skills, your career, </span>
+                        <span className="bg-gradient-to-r from-[#F6F3ED] to-[#C2CBD3] bg-clip-text text-transparent">
+                            zero friction.
+                        </span>
                     </h1>
 
                     {/* Sub-headline */}
                     <p
-                        className="hero-subheadline text-center font-semibold"
+                        className="hero-subheadline text-center font-medium max-w-2xl"
                         style={{
-                            fontFamily: "'Outfit', 'Inter', system-ui, sans-serif",
-                            fontSize: 'clamp(1rem, 2vw, 1.35rem)',
-                            color: 'rgba(49, 56, 81, 0.72)',
-                            fontStyle: 'normal',
-                            marginBottom: '0.75rem',
+                            fontFamily: "'Inter', system-ui, sans-serif",
+                            fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                            color: 'rgba(246, 243, 237, 0.85)',
+                            marginBottom: '2.5rem',
                             letterSpacing: '-0.01em',
                         }}
                     >
-                        Search, Prepare, Land.
-                    </p>
-
-                    {/* Body copy */}
-                    <p
-                        className="hero-description text-center font-medium leading-relaxed max-w-md"
-                        style={{
-                            fontFamily: "'Inter', system-ui, sans-serif",
-                            fontSize: '0.975rem',
-                            color: 'rgba(49, 56, 81, 0.60)',
-                            marginBottom: '1.5rem',
-                        }}
-                    >
-                        We help you find the perfect job that matches your skills and interests.
+                        Access exclusive roles, track your applications, and step into the career you've been building toward.
                     </p>
 
                     {/* CTA Buttons */}
-                    <div className="hero-buttons flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <div className="hero-buttons flex flex-col sm:flex-row items-center justify-center gap-6">
                         <Link
-                            to="/register"
-                            className="hero-cta hero-cta-primary hero-primary-btn"
+                            to="/jobs"
+                            className="px-8 py-4 bg-[#C2CBD3] text-[#313851] rounded-xl font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_20px_40px_-15px_rgba(194,203,211,0.3)]"
                         >
-                            Get Started
+                            Browse Open Roles
                         </Link>
                         <button
-                            onClick={scrollToJobs}
-                            className="hero-cta hero-cta-secondary"
+                            onClick={scrollToCategories}
+                            className="px-8 py-4 border border-[#C2CBD3] text-[#C2CBD3] rounded-xl font-bold transition-all hover:bg-[#C2CBD3]/10"
                         >
-                            Explore Jobs
+                            Explore Categories
                         </button>
                     </div>
                 </div>
 
                 {/* 3D Robot — bottom portion */}
                 <div
-                    className="hero-robot absolute bottom-[-100px] left-0 right-0 z-[2] h-[48%] grayscale opacity-85"
+                    className="hero-robot absolute bottom-[-50px] left-0 right-0 z-[2] h-[55%] opacity-90"
                     style={{ 
-                        WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)',
-                        maskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)'
+                        WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)',
+                        maskImage: 'linear-gradient(to bottom, black 0%, black 80%, transparent 100%)'
                     }}
                 >
                     <InteractiveRobotSpline
@@ -111,31 +98,36 @@ export default function LandingPage() {
                 </div>
             </div>
 
+            <div id="stats" className="section-optimize">
+                <StatsSection />
+            </div>
+
             <div id="path-to-hired" className="section-optimize">
                 <PathToHired />
             </div>
 
-            <div id="mock-interview-promo" className="section-optimize">
+            <div id="featured-jobs" className="section-optimize">
+                <FeaturedJobs />
+            </div>
+
+            <div id="upskill" className="section-optimize">
+                <UpskillSection />
+            </div>
+
+            <div id="benefits" className="section-optimize">
+                <BenefitsSection />
+            </div>
+
+            <div id="categories" className="section-optimize">
+                <CategoriesSection />
+            </div>
+
+            <div id="mock-interview" className="section-optimize">
                 <MockInterviewSection />
             </div>
 
-            {/* Padded Content Sections */}
-            <div className="relative z-10 px-4 md:px-12 lg:px-20 overflow-hidden section-optimize">
-                <div id="stats" className="gpu-accelerate">
-                    <StatsSection />
-                </div>
-                <div id="benefits" className="gpu-accelerate">
-                    <BenefitsSection />
-                </div>
-                <div id="featured-jobs" className="gpu-accelerate">
-                    <FeaturedJobs />
-                </div>
-                <div id="categories" className="gpu-accelerate">
-                    <CategoriesSection />
-                </div>
-                <div id="blog-highlights" className="gpu-accelerate">
-                    <BlogHighlights />
-                </div>
+            <div id="blog-highlights" className="section-optimize">
+                <BlogHighlights />
             </div>
 
             <div id="footer">
