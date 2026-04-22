@@ -15,7 +15,7 @@ const LoadingLogo = ({ className = "" }) => {
                 <div className="absolute inset-0 bg-zinc-900 rounded-2xl animate-ping opacity-5 scale-125" />
                 
                 {/* Main Logo Square - Neu-Minimalist */}
-                <div className="relative w-20 h-20 bg-zinc-900 rounded-[24px] flex items-center justify-center shadow-2xl shadow-zinc-900/20">
+                <div className="relative w-20 h-20 bg-zinc-900 card flex items-center justify-center shadow-2xl shadow-zinc-900/20">
                     <Briefcase size={40} className="text-white" />
                 </div>
             </div>

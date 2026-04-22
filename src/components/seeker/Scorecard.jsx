@@ -31,7 +31,7 @@ const Scorecard = ({ interview, onUpdate }) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-min">
             {/* 1. Header Analysis - Large Bento Box */}
-            <div className="md:col-span-2 bg-white border-4 border-black p-8 rounded-[32px] shadow-[10px_10px_0px_#000]">
+            <div className="md:col-span-2 bg-white border-4 border-black p-8 card shadow-[10px_10px_0px_#000]">
                 <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 bg-black rounded-2xl flex items-center justify-center text-white">
                         <Zap size={24} />
@@ -61,7 +61,7 @@ const Scorecard = ({ interview, onUpdate }) => {
             </div>
 
             {/* 3. Transcript - Medium Box */}
-            <div className="md:col-span-1 bg-gray-50 border-2 border-black p-6 rounded-[24px] h-[300px] flex flex-col">
+            <div className="md:col-span-1 bg-gray-50 border-2 border-black p-6 card h-[300px] flex flex-col">
                 <h4 className="text-[10px] font-black uppercase tracking-widest mb-4 flex items-center gap-2">
                     <MessageSquare size={14} /> Interview Transcript
                 </h4>
@@ -78,7 +78,7 @@ const Scorecard = ({ interview, onUpdate }) => {
             </div>
 
             {/* 4. Expert Feedback / CTA - Long Box */}
-            <div className="md:col-span-2 bg-black text-white p-8 rounded-[32px] flex flex-col md:flex-row items-center gap-8 border-4 border-black">
+            <div className="md:col-span-2 bg-black text-white p-8 card flex flex-col md:flex-row items-center gap-8 border-4 border-black">
                 {status === 'reviewed' ? (
                     <>
                         <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center text-black shrink-0">

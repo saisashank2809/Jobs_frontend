@@ -34,7 +34,7 @@ const BlogPostPage = () => {
 
     if (error) return (
         <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-[#FBFBFB]">
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center max-w-xl bg-white border border-zinc-100 p-16 rounded-[48px] shadow-2xl shadow-zinc-900/5">
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center max-w-xl bg-white border border-zinc-100 p-8 rounded-[32px] shadow-2xl shadow-zinc-900/5">
                 <AlertCircle size={64} className="mx-auto mb-10 text-zinc-300" />
                 <h1 className="text-4xl font-bold text-zinc-900 tracking-tight mb-4">Signal Null</h1>
                 <p className="text-[11px] font-bold text-zinc-400 uppercase tracking-[0.4em] mb-12 italic">{error}</p>
@@ -46,7 +46,7 @@ const BlogPostPage = () => {
     );
 
     return (
-        <div className="min-h-screen pt-24 pb-32 px-4 md:px-8 bg-[#FBFBFB]">
+        <div className="min-h-screen pt-8 pb-12 px-6 md:px-10 bg-[#FBFBFB] overflow-x-hidden">
             <article className="max-w-4xl mx-auto">
                 <Link to="/blogs" className="inline-flex items-center gap-3 text-[11px] font-bold text-zinc-400 hover:text-zinc-900 mb-16 transition-all uppercase tracking-[0.3em]">
                     <ArrowLeft size={16} /> Return to Intel
@@ -123,7 +123,7 @@ const BlogPostPage = () => {
                     )}
                 </motion.div>
 
-                <div className="mt-32 p-12 bg-white border border-zinc-100 rounded-[48px] flex flex-col md:flex-row justify-between items-center gap-10 shadow-2xl shadow-zinc-900/5">
+                <div className="mt-32 p-8 bg-white border border-zinc-100 rounded-[32px] flex flex-col md:flex-row justify-between items-center gap-8 shadow-2xl shadow-zinc-900/5">
                     <div>
                         <p className="text-2xl font-bold text-zinc-900 tracking-tight flex items-center gap-3">
                             <Sparkles size={24} className="text-zinc-900" /> Signal Sync

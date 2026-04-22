@@ -43,21 +43,21 @@ const Button = ({
 
         // Variant - Premium Minimalist
         if (variant === 'primary') {
-            style.background = '#09090b'; // zinc-950
-            style.color = '#FFFFFF';
-            style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            style.background = 'var(--color-primary)';
+            style.color = 'var(--color-on-primary)';
+            style.boxShadow = '0 4px 12px rgba(49, 56, 81, 0.12)';
         } else if (variant === 'secondary') {
-            style.background = '#FFFFFF';
-            style.color = '#09090b';
-            style.border = '1px solid rgba(0,0,0,0.08)';
-            style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
+            style.background = 'transparent';
+            style.color = 'var(--color-primary)';
+            style.border = '1px solid var(--color-accent)';
+            style.boxShadow = 'none';
         } else if (variant === 'ghost') {
             style.background = 'transparent';
-            style.color = '#71717a'; // zinc-500
+            style.color = 'var(--color-accent)';
         } else if (variant === 'danger') {
-            style.background = '#ef4444'; 
-            style.color = '#FFFFFF';
-            style.boxShadow = '0 4px 12px rgba(239, 68, 68, 0.2)';
+            style.background = 'var(--color-primary)';
+            style.color = 'var(--color-on-primary)';
+            style.boxShadow = '0 4px 12px rgba(49, 56, 81, 0.12)';
         }
 
         return style;

@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
         <footer className="border-t border-zinc-100 py-16 bg-white/50 backdrop-blur-xl">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-10 px-10">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-8 px-10">
                 <div className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.4em]">
                     &copy; {new Date().getFullYear()} // OTTOBON_JOBS_NETWORK
                 </div>

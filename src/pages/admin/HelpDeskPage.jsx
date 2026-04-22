@@ -45,7 +45,7 @@ const HelpDeskPage = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-[600px]">
                 {/* Sessions list */}
-                <div className="col-span-1 bg-white border border-zinc-100 rounded-[32px] overflow-hidden flex flex-col shadow-xl shadow-zinc-900/5">
+                <div className="col-span-1 bg-white border border-zinc-100 card overflow-hidden flex flex-col shadow-xl shadow-zinc-900/5">
                     <div className="p-6 border-b border-zinc-50 bg-[#FBFBFB] flex items-center gap-3">
                         <MessageSquare size={16} className="text-zinc-400" />
                         <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Active Sessions</span>
@@ -84,7 +84,7 @@ const HelpDeskPage = () => {
                     {selectedSessionId
                         ? <AdminChatViewer sessionId={selectedSessionId} sessions={sessions} />
                      : (
-                            <div className="h-full border border-dashed border-zinc-100 rounded-[32px] grid place-items-center text-center p-20 bg-white/50">
+                            <div className="h-full border border-dashed border-zinc-100 card grid place-items-center text-center p-20 bg-white/50">
                                 <div>
                                     <Shield size={48} className="text-zinc-100 mx-auto mb-6" />
                                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-300">Select Session to Intervene</p>
@@ -217,7 +217,7 @@ const AdminChatViewer = ({ sessionId, sessions }) => {
     };
 
     return (
-        <div className="bg-white border border-zinc-100 rounded-[32px] overflow-hidden flex flex-col h-full min-h-[500px] shadow-2xl shadow-zinc-900/5">
+        <div className="bg-white border border-zinc-100 card overflow-hidden flex flex-col h-full min-h-[500px] shadow-2xl shadow-zinc-900/5">
             {/* Header */}
             <div className="px-8 py-5 border-b border-zinc-50 bg-[#FBFBFB] flex items-center justify-between shrink-0 gap-4">
                 <div className="flex items-center gap-4 min-w-0">
@@ -333,7 +333,7 @@ const AdminChatViewer = ({ sessionId, sessions }) => {
                                 {isUser ? <User size={16} /> : isAdmin ? <Shield size={16} /> : <Bot size={16} />}
                             </div>
                             <div className={`max-w-[75%] ${isUser ? 'text-right' : 'text-left'}`}>
-                                <div className={`p-5 rounded-[24px] text-xs leading-relaxed shadow-sm transition-all ${isUser
+                                <div className={`p-5 card text-xs leading-relaxed shadow-sm transition-all ${isUser
                                     ? 'bg-zinc-900 text-white rounded-tr-sm'
                                     : isAdmin
                                         ? 'bg-white border border-zinc-100 text-zinc-900 rounded-tl-sm shadow-xl shadow-zinc-900/5'

@@ -1,13 +1,15 @@
 import clsx from 'clsx';
 
-const Badge = ({ children, variant = 'default', className, ...props }) => {
+const Badge = ({ children, variant = 'default', className, style, ...props }) => {
     const variants = {
-        default: 'bg-zinc-100 text-zinc-500 border-none',
-        accent: 'bg-black text-white shadow-xl shadow-black/5',
-        success: 'bg-emerald-50 text-emerald-600',
-        warning: 'bg-amber-50 text-amber-600',
-        danger: 'bg-rose-50 text-rose-600',
+        default: 'border',
+        accent: 'text-white shadow-xl shadow-black/5',
+        success: 'border',
+        warning: 'border',
+        danger: 'border',
     };
+
+    const isAccent = variant === 'accent';
 
     return (
         <span
@@ -16,6 +18,12 @@ const Badge = ({ children, variant = 'default', className, ...props }) => {
                 variants[variant] || variants.default,
                 className
             )}
+            style={{
+                backgroundColor: isAccent ? 'var(--color-primary)' : 'var(--bg-surface-solid)',
+                borderColor: 'var(--color-accent)',
+                color: isAccent ? 'var(--color-on-primary)' : 'var(--color-accent)',
+                ...style
+            }}
             {...props}
         >
             {children}

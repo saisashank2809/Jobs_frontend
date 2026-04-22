@@ -249,11 +249,11 @@ const ProfilePage = () => {
     if (loading) return <Loader fullScreen variant="logo" />;
 
     return (
-        <div className="max-w-6xl mx-auto py-20 px-6 min-h-screen">
-            <header className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <div className="max-w-[1600px] mx-auto pt-8 pb-12 px-6 md:px-10 min-h-screen">
+            <header className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-8">
                 <div>
                     <div>
-                        <h1 className="text-6xl font-bold text-black tracking-tight leading-none">Identity</h1>
+                        <h1 className="text-4xl font-bold text-black tracking-tight leading-none">Identity</h1>
                         <div className="text-[10px] font-black text-zinc-400 mt-4 uppercase tracking-[0.4em] flex items-center gap-3">
                             <div className="w-10 h-[1px] bg-zinc-200" /> Your Professional Dashboard
                         </div>
@@ -263,7 +263,7 @@ const ProfilePage = () => {
                     <button
                         onClick={() => editMode ? handleSave() : setEditMode(true)}
                         disabled={saving}
-                        className={`px-8 py-4 rounded-full font-bold text-xs transition-all flex items-center gap-3 shadow-xl shadow-zinc-900/10 ${editMode
+                        className={`px-4 py-2 rounded-full font-bold text-xs transition-all flex items-center gap-3 shadow-xl shadow-zinc-900/10 ${editMode
                                 ? 'bg-zinc-900 text-white hover:bg-zinc-800'
                                 : 'bg-white border border-zinc-200 text-zinc-900 hover:bg-zinc-50'
                             }`}
@@ -274,16 +274,16 @@ const ProfilePage = () => {
                 </div>
             </header>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {/* Left Column: Basic Info */}
-                <div className="lg:col-span-1 space-y-8">
+                <div className="lg:col-span-1 space-y-4">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="bg-white border border-zinc-100 rounded-[40px] p-10 shadow-xl shadow-zinc-900/5 relative overflow-hidden"
+                        className="bg-white border border-zinc-100 rounded-xl p-5 shadow-xl shadow-zinc-900/5 relative overflow-hidden"
                     >
-                        <div className="relative group/avatar mb-12">
-                            <div className="w-32 h-32 rounded-full bg-black overflow-hidden shadow-2xl shadow-black/20 ring-8 ring-zinc-50 border-4 border-white relative">
+                        <div className="relative group/avatar mb-6">
+                            <div className="w-16 h-16 rounded-full bg-black overflow-hidden shadow-2xl shadow-black/20 ring-8 ring-zinc-50 border-4 border-white relative">
                                 {profile?.avatar_url || user?.user_metadata?.avatar_url ? (
                                     <img
                                         src={profile?.avatar_url || user?.user_metadata?.avatar_url}
@@ -325,7 +325,7 @@ const ProfilePage = () => {
                             )}
                         </div>
 
-                        <div className="space-y-10">
+                        <div className="space-y-4">
                             <div>
                                 <label className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em] block mb-3 ml-1">Full Name</label>
                                 {editMode ? (
@@ -334,15 +334,15 @@ const ProfilePage = () => {
                                         value={fullName}
                                         onChange={(e) => setFullName(e.target.value)}
                                         maxLength={LIMITS.FULL_NAME_MAX}
-                                        className="w-full bg-zinc-50 border-none rounded-2xl px-6 py-5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none"
+                                        className="w-full bg-zinc-50 border border-zinc-200 rounded-lg px-4 py-2.5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none"
                                         placeholder="Full Name"
                                     />
                                 ) : (
-                                    <h2 className="text-3xl font-bold text-black tracking-tight break-words">{profile?.full_name || 'Anonymous User'}</h2>
+                                    <h2 className="text-base font-semibold text-black tracking-tight break-words">{profile?.full_name || 'Anonymous User'}</h2>
                                 )}
                             </div>
 
-                            <div className="grid grid-cols-1 gap-6">
+                            <div className="grid grid-cols-1 gap-4">
                                 <div>
                                     <label className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em] block mb-3 ml-1">Current Location</label>
                                     {editMode ? (
@@ -351,7 +351,7 @@ const ProfilePage = () => {
                                             value={location}
                                             onChange={(e) => setLocation(e.target.value)}
                                             maxLength={LIMITS.LOCATION_MAX}
-                                            className="w-full bg-zinc-50 border-none rounded-2xl px-6 py-5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none"
+                                            className="w-full bg-zinc-50 border border-zinc-200 rounded-lg px-4 py-2.5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none"
                                             placeholder="City, Country"
                                         />
                                     ) : (
@@ -368,7 +368,7 @@ const ProfilePage = () => {
                                             type="date"
                                             value={dob}
                                             onChange={(e) => setDob(e.target.value)}
-                                            className="w-full bg-zinc-50 border-none rounded-2xl px-6 py-5 font-bold text-sm text-zinc-900 focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none"
+                                            className="w-full bg-zinc-50 border border-zinc-200 rounded-lg px-4 py-2.5 font-bold text-sm text-zinc-900 focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none"
                                         />
                                     ) : (
                                         <p className="font-bold flex items-center gap-3 text-zinc-600 text-sm">
@@ -382,12 +382,12 @@ const ProfilePage = () => {
 
                     {/* Quick Stats - Low Contrast Tiles */}
                     <div className="space-y-4">
-                        <div className="p-10 bg-black text-white rounded-[48px] shadow-2xl shadow-black/10 relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 transition-transform duration-1000 group-hover:scale-150" />
+                        <div className="p-4 bg-black text-white rounded-xl shadow-2xl shadow-black/10 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-full -mr-16 -mt-16 transition-transform duration-1000 group-hover:scale-150" />
                             <p className="text-[9px] font-black uppercase tracking-[0.4em] text-zinc-500 mb-4">Email Address</p>
-                            <p className="text-sm font-bold break-all">{user?.email}</p>
+                            <p className="text-sm font-medium break-all">{user?.email}</p>
                         </div>
-                        <div className="p-10 bg-white border border-zinc-50 rounded-[48px] shadow-sm">
+                        <div className="p-4 bg-white border border-zinc-50 rounded-xl shadow-sm">
                             <p className="text-[9px] font-black uppercase tracking-[0.4em] text-zinc-300 mb-4">Secure Contact</p>
                             {editMode ? (
                                 <input
@@ -395,51 +395,25 @@ const ProfilePage = () => {
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
                                     maxLength={LIMITS.PHONE_MAX}
-                                    className="w-full bg-transparent border-0 border-b border-zinc-100 focus:border-black focus:ring-0 p-0 font-bold text-zinc-900 placeholder:text-zinc-200"
+                                    className="w-full bg-transparent border-0 border-b border-zinc-100 focus:border-black focus:ring-0 p-0 font-medium text-sm text-zinc-900 placeholder:text-zinc-300"
                                     placeholder="+1 (555) 000-0000"
                                 />
                             ) : (
-                                <p className="text-xl font-bold text-black">{profile?.phone || 'No Phone Linked'}</p>
+                                <p className="text-sm font-medium text-black">{profile?.phone || 'No Phone Linked'}</p>
                             )}
                         </div>
-                    </div>
-                </div>
-
-                {/* Right Column: Questionnaire (Skills & Interests) */}
-                <div className="lg:col-span-2 space-y-10">
-                    <AnimatePresence mode="wait">
-                        {message && (
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                className="bg-black text-white p-5 rounded-2xl flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-widest shadow-2xl border-2 border-white"
-                            >
-                                <CheckCircle size={18} /> {message}
-                            </motion.div>
-                        )}
-                        {error && (
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                className="bg-white text-black p-5 rounded-2xl flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-widest shadow-2xl border-4 border-black"
-                            >
-                                <AlertCircle size={18} /> {error}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    
 
                     {/* Skills Selection */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="bg-white border border-zinc-100 rounded-[40px] p-10 shadow-sm"
+                        className="bg-white border border-zinc-100 rounded-xl p-5 shadow-sm"
                     >
-                        <header className="flex items-center justify-between mb-12">
+                        <header className="flex items-center justify-between mb-6">
                             <div>
-                                <h3 className="text-2xl font-bold text-black tracking-tight">Skills</h3>
+                                <h3 className="text-base font-semibold text-black tracking-tight">Skills</h3>
                                 <p className="text-[10px] font-black text-zinc-300 mt-2 uppercase tracking-[0.4em]">Refine your skills</p>
                             </div>
                             <label className="cursor-pointer">
@@ -450,7 +424,7 @@ const ProfilePage = () => {
                                     accept=".pdf,.docx"
                                     disabled={extracting}
                                 />
-                                <div className={`flex items-center gap-3 px-6 py-3 bg-zinc-50 border-none rounded-full text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:bg-black hover:text-white transition-all shadow-sm ${extracting ? 'bg-black text-white' : ''}`}>
+                                <div className={`flex items-center gap-3 px-4 py-2 bg-zinc-50 border border-zinc-200 rounded-full text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:bg-black hover:text-white transition-all shadow-sm ${extracting ? 'bg-black text-white' : ''}`}>
                                     {extracting ? <RefreshCw size={14} className="animate-spin" /> : <Sparkles size={14} />}
                                     {extracting ? 'Scanning...' : 'upload your resume to scan for skills'}
                                 </div>
@@ -465,12 +439,12 @@ const ProfilePage = () => {
                                     onChange={(e) => setNewSkill(e.target.value)}
                                     onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
                                     maxLength={LIMITS.SKILL_MAX}
-                                    className="flex-1 bg-zinc-50 border border-zinc-100 rounded-2xl px-6 py-4 font-semibold text-sm focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none"
+                                    className="flex-1 bg-zinc-50 border border-zinc-100 rounded-lg px-6 py-4 font-semibold text-sm focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none"
                                     placeholder="Add a new competency (e.g. React, Docker)"
                                 />
                                 <button
                                     onClick={handleAddSkill}
-                                    className="w-14 h-14 bg-zinc-900 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 transition-all active:scale-95"
+                                    className="w-12 h-12 bg-zinc-900 text-white rounded-lg flex items-center justify-center shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 transition-all active:scale-95"
                                 >
                                     <Plus size={24} />
                                 </button>
@@ -493,7 +467,7 @@ const ProfilePage = () => {
                                     </span>
                                 ))
                             ) : (
-                                <div className="w-full py-8 border border-dashed border-zinc-200 rounded-2xl flex flex-col items-center justify-center bg-zinc-50/50">
+                                <div className="w-full py-8 border border-dashed border-zinc-200 rounded-lg flex flex-col items-center justify-center bg-zinc-50/50">
                                     <p className="text-xs font-medium text-zinc-400">No competency data detected.</p>
                                 </div>
                             )}
@@ -505,11 +479,11 @@ const ProfilePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 }}
-                        className="bg-white border border-zinc-100 rounded-[40px] p-10 shadow-sm relative overflow-hidden group"
+                        className="bg-white border border-zinc-100 rounded-xl p-5 shadow-sm relative overflow-hidden group work-preference"
                     >
-                        <div className="flex items-center justify-between mb-12">
+                        <div className="flex items-center justify-between mb-6">
                             <div>
-                                <h3 className="text-2xl font-bold text-zinc-900 tracking-tight">Work Preference</h3>
+                                <h3 className="text-lg font-semibold text-zinc-900 tracking-tight">Work Preference</h3>
                                 <p className="text-[10px] font-black text-zinc-300 mt-2 uppercase tracking-[0.4em]">How do you prefer to work?</p>
                             </div>
                             <div className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest ${
@@ -532,41 +506,68 @@ const ProfilePage = () => {
                                     type="button"
                                     disabled={!editMode}
                                     onClick={() => setWorkPreference(pref.id)}
-                                    className={`flex items-center gap-3 px-6 py-4 rounded-[20px] transition-all duration-500 border font-bold text-[11px] uppercase tracking-widest ${
+                                    className={`flex items-center gap-3 px-6 py-4 card transition-all duration-500 border font-bold text-[11px] uppercase tracking-widest ${
                                         workPreference === pref.id
                                             ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
                                             : 'bg-white text-zinc-400 border-zinc-100 hover:border-zinc-300'
-                                    } ${!editMode ? 'cursor-default opacity-80' : 'hover:text-zinc-900'}`}
+                                    } ${!editMode ? 'cursor-default opacity-80' : 'hover:text-zinc-900'} ${pref.id === WORK_PREFERENCES.HYBRID && workPreference === pref.id ? 'hybrid-btn' : ''}`}
                                 >
-                                    <div className={`w-2.5 h-2.5 rounded-full ${pref.color}`} />
+                                    <div className={`w-2.5 h-2.5 rounded-full ${pref.id === WORK_PREFERENCES.HYBRID && workPreference === pref.id ? 'bg-[#F6F3ED]' : pref.color}`} />
                                     {pref.label}
                                 </button>
                             ))}
                         </div>
                     </motion.div>
+</div>
+                </div>
+
+                {/* Right Column: Questionnaire (Skills & Interests) */}
+                <div className="lg:col-span-2 space-y-4">
+                    <AnimatePresence mode="wait">
+                        {message && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                className="bg-black text-white p-5 rounded-lg flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-widest shadow-2xl border-2 border-white"
+                            >
+                                <CheckCircle size={18} /> {message}
+                            </motion.div>
+                        )}
+                        {error && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                className="bg-white text-black p-5 rounded-lg flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-widest shadow-2xl border-4 border-black"
+                            >
+                                <AlertCircle size={18} /> {error}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                     {/* Professional Experience Section */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.18 }}
-                        className="bg-white border border-zinc-100 rounded-[40px] p-10 shadow-sm"
+                        className="bg-white border border-zinc-100 rounded-xl p-5 shadow-sm"
                     >
-                        <header className="flex items-center justify-between mb-12">
+                        <header className="flex items-center justify-between mb-6">
                             <div>
-                                <h3 className="text-2xl font-bold text-black tracking-tight">Professional History</h3>
+                                <h3 className="text-base font-semibold text-black tracking-tight">Professional History</h3>
                                 <p className="text-[10px] font-black text-zinc-300 mt-2 uppercase tracking-[0.4em]">Your past and current experience</p>
                             </div>
                         </header>
 
-                        <div className="space-y-10">
+                        <div className="space-y-4">
                             <div>
                                 <label className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em] block mb-4 ml-1">Total Tenure</label>
                                 {editMode ? (
                                     <select
                                         value={experience}
                                         onChange={(e) => setExperience(e.target.value)}
-                                        className="w-full bg-zinc-50 border border-zinc-100 rounded-2xl px-6 py-5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none appearance-none cursor-pointer"
+                                        className="w-full bg-zinc-50 border border-zinc-100 rounded-lg px-4 py-2.5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none appearance-none cursor-pointer"
                                     >
                                         <option value="" disabled>Select Tenure</option>
                                         {EXPERIENCE_LEVELS.map(exp => (
@@ -578,19 +579,19 @@ const ProfilePage = () => {
                                         <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-white">
                                             <Activity size={18} />
                                         </div>
-                                        <p className="text-xl font-bold text-black">{experience || 'Not Specified'}</p>
+                                        <p className="text-lg font-semibold text-black">{experience || 'Not Specified'}</p>
                                     </div>
                                 )}
                             </div>
 
-                            <div className="p-8 bg-zinc-50/50 rounded-[32px] border border-zinc-100 space-y-8">
+                            <div className="p-8 bg-zinc-50/50 rounded-xl border border-zinc-100 space-y-4">
                                 <div>
                                     <label className="text-[9px] font-black text-zinc-300 uppercase tracking-[0.4em] block mb-4 ml-1">Last / Current Position</label>
                                     {editMode ? (
                                         <select
                                             value={workExperiencePosition}
                                             onChange={(e) => setWorkExperiencePosition(e.target.value)}
-                                            className="w-full bg-white border border-zinc-100 rounded-2xl px-6 py-5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none appearance-none cursor-pointer"
+                                            className="w-full bg-white border border-zinc-100 rounded-lg px-4 py-2.5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none appearance-none cursor-pointer"
                                         >
                                             <option value="" disabled>Select Role</option>
                                             {JOB_TITLES.map(title => (
@@ -613,7 +614,7 @@ const ProfilePage = () => {
                                             type="text"
                                             value={customPosition}
                                             onChange={(e) => setCustomPosition(e.target.value)}
-                                            className="w-full bg-zinc-50 border border-zinc-100 rounded-2xl px-6 py-5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none"
+                                            className="w-full bg-zinc-50 border border-zinc-100 rounded-lg px-4 py-2.5 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-black/5 transition-all outline-none"
                                             placeholder="Enter your specific job title..."
                                         />
                                     </motion.div>
@@ -625,7 +626,7 @@ const ProfilePage = () => {
                                         <textarea
                                             value={workExperienceDescription}
                                             onChange={(e) => setWorkExperienceDescription(e.target.value)}
-                                            className="w-full bg-white border border-zinc-100 rounded-2xl px-6 py-5 font-semibold text-xs focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none min-h-[120px] resize-none"
+                                            className="w-full bg-white border border-zinc-100 rounded-lg px-4 py-2.5 font-semibold text-xs focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none min-h-[120px] resize-none"
                                             placeholder="Outline your impact and achievements..."
                                         />
                                     ) : (
@@ -643,20 +644,20 @@ const ProfilePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="bg-white border border-zinc-100 rounded-[40px] p-10 shadow-sm"
+                        className="bg-white border border-zinc-100 rounded-xl p-5 shadow-sm"
                     >
-                        <h3 className="text-2xl font-bold text-black tracking-tight mb-2">Career Goals</h3>
-                        <p className="text-[10px] font-black text-zinc-300 mb-12 uppercase tracking-[0.4em]">Define your ideal professional journey</p>
+                        <h3 className="text-base font-semibold text-black tracking-tight mb-2">Career Goals</h3>
+                        <p className="text-[10px] font-black text-zinc-300 mb-6 uppercase tracking-[0.4em]">Define your ideal professional journey</p>
 
                         {editMode ? (
                             <textarea
                                 value={interests}
                                 onChange={(e) => setInterests(e.target.value)}
-                                className="w-full bg-zinc-50 border border-zinc-100 rounded-[32px] p-8 font-semibold text-sm focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none min-h-[180px] resize-none"
+                                className="w-full bg-zinc-50 border border-zinc-100 rounded-xl p-8 font-semibold text-sm focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none min-h-[140px] resize-none"
                                 placeholder="Where do you see your career heading?"
                             />
                         ) : (
-                            <div className="bg-zinc-50/30 rounded-[32px] p-10 border border-dashed border-zinc-200">
+                            <div className="bg-zinc-50/30 rounded-xl p-10 border border-dashed border-zinc-200">
                                 {interests ? (
                                     <p className="text-slate-600 text-base leading-relaxed font-medium">{interests}</p>
                                 ) : (
@@ -673,13 +674,13 @@ const ProfilePage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.25 }}
-                        className="bg-white border border-zinc-100 rounded-[40px] p-10 shadow-sm"
+                        className="bg-white border border-zinc-100 rounded-xl p-5 shadow-sm"
                     >
-                        <h3 className="text-2xl font-bold text-black tracking-tight mb-2">Future Roles</h3>
-                        <p className="text-[10px] font-black text-zinc-300 mb-12 uppercase tracking-[0.4em]">Select the roles you are aiming for</p>
+                        <h3 className="text-base font-semibold text-black tracking-tight mb-2">Future Roles</h3>
+                        <p className="text-[10px] font-black text-zinc-300 mb-6 uppercase tracking-[0.4em]">Select the roles you are aiming for</p>
 
                         {editMode ? (
-                            <div className="space-y-10">
+                            <div className="space-y-4">
                                 {/* Custom Job Role Input */}
                                 <div className="flex gap-3">
                                     <input
@@ -687,13 +688,13 @@ const ProfilePage = () => {
                                         value={newAspiration}
                                         onChange={(e) => setNewAspiration(e.target.value)}
                                         onKeyPress={(e) => e.key === 'Enter' && handleAddAspiration()}
-                                        className="flex-1 bg-zinc-50 border border-zinc-100 rounded-2xl px-6 py-4 font-semibold text-sm focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none"
+                                        className="flex-1 bg-zinc-50 border border-zinc-100 rounded-lg px-6 py-4 font-semibold text-sm focus:bg-white focus:ring-4 focus:ring-zinc-900/5 transition-all outline-none"
                                         placeholder="Type custom role (e.g. Lead Quant, Prompt Engineer)"
                                     />
                                     <button
                                         onClick={handleAddAspiration}
                                         disabled={aspirations.length >= 5}
-                                        className="w-14 h-14 bg-zinc-900 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+                                        className="w-12 h-12 bg-zinc-900 text-white rounded-lg flex items-center justify-center shadow-lg shadow-zinc-900/10 hover:bg-zinc-800 transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
                                     >
                                         <Plus size={24} />
                                     </button>
@@ -755,7 +756,7 @@ const ProfilePage = () => {
                                         </span>
                                     ))
                                 ) : (
-                                    <div className="w-full py-6 border border-dashed border-zinc-200 rounded-2xl flex items-center justify-center bg-zinc-50/50">
+                                    <div className="w-full py-6 border border-dashed border-zinc-200 rounded-lg flex items-center justify-center bg-zinc-50/50">
                                         <p className="text-xs font-medium text-zinc-300">No Aspirations Selected.</p>
                                     </div>
                                 )}
@@ -776,16 +777,16 @@ const ProfilePage = () => {
                         </div>
 
                         <div className="relative z-10">
-                            <h3 className="text-2xl font-bold tracking-tight mb-10 flex items-center gap-3">
+                            <h3 className="text-lg font-semibold tracking-tight mb-6 flex items-center gap-3">
                                 <FileText size={24} className="text-zinc-500" /> Your Resume
                             </h3>
 
-                            <div className="flex flex-col md:flex-row items-center gap-10">
-                                <div className={`w-28 h-28 rounded-full flex items-center justify-center border-4 transition-all duration-700 ${profile?.resume_text ? 'bg-emerald-50 border-white shadow-[0_0_40px_rgba(16,185,129,0.1)]' : 'bg-zinc-50 border-white'}`}>
+                            <div className="flex flex-col md:flex-row items-center gap-4">
+                                <div className={`w-16 h-16 rounded-full flex items-center justify-center border-4 transition-all duration-700 ${profile?.resume_text ? 'bg-emerald-50 border-white shadow-[0_0_40px_rgba(16,185,129,0.1)]' : 'bg-zinc-50 border-white'}`}>
                                     <CheckCircle size={40} className={profile?.resume_text ? "text-emerald-500" : "text-zinc-200"} />
                                 </div>
                                 <div className="text-center md:text-left flex-1">
-                                    <p className="font-bold text-2xl text-black tracking-tight mb-3">
+                                    <p className="font-bold text-lg text-black tracking-tight mb-3">
                                         {profile?.resume_text ? "Resume Uploaded" : "No Resume Found"}
                                     </p>
                                     <p className="text-[10px] font-black text-zinc-400 uppercase tracking-widest leading-relaxed max-w-sm">
@@ -794,7 +795,7 @@ const ProfilePage = () => {
                                             : "Upload your resume to start matching with relevant jobs."}
                                     </p>
                                 </div>
-                                <label className="cursor-pointer bg-black text-white px-10 py-5 rounded-full font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-3 group shadow-2xl shadow-black/20 hover:scale-105 active:scale-95 breathing-pulse">
+                                <label className="cursor-pointer bg-black text-white px-4 py-2 rounded-full font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-3 group shadow-2xl shadow-black/20 hover:scale-105 active:scale-95 breathing-pulse">
                                     <input
                                         type="file"
                                         className="hidden"
@@ -815,12 +816,12 @@ const ProfilePage = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 20 }}
-                                className="mt-12 flex justify-center pb-20"
+                                className="mt-8 flex justify-center pb-20"
                             >
                                 <button
                                     onClick={handleSave}
                                     disabled={saving}
-                                    className="w-full md:w-auto px-16 py-6 bg-zinc-900 text-white rounded-[32px] font-bold text-sm uppercase tracking-widest hover:bg-zinc-800 transition-all flex items-center justify-center gap-4 shadow-2xl shadow-zinc-900/20 active:scale-95 disabled:opacity-50"
+                                    className="w-full md:w-auto px-8 py-3 bg-zinc-900 text-white rounded-xl font-bold text-sm uppercase tracking-widest hover:bg-zinc-800 transition-all flex items-center justify-center gap-4 shadow-2xl shadow-zinc-900/20 active:scale-95 disabled:opacity-50"
                                 >
                                     {saving ? <RefreshCw size={20} className="animate-spin" /> : <Save size={20} />}
                                     {saving ? 'Synchronizing...' : 'Save Profile Changes'}

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Newspaper, ArrowRight, Zap, TrendingUp, Calendar, BookOpen } from 'lucide-react';
+import { ArrowRight, TrendingUp, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useBlogPosts } from '../../hooks/useBlogPosts';
 
@@ -13,95 +13,110 @@ const MOCK_FALLBACKS = [
     },
     {
         id: 'f2',
-        title: "Landing a Dream Job at swiggy",
-        summary: "Insider tips on cracking the swiggy interview from our community members.",
+        title: "Landing a Dream Job at Swiggy",
+        summary: "Insider tips on cracking the Swiggy interview from our community members.",
         published_at: new Date().toISOString(),
         category: "Career"
+    },
+    {
+        id: 'f3',
+        title: "How Skill Signals Are Changing Hiring",
+        summary: "Why verified work, interview readiness, and sharper matching are becoming the new baseline.",
+        published_at: new Date().toISOString(),
+        category: "Hiring"
     }
 ];
 
 export function BlogHighlights() {
-    const { posts, loading } = useBlogPosts(3);
-    
-    // Use real posts if available, otherwise fallbacks
-    const displayPosts = posts?.length > 0 ? posts.slice(0, 2) : MOCK_FALLBACKS;
+    const { posts } = useBlogPosts(3);
+    const displayPosts = posts?.length > 0 ? posts.slice(0, 3) : MOCK_FALLBACKS;
 
     return (
-        <section className="py-24 px-6 md:px-12 lg:px-20 bg-white border-t-2 border-black">
+        <section className="py-28 px-6 md:px-12 lg:px-20 border-t border-[#313851]/[0.07] bg-[#F6F3ED]">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col lg:flex-row gap-12">
-                    {/* Main Blogs Card */}
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="lg:w-1/3 bg-black text-white p-10 rounded-[40px] shadow-2xl flex flex-col justify-between relative overflow-hidden group"
-                    >
-                        <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-all group-hover:scale-110">
-                            <Newspaper size={120} />
-                        </div>
-                        
-                        <div className="relative z-10">
-                            <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-8 border border-white/20">
-                                <Zap className="text-yellow-400 w-6 h-6" />
-                            </div>
-                            <h2 className="text-4xl font-black uppercase italic tracking-tighter mb-6 leading-none">
-                                Market <br /> Intelligence
-                            </h2>
-                            <p className="text-white/60 font-medium uppercase tracking-widest text-xs leading-loose mb-10">
-                                Decrypting the high-growth ecosystems of 2026. Real data, zero noise.
-                            </p>
-                        </div>
-
-                        <Link to="/blogs" className="relative z-10">
-                            <button className="w-full bg-white text-black py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] flex items-center justify-center gap-3 hover:bg-gray-100 transition-colors">
-                                Explore Blogs <ArrowRight size={16} />
-                            </button>
-                        </Link>
-                    </motion.div>
-
-                    {/* Blog Posts Grid */}
-                    <div className="lg:w-2/3">
-                        <div className="mb-10 flex items-center justify-between">
-                            <h3 className="text-2xl font-black uppercase tracking-tighter italic">Latest Signals</h3>
-                            <div className="h-1 flex-1 mx-8 bg-black/5" />
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {displayPosts.map((post, idx) => (
-                                <motion.div
-                                    key={post.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    className="p-8 rounded-[32px] border-2 border-black hover:shadow-[12px_12px_0px_#000] transition-all bg-white group flex flex-col h-full"
-                                >
-                                    <div className="flex items-center gap-3 mb-6 text-[9px] font-black uppercase tracking-[0.2em] text-black/40">
-                                        <TrendingUp size={12} className="text-black" />
-                                        <span>{post.category || post.domain || 'Analysis'}</span>
-                                        <span className="opacity-20">•</span>
-                                        <Calendar size={12} />
-                                        <span>{new Date(post.created_at).toLocaleDateString()}</span>
-                                    </div>
-                                    
-                                    <h4 className="text-xl font-black uppercase tracking-tight mb-4 group-hover:italic transition-all flex-1">
-                                        {post.title}
-                                    </h4>
-                                    
-                                    <p className="text-sm font-medium text-black/60 mb-8 line-clamp-3 uppercase tracking-wide">
-                                        {post.summary || post.abstract || (post.content ? post.content.substring(0, 150) + "..." : "Full signal decryption available for verified operators.")}
-                                    </p>
-
-                                    <Link to={`/blogs/${post.slug || post.id}`}>
-                                        <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-2 transition-transform">
-                                            Read Full Signal <ArrowRight size={14} />
-                                        </button>
-                                    </Link>
-                                </motion.div>
-                            ))}
-                        </div>
+                {/* Header */}
+                <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                    <div className="max-w-2xl">
+                        <p className="text-[#313851]/65 text-xs font-bold uppercase tracking-[0.2em] mb-4">Market Intelligence</p>
+                        <h2
+                            className="font-medium leading-tight tracking-tight text-[#313851]"
+                            style={{
+                                fontFamily: "'Inter', system-ui, sans-serif",
+                                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                            }}
+                        >
+                            Latest Signals
+                        </h2>
+                        <p
+                            className="mt-4 max-w-xl font-medium leading-8 text-[#313851]/85"
+                            style={{ fontSize: '1rem' }}
+                        >
+                            Clear hiring trends, company insights, and career moves for candidates who want a sharper edge.
+                        </p>
                     </div>
+                    <Link
+                        to="/blogs"
+                        className="inline-flex items-center justify-center gap-3 rounded-lg border border-[#313851]/14 bg-[#313851]/[0.06] px-5 py-3 text-sm font-bold text-[#313851] shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#313851]/30 hover:bg-[#313851]/[0.12]"
+                    >
+                        Explore Blogs <ArrowRight size={16} />
+                    </Link>
+                </div>
+
+                {/* Equal-height clean white cards grid */}
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3 items-stretch">
+                    {displayPosts.map((post, idx) => (
+                        <motion.article
+                            key={post.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                            className="group flex flex-col p-8 rounded-2xl border border-[#313851]/[0.14] bg-[#313851]/[0.03] backdrop-blur-xl hover:border-[#313851]/30 transition-all duration-300 shadow-sm"
+                            style={{ minHeight: '320px' }}
+                        >
+                            {/* Meta */}
+                            <div className="mb-5 flex flex-wrap items-center gap-3 text-[#313851]/65" style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+                                <span className="inline-flex items-center gap-1.5">
+                                    <TrendingUp size={12} className="text-[#313851]" />
+                                    {post.category || post.domain || 'Analysis'}
+                                </span>
+                                <span style={{ width: '3px', height: '3px', borderRadius: '50%', backgroundColor: 'rgba(49, 56, 81, 0.3)', display: 'inline-block' }} />
+                                <span className="inline-flex items-center gap-1.5">
+                                    <Calendar size={12} />
+                                    {new Date(post.created_at || post.published_at).toLocaleDateString()}
+                                </span>
+                            </div>
+
+                            {/* Title */}
+                            <h3
+                                className="mb-4 font-medium leading-snug tracking-tight text-[#313851]"
+                                style={{
+                                    fontFamily: "'Inter', system-ui, sans-serif",
+                                    fontSize: '1.1rem',
+                                }}
+                            >
+                                {post.title}
+                            </h3>
+
+                            {/* Summary */}
+                            <p
+                                className="flex-1 font-medium leading-7 line-clamp-4 text-[#313851]/85"
+                                style={{ fontSize: '0.9rem' }}
+                            >
+                                {post.summary || post.abstract || (post.content ? post.content.substring(0, 150) + "..." : "Full signal decryption available for verified operators.")}
+                            </p>
+
+                            {/* CTA */}
+                            <Link to={`/blogs/${post.slug || post.id}`} className="mt-6">
+                                <span
+                                    className="inline-flex items-center gap-2 font-bold transition-transform duration-300 group-hover:translate-x-1 text-[#313851]"
+                                    style={{ fontSize: '0.875rem' }}
+                                >
+                                    Read full signal <ArrowRight size={15} />
+                                </span>
+                            </Link>
+                        </motion.article>
+                    ))}
                 </div>
             </div>
         </section>

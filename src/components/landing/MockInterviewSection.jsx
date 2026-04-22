@@ -6,65 +6,109 @@ const FeatureCard = ({ icon: Icon, title, description, delay }) => (
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay }}
-        className="bg-white p-8 rounded-[32px] border-2 border-black hover:shadow-[12px_12px_0px_#000] transition-all group"
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
+        className="group flex flex-col p-8 rounded-2xl border border-[#C2CBD3]/10 bg-[#F6F3ED]/[0.03] backdrop-blur-xl hover:border-[#C2CBD3]/30 transition-all duration-300"
+        style={{ minHeight: '240px' }}
     >
-        <div className="w-14 h-14 bg-black rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <Icon className="text-white w-7 h-7" />
+        {/* Icon box */}
+        <div
+            className="mb-8 flex h-14 w-14 items-center justify-center rounded-xl border border-[#C2CBD3]/20 bg-[#F6F3ED]/5 transition-all duration-500 group-hover:bg-[#C2CBD3] group-hover:border-[#C2CBD3]"
+        >
+            <Icon
+                className="h-6 w-6 text-[#C2CBD3] transition-colors duration-500 group-hover:text-[#313851]"
+            />
         </div>
-        <h3 className="text-xl font-black uppercase tracking-tight mb-3 italic">{title}</h3>
-        <p className="text-sm font-medium text-black/60 leading-relaxed uppercase tracking-wider">{description}</p>
+
+        {/* Title */}
+        <h3
+            className="mb-3 font-medium leading-snug tracking-tight text-[#F6F3ED]"
+            style={{
+                fontFamily: "'Inter', system-ui, sans-serif",
+                fontSize: '1.1rem',
+            }}
+        >
+            {title}
+        </h3>
+
+        {/* Description */}
+        <p
+            className="font-medium leading-7 text-[#F6F3ED]/85"
+            style={{ fontSize: '0.9rem' }}
+        >
+            {description}
+        </p>
     </motion.div>
 );
 
 export function MockInterviewSection() {
     return (
-        <section className="py-32 px-6 md:px-12 lg:px-20 bg-[#f9f9f9] overflow-hidden relative">
-            {/* Background elements */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-black/5 rounded-full blur-3xl -mr-48 -mt-48" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-black/5 rounded-full blur-3xl -ml-48 -mb-48" />
-
+        <section className="py-24 px-6 md:px-12 lg:px-20 overflow-hidden relative bg-[#313851]">
             <div className="max-w-7xl mx-auto relative z-10">
                 <div className="flex flex-col lg:flex-row items-center gap-20">
+
+                    {/* Left — Intro copy */}
                     <div className="lg:w-1/2">
                         <motion.div
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7 }}
+                            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                         >
-                            <div className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.25em] mb-8">
-                                <Sparkles size={12} className="text-yellow-400" />
+                            {/* Badge */}
+                            <div
+                                className="mb-8 inline-flex items-center gap-2 rounded-full border border-[#F6F3ED]/20 bg-[#F6F3ED]/10 px-4 py-2"
+                                style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#F6F3ED' }}
+                            >
+                                <Sparkles size={12} className="text-[#C2CBD3]" />
                                 <span>Next-Gen Preparation</span>
                             </div>
 
-                            <h2 className="text-5xl md:text-7xl font-black text-black leading-[1.1] uppercase tracking-tight mb-8 italic pr-4">
-                                Master Your <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-black to-gray-500">
-                                    Mock Interview
-                                </span>
+                            {/* Heading */}
+                            <h2
+                                className="mb-8 pr-4 font-medium leading-tight tracking-tight text-[#F6F3ED]"
+                                style={{
+                                    fontFamily: "'Inter', system-ui, sans-serif",
+                                    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                                }}
+                            >
+                                Master Your<br />
+                                <span className="text-[#F6F3ED]/30">Mock Interview</span>
                             </h2>
 
-                            <p className="text-xl font-medium text-black/80 mb-10 leading-relaxed max-w-lg">
+                            {/* Body */}
+                            <p
+                                className="font-medium leading-9 max-w-lg mb-10 text-[#F6F3ED]/85"
+                                style={{ fontSize: '1.1rem' }}
+                            >
                                 Experience a simulation so real, you'll forget it's AI. We've synthesized the collective
                                 wisdom of top industry professionals into a single, cohesive training partner.
                             </p>
 
-                            <div className="p-8 bg-black text-white rounded-[40px] shadow-2xl relative overflow-hidden group">
-                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <MessageSquare size={64} />
+                            {/* Dark quote panel */}
+                            <div
+                                className="group relative overflow-hidden rounded-xl p-8 border border-[#C2CBD3]/20 bg-[#F6F3ED]/[0.03] backdrop-blur-xl"
+                            >
+                                <div className="absolute top-0 right-0 p-4 opacity-5 transition-opacity group-hover:opacity-10">
+                                    <MessageSquare size={64} className="text-[#C2CBD3]" />
                                 </div>
-                                <h3 className="text-2xl font-black uppercase italic mb-4 flex items-center gap-3">
-                                    <Bot className="text-white" />
+                                <h3
+                                    className="mb-4 flex items-center gap-3 font-medium tracking-tight text-[#F6F3ED]"
+                                    style={{
+                                        fontFamily: "'Inter', system-ui, sans-serif",
+                                        fontSize: '1.25rem',
+                                    }}
+                                >
+                                    <Bot className="text-[#C2CBD3]" />
                                     The Core Message
                                 </h3>
-                                <p className="text-lg font-medium tracking-wide leading-relaxed opacity-90 italic">
+                                <p className="font-medium leading-8 text-[#F6F3ED]/85" style={{ fontSize: '1.05rem' }}>
                                     "Real insights are used from the people of the company and AI is used to present it."
                                 </p>
                             </div>
                         </motion.div>
                     </div>
 
+                    {/* Right — 4-card grid */}
                     <div className="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <FeatureCard
                             icon={Users}

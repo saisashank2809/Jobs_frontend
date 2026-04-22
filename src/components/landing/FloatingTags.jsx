@@ -1,14 +1,6 @@
 import { useEffect, useRef, useCallback } from "react";
 
-const TAG_LABELS = [
-    "Infosys", "TCS", "Wipro", "Reliance", "Google",
-    "Microsoft", "Amazon", "Apple", "Flipkart", "Zoho",
-    "Freshworks", "Razorpay", "CRED", "Swiggy", "Zomato",
-    "PhonePe", "Paytm", "Bangalore", "Mumbai", "Hyderabad",
-    "Pune", "Delhi NCR", "Chennai", "San Francisco",
-    "New York", "London", "Singapore", "Dubai", "Berlin",
-    "Tokyo", "Toronto",
-];
+const TAG_LABELS = ["CRED", "Pune", "Amazon", "Bangalore"];
 
 function randomBetween(min, max) {
     return Math.random() * (max - min) + min;
@@ -16,43 +8,51 @@ function randomBetween(min, max) {
 
 function createTag(id, width, height, minY) {
     const index = id % TAG_LABELS.length;
-    const isCompany = index < 17;
-    const sizes = ["sm", "md", "lg"];
-    const bvx = randomBetween(-0.6, 0.6) || 0.3;
-    const bvy = randomBetween(-0.6, 0.6) || 0.3;
+    const isCompany = index % 2 === 0;
+    const side = id % 2 === 0 ? "left" : "right";
+    const tagWidth = 92;
+    const centerGap = Math.min(width * 0.72, 980);
+    const centerLeft = (width - centerGap) / 2;
+    const centerRight = centerLeft + centerGap;
+    const edgePadding = 28;
+    const leftMax = Math.max(edgePadding, centerLeft - tagWidth - 18);
+    const rightMin = Math.min(width - tagWidth - edgePadding, centerRight + 18);
+    const safeBottom = Math.max(minY + 100, height - 220);
+    const bvx = randomBetween(-0.12, 0.12) || 0.08;
+    const bvy = randomBetween(-0.1, 0.1) || 0.06;
 
     return {
         id,
         label: TAG_LABELS[index],
-        x: randomBetween(50, width - 200),
-        y: randomBetween(minY, height - 50),
+        x: side === "left"
+            ? randomBetween(edgePadding, leftMax)
+            : randomBetween(rightMin, width - tagWidth - edgePadding),
+        y: randomBetween(minY, safeBottom),
         vx: bvx,
         vy: bvy,
         baseVx: bvx,
         baseVy: bvy,
+        side,
         variant: isCompany ? "filled" : "outlined",
-        size: sizes[Math.floor(Math.random() * sizes.length)],
-        opacity: isCompany ? randomBetween(0.8, 1) : randomBetween(0.4, 0.8),
+        size: "sm",
+        opacity: isCompany ? randomBetween(0.62, 0.76) : randomBetween(0.46, 0.62),
         el: null,
     };
 }
 
 const sizeClasses = {
-    sm: "text-xs px-3 py-1.5",
-    md: "text-sm px-4 py-2",
-    lg: "text-base px-5 py-2.5",
+    sm: "text-[11px] px-3 py-1.5",
+    md: "text-xs px-3.5 py-2",
 };
 
 const variantClasses = {
     filled:
-        "bg-black text-white shadow-md hover:bg-primary hover:text-primary-foreground hover:ring-2 hover:ring-black/30 hover:shadow-lg hover:scale-105",
+        "bg-[#313851] text-[#F6F3ED] shadow-[0_12px_32px_-24px_rgba(49,56,81,0.4)]",
     outlined:
-        "bg-transparent border border-black/20 text-black/70 hover:bg-black hover:text-white hover:border-black hover:ring-2 hover:ring-black/20 hover:scale-105",
-    ghost:
-        "bg-black/5 text-black/50 hover:bg-black hover:text-white hover:ring-2 hover:ring-black/20 hover:shadow-lg hover:scale-105",
+        "bg-[#F6F3ED]/80 border border-[#C2CBD3] text-[#313851]/85 shadow-[0_12px_32px_-26px_rgba(49,56,81,0.3)] backdrop-blur-sm",
 };
 
-export function FloatingTags({ tagCount = 28, className, minY = 250 }) {
+export function FloatingTags({ tagCount = 8, className, minY = 120 }) {
     const containerRef = useRef(null);
     const tagsRef = useRef([]);
     const animationRef = useRef(0);
@@ -86,7 +86,7 @@ export function FloatingTags({ tagCount = 28, className, minY = 250 }) {
         const fragment = document.createDocumentFragment();
         tagsRef.current.forEach((tag) => {
             const el = document.createElement("div");
-            el.className = `absolute rounded-md font-medium whitespace-nowrap select-none cursor-pointer transition-colors transition-shadow duration-200 ${sizeClasses[tag.size]} ${variantClasses[tag.variant]}`;
+            el.className = `absolute rounded-md font-medium whitespace-nowrap select-none transition-colors transition-shadow duration-200 ${sizeClasses[tag.size]} ${variantClasses[tag.variant]}`;
             el.textContent = tag.label;
             el.style.opacity = String(tag.opacity);
             el.style.willChange = "transform";
@@ -102,6 +102,14 @@ export function FloatingTags({ tagCount = 28, className, minY = 250 }) {
         const animate = () => {
             const { width: w, height: h } = container.getBoundingClientRect();
             const mouse = mouseRef.current;
+            const tagWidth = 92;
+            const centerGap = Math.min(w * 0.72, 980);
+            const centerLeft = (w - centerGap) / 2;
+            const centerRight = centerLeft + centerGap;
+            const edgePadding = 28;
+            const leftMax = Math.max(edgePadding, centerLeft - tagWidth - 18);
+            const rightMin = Math.min(w - tagWidth - edgePadding, centerRight + 18);
+            const safeBottom = Math.max(minY + 100, h - 220);
 
             for (const tag of tagsRef.current) {
                 let targetVx = tag.baseVx;
@@ -111,11 +119,11 @@ export function FloatingTags({ tagCount = 28, className, minY = 250 }) {
                     const dx = tag.x - mouse.x;
                     const dy = tag.y - mouse.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    const influence = Math.max(0, 1 - dist / 400);
+                    const influence = Math.max(0, 1 - dist / 280);
 
                     if (dist > 0) {
-                        targetVx += (dx / dist) * influence * 3.5;
-                        targetVy += (dy / dist) * influence * 3.5;
+                        targetVx += (dx / dist) * influence * 1.4;
+                        targetVy += (dy / dist) * influence * 1.4;
                     }
                 }
 
@@ -125,13 +133,16 @@ export function FloatingTags({ tagCount = 28, className, minY = 250 }) {
                 tag.x += tag.vx;
                 tag.y += tag.vy;
 
-                if (tag.x <= 0 || tag.x >= w - 150) {
+                const minX = tag.side === "left" ? edgePadding : rightMin;
+                const maxX = tag.side === "left" ? leftMax : w - tagWidth - edgePadding;
+
+                if (tag.x <= minX || tag.x >= maxX) {
                     tag.baseVx = -tag.baseVx;
-                    tag.x = Math.max(0, Math.min(tag.x, w - 150));
+                    tag.x = Math.max(minX, Math.min(tag.x, maxX));
                 }
-                if (tag.y <= minY || tag.y >= h - 40) {
+                if (tag.y <= minY || tag.y >= safeBottom) {
                     tag.baseVy = -tag.baseVy;
-                    tag.y = Math.max(minY, Math.min(tag.y, h - 40));
+                    tag.y = Math.max(minY, Math.min(tag.y, safeBottom));
                 }
 
                 if (tag.el) {
@@ -155,7 +166,7 @@ export function FloatingTags({ tagCount = 28, className, minY = 250 }) {
     return (
         <div
             ref={containerRef}
-            className={`absolute inset-0 overflow-hidden pointer-events-auto ${className ?? ""}`}
+            className={`absolute inset-0 overflow-hidden pointer-events-none ${className ?? ""}`}
         />
     );
 }

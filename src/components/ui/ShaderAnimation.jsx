@@ -13,7 +13,6 @@ import * as THREE from "three"
 export function ShaderAnimation() {
   const containerRef = useRef(null)
   const sceneRef = useRef(null)
-  const mouseRef = useRef(new THREE.Vector2(0.5, 0.5))
   const isVisibleRef = useRef(false)
 
   // Intersection Observer to stop rendering when not in view
@@ -47,13 +46,11 @@ export function ShaderAnimation() {
       precision highp float;
       uniform vec2 resolution;
       uniform float time;
-      uniform vec2 mouse;
-      varying vec2 vUv;
-
       void main(void) {
         vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
-        vec2 m = (mouse * 2.0 - 1.0) * (resolution.xy / min(resolution.x, resolution.y));
         
+        // Fixed origin for non-reactive liquid effect
+        vec2 m = vec2(0.0);
         float d = distance(uv, m);
         float ripple = sin(d * 10.0 - time * 2.0);
         float distortionStrength = exp(-d * 4.0) * 0.12; 
@@ -88,8 +85,7 @@ export function ShaderAnimation() {
 
     const uniforms = {
       time: { type: "f", value: 1.0 },
-      resolution: { type: "v2", value: new THREE.Vector2() },
-      mouse: { type: "v2", value: mouseRef.current }
+      resolution: { type: "v2", value: new THREE.Vector2() }
     }
 
     const material = new THREE.ShaderMaterial({
@@ -112,11 +108,6 @@ export function ShaderAnimation() {
 
     container.appendChild(renderer.domElement)
 
-    const onMouseMove = (event) => {
-      const rect = container.getBoundingClientRect()
-      mouseRef.current.x = (event.clientX - rect.left) / rect.width
-      mouseRef.current.y = 1.0 - (event.clientY - rect.top) / rect.height
-    }
 
     const onWindowResize = () => {
       const width = container.clientWidth
@@ -128,12 +119,10 @@ export function ShaderAnimation() {
 
     onWindowResize()
     window.addEventListener("resize", onWindowResize, false)
-    window.addEventListener("mousemove", onMouseMove, false);
 
     const animate = () => {
       if (isVisibleRef.current) {
         uniforms.time.value += 0.03
-        uniforms.mouse.value.copy(mouseRef.current)
         renderer.render(scene, camera)
       }
       animationId = requestAnimationFrame(animate)
@@ -151,7 +140,6 @@ export function ShaderAnimation() {
 
     return () => {
       window.removeEventListener("resize", onWindowResize)
-      window.removeEventListener("mousemove", onMouseMove)
 
       if (sceneRef.current) {
         cancelAnimationFrame(animationId)
@@ -172,6 +160,7 @@ export function ShaderAnimation() {
       style={{
         background: "#000",
         overflow: "hidden",
+        pointerEvents: "none"
       }}
     />
   )

@@ -213,19 +213,19 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-6 bg-[#FBFBFB] overflow-hidden">
-            <div className="w-full max-w-2xl mt-10 mb-20">
+        <div className="min-h-screen flex items-center justify-center p-4 bg-[#FBFBFB] overflow-hidden">
+            <div className="w-full max-w-2xl my-auto">
                 {/* Refined Progress Indicator */}
-                <div className="mb-14 flex items-center justify-center gap-6">
+                <div className="mb-6 flex items-center justify-center gap-4">
                     {Array.from({ length: maxSteps }, (_, i) => i + 1).map(i => (
-                        <div key={i} className="flex items-center gap-6">
-                            <div className={`w-12 h-12 rounded-[20px] flex items-center justify-center text-[11px] font-bold transition-all duration-700 border ${
+                        <div key={i} className="flex items-center gap-4">
+                            <div className={`w-10 h-10 card flex items-center justify-center text-[10px] font-bold transition-all duration-700 border ${
                                 step >= i ? 'bg-zinc-900 text-white border-zinc-900 shadow-lg shadow-zinc-900/10' : 'bg-white text-zinc-300 border-zinc-100'
                             }`}>
-                                {step > i ? <Check size={18} strokeWidth={3} /> : i}
+                                {step > i ? <Check size={16} strokeWidth={3} /> : i}
                             </div>
                             {i < maxSteps && (
-                                <div className={`w-12 h-[1px] transition-all duration-1000 ${
+                                <div className={`w-8 h-[1px] transition-all duration-1000 ${
                                     step > i ? 'bg-zinc-900' : 'bg-zinc-100'
                                 }`} />
                             )}
@@ -238,7 +238,7 @@ const RegisterPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="bg-white rounded-[48px] border border-zinc-100 p-10 md:p-16 shadow-xl shadow-zinc-900/5"
+                    className="bg-white card border border-zinc-100 p-6 md:p-8 shadow-xl shadow-zinc-900/5"
                 >
                     <AnimatePresence mode="wait" custom={step}>
                         {step === 1 && (
@@ -250,23 +250,23 @@ const RegisterPage = () => {
                                 animate="center"
                                 exit="exit"
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                                className="space-y-10"
+                                className="space-y-6"
                             >
-                                <div className="text-center mb-12">
-                                    <h2 className="text-4xl font-sans font-bold text-zinc-900 tracking-tight">Your Basics</h2>
+                                <div className="text-center mb-6">
+                                    <h2 className="text-3xl font-sans font-bold text-zinc-900 tracking-tight">Your Basics</h2>
                                     <p className="text-[10px] font-bold text-zinc-400 mt-4 uppercase tracking-[0.3em]">Step 01 · Credentials</p>
                                 </div>
 
                                 {/* Role Selector */}
                                 <div>
-                                    <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-5 ml-1">Register As</label>
-                                    <div className="grid grid-cols-2 gap-4 bg-zinc-50/50 border border-zinc-100 p-2 rounded-[24px]">
+                                    <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-3 ml-1">Register As</label>
+                                    <div className="grid grid-cols-2 gap-3 bg-zinc-50/50 border border-zinc-100 p-1.5 card">
                                         {[ROLES.SEEKER, ROLES.PROVIDER].map(r => (
                                             <button
                                                 key={r}
                                                 type="button"
                                                 onClick={() => handleRoleChange(r)}
-                                                className={`py-4 rounded-[18px] text-[10px] font-bold uppercase tracking-widest transition-all duration-300 ${role === r
+                                                className={`py-3 rounded-[16px] text-[10px] font-bold uppercase tracking-widest transition-all duration-300 ${role === r
                                                     ? 'bg-zinc-900 text-white shadow-lg shadow-zinc-900/10 scale-[1.02]'
                                                     : 'text-zinc-400 hover:bg-white hover:text-zinc-900'
                                                 }`}
@@ -277,14 +277,14 @@ const RegisterPage = () => {
                                     </div>
                                 </div>
 
-                                <div className="space-y-6">
+                                <div className="space-y-4">
                                     <div className="relative group">
                                         <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-300 group-focus-within:text-zinc-900 transition-colors" size={18} />
                                         <input
                                             type="email"
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="you@example.com"
                                         />
                                     </div>
@@ -294,7 +294,7 @@ const RegisterPage = () => {
                                             type="password"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Create Password (8+ chars)"
                                         />
                                     </div>
@@ -304,7 +304,7 @@ const RegisterPage = () => {
                                             type="password"
                                             value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Confirm Password"
                                         />
                                     </div>
@@ -321,17 +321,17 @@ const RegisterPage = () => {
                                 animate="center"
                                 exit="exit"
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                                className="space-y-10"
+                                className="space-y-6"
                             >
-                                <div className="text-center mb-12">
-                                    <h2 className="text-4xl font-sans font-bold text-zinc-900 tracking-tight">Your Profile</h2>
+                                <div className="text-center mb-6">
+                                    <h2 className="text-3xl font-sans font-bold text-zinc-900 tracking-tight">Your Profile</h2>
                                     <p className="text-[10px] font-bold text-zinc-400 mt-4 uppercase tracking-[0.3em]">Step 02 · Details</p>
                                 </div>
 
                                 {/* Avatar Upload Section */}
-                                <div className="flex flex-col items-center gap-6 mb-12">
+                                <div className="flex flex-col items-center gap-4 mb-6">
                                     <div className="relative group/avatar">
-                                        <div className="w-28 h-28 rounded-full bg-zinc-50 border-4 border-white shadow-xl overflow-hidden flex items-center justify-center ring-4 ring-zinc-50/50 relative">
+                                        <div className="w-20 h-20 rounded-full bg-zinc-50 border-4 border-white shadow-xl overflow-hidden flex items-center justify-center ring-4 ring-zinc-50/50 relative">
                                             {avatarPreview ? (
                                                 <img src={avatarPreview} alt="Preview" className="w-full h-full object-cover" />
                                             ) : (
@@ -364,14 +364,14 @@ const RegisterPage = () => {
                                     </div>
                                 </div>
 
-                                <div className="space-y-6">
+                                <div className="space-y-4">
                                     <div className="relative group">
                                         <User className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-300 group-focus-within:text-zinc-900 transition-colors" size={18} />
                                         <input
                                             type="text"
                                             value={fullName}
                                             onChange={(e) => setFullName(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Full Name"
                                         />
                                     </div>
@@ -381,7 +381,7 @@ const RegisterPage = () => {
                                             type="tel"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="+91 Phone Number"
                                         />
                                     </div>
@@ -391,7 +391,7 @@ const RegisterPage = () => {
                                             type="text"
                                             value={location}
                                             onChange={(e) => setLocation(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Location (City, Country)"
                                         />
                                     </div>
@@ -401,7 +401,7 @@ const RegisterPage = () => {
                                             type="date"
                                             value={dob}
                                             onChange={(e) => setDob(e.target.value)}
-                                            className="w-full pl-16 pr-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="w-full pl-16 pr-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             required
                                         />
                                     </div>
@@ -418,14 +418,14 @@ const RegisterPage = () => {
                                 animate="center"
                                 exit="exit"
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                                className="space-y-10"
+                                className="space-y-6"
                             >
-                                <div className="text-center mb-12">
-                                    <h2 className="text-4xl font-sans font-bold text-zinc-900 tracking-tight">Your Skills</h2>
+                                <div className="text-center mb-6">
+                                    <h2 className="text-3xl font-sans font-bold text-zinc-900 tracking-tight">Your Skills</h2>
                                     <p className="text-[10px] font-bold text-zinc-400 mt-4 uppercase tracking-[0.3em]">Step 03 · Background</p>
                                 </div>
 
-                                <div className="space-y-6">
+                                <div className="space-y-4">
                                     <div className="flex items-center justify-between mb-2">
                                         <label className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] ml-1">Skills</label>
                                         <label className="cursor-pointer group flex items-center gap-2">
@@ -449,13 +449,13 @@ const RegisterPage = () => {
                                             value={newSkill}
                                             onChange={(e) => setNewSkill(e.target.value)}
                                             onKeyPress={(e) => e.key === 'Enter' && handleAddSkill(e)}
-                                            className="flex-1 px-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-xs focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                            className="flex-1 px-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-xs focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                             placeholder="Add a skill..."
                                         />
                                         <button
                                             type="button"
                                             onClick={handleAddSkill}
-                                            className="w-16 bg-zinc-900 text-white rounded-[22px] flex items-center justify-center hover:bg-zinc-800 transition-all shadow-lg shadow-zinc-900/10"
+                                            className="w-16 bg-zinc-900 text-white card flex items-center justify-center hover:bg-zinc-800 transition-all shadow-lg shadow-zinc-900/10"
                                         >
                                             <Plus size={20} />
                                         </button>
@@ -487,7 +487,7 @@ const RegisterPage = () => {
                                     <textarea
                                         value={interests}
                                         onChange={(e) => setInterests(e.target.value)}
-                                        className="w-full px-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-xs placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all h-36 resize-none"
+                                        className="w-full px-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-xs placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all h-24 resize-none"
                                         placeholder="Outline your professional trajectory and core interests..."
                                     />
                                 </div>
@@ -503,21 +503,21 @@ const RegisterPage = () => {
                                 animate="center"
                                 exit="exit"
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                                className="space-y-10"
+                                className="space-y-6"
                             >
-                                <div className="text-center mb-12">
-                                    <h2 className="text-4xl font-sans font-bold text-zinc-900 tracking-tight">Experience</h2>
+                                <div className="text-center mb-6">
+                                    <h2 className="text-3xl font-sans font-bold text-zinc-900 tracking-tight">Experience</h2>
                                     <p className="text-[10px] font-bold text-zinc-400 mt-4 uppercase tracking-[0.3em]">Step 04 · Professional History</p>
                                 </div>
 
-                                <div className="space-y-8">
+                                <div className="space-y-5">
                                     {/* Total Experience Dropdown */}
                                     <div>
                                         <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-1">Total Experience</label>
                                         <select
                                             value={experience}
                                             onChange={(e) => setExperience(e.target.value)}
-                                            className="w-full px-6 py-5 bg-zinc-50/50 border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
+                                            className="w-full px-6 py-3 bg-zinc-50/50 border border-zinc-100 card text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
                                         >
                                             <option value="" disabled>Select Tenure</option>
                                             {EXPERIENCE_LEVELS.map(exp => (
@@ -527,13 +527,13 @@ const RegisterPage = () => {
                                     </div>
 
                                     {/* Work Experience Section */}
-                                    <div className="p-8 bg-zinc-50/50 border border-zinc-100 rounded-[32px] space-y-6">
+                                    <div className="p-5 bg-zinc-50/50 border border-zinc-100 card space-y-4">
                                         <div>
                                             <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-1">Last / Current Position</label>
                                             <select
                                                 value={workExperiencePosition}
                                                 onChange={(e) => setWorkExperiencePosition(e.target.value)}
-                                                className="w-full px-6 py-5 bg-white border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
+                                                className="w-full px-6 py-3 bg-white border border-zinc-100 card text-zinc-900 font-semibold text-sm focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all appearance-none cursor-pointer"
                                             >
                                                 <option value="" disabled>Select Role</option>
                                                 {JOB_TITLES.map(title => (
@@ -553,7 +553,7 @@ const RegisterPage = () => {
                                                     type="text"
                                                     value={customPosition}
                                                     onChange={(e) => setCustomPosition(e.target.value)}
-                                                    className="w-full px-6 py-5 bg-white border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                                    className="w-full px-6 py-3 bg-white border border-zinc-100 card text-zinc-900 font-semibold text-sm placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
                                                     placeholder="Enter your job title..."
                                                 />
                                             </motion.div>
@@ -564,7 +564,7 @@ const RegisterPage = () => {
                                             <textarea
                                                 value={workExperienceDescription}
                                                 onChange={(e) => setWorkExperienceDescription(e.target.value)}
-                                                className="w-full px-6 py-5 bg-white border border-zinc-100 rounded-[22px] text-zinc-900 font-semibold text-xs placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all h-32 resize-none"
+                                                className="w-full px-6 py-3 bg-white border border-zinc-100 card text-zinc-900 font-semibold text-xs placeholder:text-zinc-300 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all h-20 resize-none"
                                                 placeholder="Describe your responsibilities and achievements..."
                                             />
                                         </div>
@@ -597,10 +597,10 @@ const RegisterPage = () => {
                                 animate="center"
                                 exit="exit"
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                                className="space-y-10"
+                                className="space-y-6"
                             >
-                                <div className="text-center mb-12">
-                                    <h2 className="text-4xl font-sans font-bold text-zinc-900 tracking-tight">Your Goals</h2>
+                                <div className="text-center mb-6">
+                                    <h2 className="text-3xl font-sans font-bold text-zinc-900 tracking-tight">Your Goals</h2>
                                     <p className="text-[10px] font-bold text-zinc-400 mt-4 uppercase tracking-[0.3em]">Step 05 · Career Targets</p>
                                 </div>
 
@@ -620,7 +620,7 @@ const RegisterPage = () => {
                                                             setAspirations([...aspirations, roleName]);
                                                         }
                                                     }}
-                                                    className={`px-5 py-3.5 border rounded-[18px] font-bold text-[10px] uppercase tracking-widest transition-all duration-300 ${
+                                                    className={`px-5 py-2.5 border card font-bold text-[10px] uppercase tracking-widest transition-all duration-300 ${
                                                         isSelected 
                                                         ? 'bg-zinc-900 text-white border-zinc-900 shadow-lg shadow-zinc-900/10 scale-[1.02]' 
                                                         : 'bg-white text-zinc-500 border-zinc-100 hover:border-zinc-300 hover:text-zinc-900'
@@ -638,8 +638,8 @@ const RegisterPage = () => {
                                 </div>
 
                                 {/* Work Preference Selector */}
-                                <div className="mt-16 p-10 bg-zinc-50/50 border border-zinc-100 rounded-[40px] relative overflow-hidden group">
-                                    <div className="flex items-center justify-between mb-8">
+                                <div className="mt-8 p-6 bg-zinc-50/50 border border-zinc-100 card relative overflow-hidden group">
+                                    <div className="flex items-center justify-between mb-5">
                                         <div>
                                             <h3 className="text-xl font-bold text-zinc-900 tracking-tight">Work Preference</h3>
                                             <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mt-1">How do you prefer to work?</p>
@@ -659,7 +659,7 @@ const RegisterPage = () => {
                                                 key={pref.id}
                                                 type="button"
                                                 onClick={() => setWorkPreference(pref.id)}
-                                                className={`flex items-center gap-3 px-6 py-4 rounded-[20px] transition-all duration-500 border font-bold text-[11px] uppercase tracking-widest ${
+                                                className={`flex items-center gap-3 px-6 py-3 card transition-all duration-500 border font-bold text-[11px] uppercase tracking-widest ${
                                                     workPreference === pref.id
                                                         ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
                                                         : 'bg-white text-zinc-400 border-zinc-100 hover:border-zinc-300 hover:text-zinc-600'
@@ -679,19 +679,19 @@ const RegisterPage = () => {
                         <motion.p 
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="mt-10 text-[10px] font-bold text-rose-500 bg-rose-50/50 border border-rose-100 p-5 rounded-[20px] uppercase tracking-widest text-center"
+                            className="mt-6 text-[10px] font-bold text-rose-500 bg-rose-50/50 border border-rose-100 p-4 card uppercase tracking-widest text-center"
                         >
                             {error}
                         </motion.p>
                     )}
 
                     {/* Navigation Buttons */}
-                    <div className="flex gap-4 mt-14">
+                    <div className="flex gap-4 mt-8">
                         {step > 1 && (
                             <button
                                 type="button"
                                 onClick={prevStep}
-                                className="flex-1 border border-zinc-100 text-zinc-400 py-5 rounded-[22px] font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                                className="flex-1 border border-zinc-100 text-zinc-400 py-3.5 card font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-50 hover:text-zinc-900 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                             >
                                 <ChevronLeft size={18} /> Back
                             </button>
@@ -701,7 +701,7 @@ const RegisterPage = () => {
                             <button
                                 type="button"
                                 onClick={nextStep}
-                                className="flex-[2] bg-zinc-900 text-white py-5 rounded-[22px] font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-zinc-900/10"
+                                className="flex-[2] bg-zinc-900 text-white py-3.5 card font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-800 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-zinc-900/10"
                             >
                                 Next Phase <ChevronRight size={18} />
                             </button>
@@ -710,7 +710,7 @@ const RegisterPage = () => {
                                 type="button"
                                 onClick={handleSubmit}
                                 disabled={loading}
-                                className="flex-[2] bg-zinc-900 text-white py-5 rounded-[22px] font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-800 active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-lg shadow-zinc-900/10 disabled:opacity-30"
+                                className="flex-[2] bg-zinc-900 text-white py-3.5 card font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-zinc-800 active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-lg shadow-zinc-900/10 disabled:opacity-30"
                             >
                                 {loading ? (
                                     <>
@@ -726,7 +726,7 @@ const RegisterPage = () => {
                     </div>
                 </motion.div>
 
-                <div className="flex flex-col items-center gap-4 mt-12 mb-10">
+                <div className="flex flex-col items-center gap-4 mt-8 mb-4">
                     <p className="text-[10px] font-bold text-zinc-300 uppercase tracking-[0.2em]">
                         Existing network member?
                     </p>

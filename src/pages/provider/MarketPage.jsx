@@ -8,17 +8,17 @@ import { TrendingUp, Users, DollarSign, Briefcase, Globe, Zap, Sparkles } from '
 import Loader from '../../components/ui/Loader';
 import { motion } from 'framer-motion';
 
-// Refined Zinc Palette
-const COLORS = ['#18181b', '#3f3f46', '#71717a', '#a1a1aa', '#d4d4d8'];
+// Professional Palette
+const COLORS = ['#313851', '#C2CBD3', '#F6F3ED'];
 
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-white/80 backdrop-blur-xl border border-zinc-100 shadow-xl rounded-2xl px-4 py-3 text-zinc-900">
-                <p className="text-[10px] font-bold mb-2 uppercase tracking-widest text-zinc-400">{label}</p>
+            <div className="glass-card premium-shadow px-4 py-3" style={{ backgroundColor: 'var(--color-job-card)', borderColor: 'var(--color-accent)' }}>
+                <p className="text-[10px] font-bold mb-2 uppercase tracking-widest" style={{ color: 'var(--color-accent)' }}>{label}</p>
                 {payload.map((entry, index) => (
-                    <p key={index} className="text-xs font-bold flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
+                    <p key={index} className="text-xs font-bold flex items-center gap-2" style={{ color: 'var(--color-primary)' }}>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--color-primary)' }} />
                         {entry.name}: <span className="font-extrabold">{entry.value}</span>
                     </p>
                 ))}
@@ -48,7 +48,7 @@ const MarketPage = () => {
 
     if (loading) return <Loader fullScreen variant="logo" />;
     if (!stats) return (
-        <div className="flex flex-col items-center justify-center py-32 text-center">
+        <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="w-20 h-20 bg-zinc-50 rounded-[32px] grid place-items-center mb-6">
                 <Zap size={32} className="text-zinc-200" />
             </div>
@@ -57,50 +57,43 @@ const MarketPage = () => {
         </div>
     );
 
-    const { total_jobs, top_skills, salary_trends, top_companies, work_styles, experience_levels } = stats;
+    const { total_jobs, top_skills, salary_trends, work_styles, experience_levels } = stats;
 
     return (
-        <div className="min-h-screen">
-            {/* Minimalist Header */}
-            <header className="relative z-10 pt-12 pb-16">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="max-w-4xl"
-                >
-                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white text-zinc-400 text-[11px] font-bold uppercase tracking-[0.2em] mb-10 border border-zinc-100 shadow-sm">
-                        <Sparkles size={12} className="text-zinc-400" />
-                        Market Insights
+        <div className="min-h-screen pt-8 pb-12 px-6 md:px-10 max-w-[1600px] mx-auto bg-[#FBFBFB] overflow-x-hidden">
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16 relative">
+                <div className="w-full">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-transparent text-zinc-500 text-[10px] font-bold uppercase tracking-[0.15em] mb-8 border border-zinc-200">
+                        <span className="text-zinc-400 text-xs">#</span> MARKET INTELLIGENCE
                     </div>
-                    <h1 className="text-7xl md:text-8xl font-sans font-bold mb-8 tracking-tight text-zinc-900">
-                        Analytics
+                    <h1 className="text-5xl md:text-6xl font-sans font-bold mb-4 tracking-tight text-[#1a1a1a]">
+                        Analytics Engine
                     </h1>
-                    <p className="text-zinc-500 text-xl max-w-2xl leading-relaxed font-medium">
+                    <p className="text-zinc-500 max-w-xl text-lg leading-relaxed font-medium">
                         Real-time streaming intelligence from the Ottobon network. Verified opportunities, zero noise.
                     </p>
-                </motion.div>
+                </div>
             </header>
 
-            <main className="space-y-20 pb-32">
+            <main className="space-y-10 pb-20">
                 {/* KPI Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <StatCard icon={<Briefcase size={20} />} label="Total Listings" value={total_jobs} delay={0} />
-                    <StatCard icon={<TrendingUp size={20} />} label="Top Skill" value={top_skills[0]?.name || "N/A"} sub={`${top_skills[0]?.count || 0} listings`} delay={0.05} />
-                    <StatCard icon={<DollarSign size={20} />} label="Salary Peak" value={`$${(salary_trends[0]?.avg_max / 1000).toFixed(0)}k`} sub={salary_trends[0]?.role || "N/A"} delay={0.1} />
+                    <StatCard icon={<TrendingUp size={20} />} label="Top Skill" value={top_skills?.[0]?.name || "N/A"} sub={`${top_skills?.[0]?.count || 0} listings`} delay={0.05} />
+                    <StatCard icon={<DollarSign size={20} />} label="Salary Peak" value={`$${((salary_trends?.[0]?.avg_max || 0) / 1000).toFixed(0)}k`} sub={salary_trends?.[0]?.role || "N/A"} delay={0.1} />
                     <StatCard icon={<Globe size={20} />} label="Remote Presence" value={`${((work_styles?.find(w => w.name === 'Remote')?.value || 0) / total_jobs * 100).toFixed(0)}%`} sub="Global Distribution" delay={0.15} />
                 </div>
 
                 {/* Charts Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Skills Bar Chart */}
                     <ChartCard title="Skill Demand">
                         <ResponsiveContainer width="100%" height={300}>
                             <BarChart data={top_skills} layout="vertical" margin={{ left: 40, right: 20 }}>
                                 <defs>
                                     <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
-                                        <stop offset="0%" stopColor="#18181b" stopOpacity={1} />
-                                        <stop offset="100%" stopColor="#3f3f46" stopOpacity={1} />
+                                        <stop offset="0%" stopColor="#313851" stopOpacity={1} />
+                                        <stop offset="100%" stopColor="#C2CBD3" stopOpacity={1} />
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#e4e4e7" horizontal={false} />
@@ -132,7 +125,12 @@ const MarketPage = () => {
                                     tick={{ fontSize: 10, fill: '#71717a', fontWeight: 600 }}
                                 />
                                 <Tooltip content={<CustomTooltip />} cursor={{ fill: '#000', fillOpacity: 0.02 }} />
-                                <Bar dataKey="avg_max" fill="#18181b" radius={[8, 8, 0, 0]} barSize={24} />
+                                <Bar dataKey="avg_max" radius={[8, 8, 0, 0]} barSize={24}>
+                                    {salary_trends.map((entry, index) => {
+                                        const isPeak = entry.avg_max === Math.max(...salary_trends.map(item => item.avg_max));
+                                        return <Cell key={`cell-${index}`} fill={isPeak ? '#C2CBD3' : '#313851'} />;
+                                    })}
+                                </Bar>
                             </BarChart>
                         </ResponsiveContainer>
                     </ChartCard>
@@ -152,7 +150,7 @@ const MarketPage = () => {
                                         strokeWidth={2}
                                     >
                                         {work_styles?.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} fillOpacity={0.85} />
                                         ))}
                                     </Pie>
                                     <Tooltip content={<CustomTooltip />} />
@@ -168,7 +166,7 @@ const MarketPage = () => {
                                 <PolarGrid stroke="#e4e4e7" />
                                 <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: '#71717a', fontWeight: 600 }} />
                                 <PolarRadiusAxis angle={30} domain={[0, 'auto']} stroke="transparent" tick={false} />
-                                <Radar name="Density" dataKey="A" stroke="#18181b" strokeWidth={2} fill="#18181b" fillOpacity={0.05} />
+                                <Radar name="Density" dataKey="A" stroke="#313851" strokeWidth={2} fill="rgba(194, 203, 211, 0.25)" fillOpacity={1} />
                                 <Tooltip content={<CustomTooltip />} />
                             </RadarChart>
                         </ResponsiveContainer>
@@ -184,18 +182,19 @@ const StatCard = ({ icon, label, value, sub, delay }) => (
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay }}
-        className="bg-white rounded-3xl border border-zinc-100 p-8 shadow-sm hover:shadow-xl hover:shadow-zinc-900/5 transition-all duration-500 overflow-hidden relative group"
+        className="glass-card premium-shadow-sm premium-hover p-5 overflow-hidden relative group"
+        style={{ backgroundColor: 'var(--color-job-card)', borderColor: 'var(--color-accent)' }}
     >
-        <div className="absolute top-0 right-0 w-24 h-24 bg-zinc-50 rounded-bl-[64px] transition-transform duration-500 group-hover:scale-110 -z-0" />
+        <div className="absolute top-0 right-0 w-20 h-20 rounded-bl-[48px] transition-transform duration-500 group-hover:scale-110 -z-0" style={{ backgroundColor: '#F6F3ED', opacity: 0.1 }} />
         
         <div className="relative z-10">
-            <div className="w-12 h-12 bg-white border border-zinc-100 text-zinc-900 rounded-2xl grid place-items-center mb-6 shadow-sm">
+            <div className="w-10 h-10 border rounded-xl grid place-items-center mb-4 transition-colors" style={{ backgroundColor: 'transparent', borderColor: 'var(--color-accent)', color: 'var(--color-primary)' }}>
                 {icon}
             </div>
             <div>
-                <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest mb-1">{label}</p>
-                <h3 className="text-3xl font-bold text-zinc-900 leading-none tracking-tight">{value}</h3>
-                {sub && <p className="text-[11px] font-medium text-zinc-400 mt-3">{sub}</p>}
+                <p className="text-[9px] font-black uppercase tracking-widest mb-1" style={{ color: 'var(--color-accent)' }}>{label}</p>
+                <h3 className="text-xl font-bold leading-none tracking-tight" style={{ color: 'var(--color-primary)' }}>{value}</h3>
+                {sub && <p className="text-[10px] font-medium mt-2" style={{ color: 'var(--color-accent)' }}>{sub}</p>}
             </div>
         </div>
     </motion.div>
@@ -205,9 +204,10 @@ const ChartCard = ({ title, children }) => (
     <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white rounded-[40px] border border-zinc-100 p-10 shadow-sm hover:shadow-xl hover:shadow-zinc-900/5 transition-all duration-500"
+        className="glass-card premium-shadow-sm premium-hover p-5"
+        style={{ backgroundColor: 'var(--color-job-card)', borderColor: 'var(--color-accent)' }}
     >
-        <h3 className="text-[11px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-12 border-b border-zinc-50 pb-4">
+        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] mb-6 border-b pb-3" style={{ color: 'var(--color-accent)', borderColor: 'var(--color-accent)' }}>
             {title}
         </h3>
         {children}

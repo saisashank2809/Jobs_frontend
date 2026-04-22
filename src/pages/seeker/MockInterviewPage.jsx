@@ -91,186 +91,6 @@ const SiriVisualizer = ({ isActive }) => {
     );
 };
 
-/** Evaluation report card */
-const EvalReport = ({ evaluation }) => {
-    if (!evaluation) return null;
-    const {
-        overall_score = 0,
-        strengths = [],
-        areas_for_improvement = [],
-        detailed_feedback = '',
-        recommended_topics_to_review = [],
-        report_markdown = '',
-    } = evaluation;
-
-    const reportRef = useRef(null);
-    const [isDownloading, setIsDownloading] = useState(false);
-
-    const handleDownload = async () => {
-        if (!reportRef.current) return;
-        setIsDownloading(true);
-        try {
-            // Give a tiny delay for any final layout pass if needed (though usually not necessary)
-            const dataUrl = await toJpeg(reportRef.current, {
-                quality: 0.95,
-                backgroundColor: '#ffffff',
-                cacheBust: true,
-                filter: (node) => {
-                    // Filter out the container that has the download button
-                    return node.id !== 'download-action-bar';
-                }
-            });
-            const link = document.createElement('a');
-            link.download = `Match_Analysis_${new Date().toISOString().split('T')[0]}.jpg`;
-            link.href = dataUrl;
-            link.click();
-        } catch (err) {
-            console.error('Analysis export failed:', err);
-        } finally {
-            setIsDownloading(false);
-        }
-    };
-
-    const components = {
-        table: ({ children }) => (
-            <div className="overflow-x-auto my-8 border border-zinc-100 rounded-[24px] bg-white shadow-sm font-sans">
-                <table className="w-full border-collapse">
-                    {children}
-                </table>
-            </div>
-        ),
-        thead: ({ children }) => <thead className="bg-[#FAFAFA] border-b border-zinc-100">{children}</thead>,
-        th: ({ children }) => (
-            <th className="p-4 text-left font-bold text-zinc-400 border-r border-zinc-100 last:border-r-0 uppercase tracking-[0.2em] text-[10px]">
-                {children}
-            </th>
-        ),
-        td: ({ children }) => (
-            <td className="p-4 text-zinc-600 border-r border-zinc-100 last:border-r-0 border-b border-zinc-50 last:border-b-0 text-sm font-medium">
-                {children}
-            </td>
-        ),
-        h1: ({ children }) => <h1 className="text-2xl font-bold text-zinc-900 mb-6 mt-10 first:mt-0">{children}</h1>,
-        h2: ({ children }) => <h2 className="text-xl font-bold text-zinc-900 mb-4 mt-8">{children}</h2>,
-        h3: ({ children }) => <h3 className="text-lg font-bold text-zinc-900 mb-3 mt-6">{children}</h3>,
-        p: ({ children }) => <p className="text-zinc-600 leading-relaxed mb-4 last:mb-0">{children}</p>,
-        ul: ({ children }) => <ul className="space-y-2 mb-6 ml-4">{children}</ul>,
-        li: ({ children }) => (
-            <li className="flex gap-3 text-zinc-600 text-sm font-medium">
-                <div className="w-1.5 h-1.5 bg-zinc-300 rounded-full mt-2 shrink-0" />
-                {children}
-            </li>
-        ),
-    };
-
-    return (
-        <motion.div
-            ref={reportRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-[48px] border border-zinc-100 p-12 shadow-2xl shadow-zinc-900/5 space-y-12 relative overflow-hidden"
-        >
-            {/* Download Action Bar */}
-            <div id="download-action-bar" className="absolute top-8 right-8 z-10">
-                <button
-                    onClick={handleDownload}
-                    disabled={isDownloading}
-                    className="flex items-center gap-2.5 px-6 py-3 bg-zinc-900 text-white rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-xl shadow-zinc-900/20 disabled:opacity-50 active:scale-95 group"
-                >
-                    {isDownloading ? (
-                        <Activity size={14} className="animate-pulse" />
-                    ) : (
-                        <Download size={14} className="group-hover:translate-y-0.5 transition-transform" />
-                    )}
-                    {isDownloading ? 'Capturing...' : 'Download Analysis Report'}
-                </button>
-            </div>
-
-            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] text-zinc-400 flex items-center gap-4">
-                <div className="w-1.5 h-6 bg-zinc-900 rounded-full" /> Performance Summary
-            </h2>
-
-            {/* Score */}
-            <div className="flex flex-col md:flex-row items-center gap-12">
-                <div className="text-8xl font-bold font-sans tracking-tighter text-zinc-900 leading-none">
-                    {overall_score}<span className="text-2xl text-zinc-300 ml-1">%</span>
-                </div>
-                <div className="flex-1 h-3 w-full bg-zinc-50 border border-zinc-100 rounded-full overflow-hidden">
-                    <motion.div
-                        className="h-full bg-zinc-900 rounded-full"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${overall_score}%` }}
-                        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                    />
-                </div>
-            </div>
-
-            {/* Markdown Report (Primary) */}
-            {report_markdown ? (
-                <div className="prose prose-zinc prose-sm md:prose-base max-w-none">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
-                        {report_markdown}
-                    </ReactMarkdown>
-                </div>
-            ) : (
-                <>
-                    {/* Fallback to legacy structure if no markdown */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="p-8 bg-[#FAFAFA] rounded-[32px] border border-zinc-100">
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6 text-zinc-400">Strengths</h3>
-                            <ul className="space-y-4">
-                                {strengths.length > 0 ? (
-                                    strengths.map((s, i) => (
-                                        <li key={i} className="flex gap-3 text-sm font-medium text-zinc-900">
-                                            <CheckCircle size={18} className="shrink-0 mt-0.5 text-zinc-900" /> {s}
-                                        </li>
-                                    ))
-                                ) : (
-                                    <li className="text-sm font-medium text-zinc-300 italic">No metrics detected.</li>
-                                )}
-                            </ul>
-                        </div>
-                        <div className="p-8 bg-[#FAFAFA] rounded-[32px] border border-zinc-100">
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6 text-zinc-400">Areas for Improvement</h3>
-                            <ul className="space-y-4">
-                                {areas_for_improvement.length > 0 ? (
-                                    areas_for_improvement.map((a, i) => (
-                                        <li key={i} className="flex gap-3 text-sm font-medium text-zinc-900">
-                                            <AlertTriangle size={18} className="shrink-0 mt-0.5 text-zinc-400" /> {a}
-                                        </li>
-                                    ))
-                                ) : (
-                                    <li className="text-sm font-medium text-zinc-300 italic">Optimal alignment reached.</li>
-                                )}
-                            </ul>
-                        </div>
-                    </div>
-
-                    {detailed_feedback && (
-                        <div className="p-8 bg-[#FAFAFA] rounded-[32px] border border-zinc-100">
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6 text-zinc-400">Core Evaluation</h3>
-                            <p className="text-base font-medium leading-relaxed text-zinc-600">{detailed_feedback}</p>
-                        </div>
-                    )}
-
-                    {recommended_topics_to_review.length > 0 && (
-                        <div>
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] mb-6 text-zinc-400">Recommended Topics to Review</h3>
-                            <div className="flex flex-wrap gap-3">
-                                {recommended_topics_to_review.map((t, i) => (
-                                    <span key={i} className="px-5 py-3 bg-white border border-zinc-100 rounded-full text-[10px] font-bold text-zinc-900 uppercase tracking-widest shadow-sm">
-                                        {t}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </>
-            )}
-        </motion.div>
-    );
-};
-
 // ── Main Page ─────────────────────────────────────────────────
 const MockInterviewPage = () => {
     const { id } = useParams();
@@ -305,8 +125,8 @@ const MockInterviewPage = () => {
     const [timeLeft, setTimeLeft] = useState(0);
     const [isTimerActive, setIsTimerActive] = useState(false);
     const [isSavingInterview, setIsSavingInterview] = useState(false);
-    const [reviewTicket, setReviewTicket] = useState(null);
     const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
+    const [reviewTicket, setReviewTicket] = useState(null);
     const [showCompletionOptions, setShowCompletionOptions] = useState(false);
 
     // Compute safe session ID (default to 'default_session' if no job ID is in the URL)
@@ -608,18 +428,18 @@ const MockInterviewPage = () => {
     // ── ENTRY SCREEN ──────────────────────────────────────────
     if (step === 'entry') {
         return (
-            <div className="min-h-screen pt-24 pb-32 px-4 md:px-8 bg-[#FBFBFB] flex flex-col items-center justify-center">
+            <div className="min-h-screen py-8 px-4 md:px-6 bg-[#FBFBFB] flex flex-col items-center justify-center">
                 <div className="w-full max-w-2xl">
                     <motion.div
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="mb-12"
+                        className="mb-6"
                     >
                         <Link
                             to={id ? `/jobs/${id}` : '/jobs'}
-                            className="inline-flex items-center gap-3 text-zinc-400 font-bold uppercase text-[11px] tracking-[0.3em] hover:text-zinc-900 transition-colors"
+                            className="inline-flex items-center gap-3 text-zinc-400 font-bold uppercase text-[10px] tracking-[0.3em] hover:text-zinc-900 transition-colors"
                         >
-                            <ArrowLeft size={16} /> Back to Job Details
+                            <ArrowLeft size={14} /> Back
                         </Link>
                     </motion.div>
 
@@ -627,20 +447,20 @@ const MockInterviewPage = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="bg-white rounded-[48px] border border-zinc-100 p-12 shadow-2xl shadow-zinc-900/5"
+                        className="bg-white rounded-2xl border border-zinc-100 p-6 shadow-xl shadow-zinc-900/5"
                     >
                         {/* Header */}
-                        <div className="mb-12">
+                        <div className="mb-6">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center">
                                     <Radio size={20} className="text-white" />
                                 </div>
-                                <h1 className="text-4xl font-bold text-zinc-900 tracking-tight">
+                                <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">
                                     Mock Interview
                                 </h1>
                             </div>
                             {(companyName || jobTitle) && (
-                                <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-zinc-400 mt-4 flex items-center gap-3">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-zinc-400 mt-4 flex items-center gap-3">
                                     <div className="w-8 h-[1px] bg-zinc-100" />
                                     {companyName && `${companyName} • `}{jobTitle}
                                 </p>
@@ -648,18 +468,18 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* Interview Type */}
-                        <div className="mb-10">
+                        <div className="mb-6">
                             <p className="text-[10px] font-bold uppercase tracking-[0.4em] mb-6 text-zinc-300">
                                 01 / SELECT MODE
                             </p>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-3">
                                 {['technical', 'hr'].map((type) => (
                                     <button
                                         key={type}
                                         onClick={() => setInterviewType(type)}
-                                        className={`py-5 rounded-full border transition-all duration-500 font-bold text-[11px] uppercase tracking-widest ${interviewType === type
-                                            ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
-                                            : 'bg-zinc-50 text-zinc-400 border-zinc-100 hover:bg-zinc-100'
+                                        className={`py-3 rounded-xl border transition-all duration-300 font-bold text-[11px] uppercase tracking-widest ${interviewType === type
+                                                ? 'bg-zinc-900 text-white border-zinc-900 shadow-xl shadow-zinc-900/10'
+                                                : 'bg-zinc-50 text-zinc-400 border-zinc-100 premium-tag'
                                             }`}
                                     >
                                         {type === 'technical' ? 'Technical Interview' : 'Behavioral Interview'}
@@ -669,18 +489,18 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* Duration */}
-                        <div className="mb-10">
+                        <div className="mb-6">
                             <p className="text-[10px] font-bold uppercase tracking-[0.4em] mb-6 text-zinc-300">
                                 02 / INTERVIEW DURATION
                             </p>
-                            <div className="grid grid-cols-4 gap-4">
+                            <div className="grid grid-cols-4 gap-3">
                                 {[5, 10, 15, 20].map((d) => (
                                     <button
                                         key={d}
                                         onClick={() => setDuration(d)}
-                                        className={`py-4 rounded-full border transition-all duration-500 font-bold text-[11px] uppercase tracking-widest ${duration === d
-                                            ? 'bg-zinc-900 text-white border-zinc-900 shadow-lg shadow-zinc-900/10'
-                                            : 'bg-zinc-50 text-zinc-400 border-zinc-100 hover:bg-zinc-100'
+                                        className={`py-2.5 rounded-xl border transition-all duration-500 font-bold text-[11px] uppercase tracking-widest ${duration === d
+                                                ? 'bg-zinc-900 text-white border-zinc-900 shadow-lg shadow-zinc-900/10'
+                                                : 'bg-zinc-50 text-zinc-400 border-zinc-100 hover:bg-zinc-100'
                                             }`}
                                     >
                                         {d}m
@@ -690,7 +510,7 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* Proctor Toggle */}
-                        <div className="mb-12 p-6 bg-zinc-50/50 rounded-[32px] border border-zinc-100 flex items-center justify-between">
+                        <div className="mb-6 p-6 bg-zinc-50/50 rounded-2xl border border-zinc-100 flex items-center justify-between">
                             <div>
                                 <p className="font-bold text-xs uppercase tracking-widest text-zinc-900">Enable Proctoring</p>
                                 <p className="text-[10px] font-medium text-zinc-400 uppercase tracking-wide mt-1">
@@ -699,22 +519,22 @@ const MockInterviewPage = () => {
                             </div>
                             <button
                                 onClick={() => setProctorMode((prev) => !prev)}
-                                className={`w-14 h-8 rounded-full border transition-all duration-500 flex items-center ${proctorMode ? 'bg-zinc-900 border-zinc-900' : 'bg-zinc-200 border-zinc-200'
+                                className={`w-12 h-7 rounded-full border transition-all duration-500 flex items-center ${proctorMode ? 'bg-zinc-900 border-zinc-900' : 'bg-zinc-200 border-zinc-200'
                                     }`}
                             >
                                 <div
-                                    className={`w-5 h-5 bg-white rounded-full mx-1 transition-transform duration-500 ${proctorMode ? 'translate-x-[26px]' : ''
+                                    className={`w-5 h-5 bg-white rounded-full mx-1 transition-transform duration-500 ${proctorMode ? 'translate-x-[20px]' : ''
                                         }`}
                                 />
                             </button>
                         </div>
 
                         {/* Resume Status */}
-                        <div className="mb-12">
+                        <div className="mb-6">
                             <p className="text-[10px] font-bold uppercase tracking-[0.4em] mb-6 text-zinc-300">
                                 03 / RESUME CONTEXT
                             </p>
-                            <div className={`p-8 rounded-[32px] border transition-all duration-500 ${hasResume ? 'border-zinc-100 bg-[#FAFAFA]' : 'border-red-100 bg-red-50/50'
+                            <div className={`p-6 rounded-2xl border transition-all duration-500 ${hasResume ? 'border-zinc-100 bg-[#FAFAFA]' : 'border-red-100 bg-red-50/50'
                                 }`}>
                                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                                     <div className="flex items-center gap-4">
@@ -758,7 +578,7 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* Advisory */}
-                        <div className="mb-12 p-6 bg-zinc-50 border border-zinc-100 rounded-[32px]">
+                        <div className="mb-6 p-6 bg-zinc-50 border border-zinc-100 rounded-2xl">
                             <p className="text-[11px] font-medium text-zinc-400 uppercase tracking-widest leading-relaxed flex items-center gap-3">
                                 <Zap size={16} className="text-zinc-900 shrink-0" />
                                 Optimal results require a silent environment and high-fidelity audio input.
@@ -795,14 +615,14 @@ const MockInterviewPage = () => {
     // ── INTERVIEW SCREEN ──────────────────────────────────────
     return (
         <>
-            <div className="min-h-screen pt-24 pb-32 px-4 md:px-8 bg-[#FBFBFB]">
-                <div className="max-w-7xl mx-auto space-y-12">
+            <div className="min-h-screen pt-8 pb-12 px-6 md:px-10 bg-[#FBFBFB]">
+                <div className="max-w-[1600px] mx-auto space-y-8">
                     {/* Top bar */}
-                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-12 border-b border-zinc-100">
+                    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b border-zinc-100">
                         <div className="flex items-center gap-6">
                             <SiriVisualizer isActive={isSpeaking} />
                             <div>
-                                <h1 className="text-3xl font-bold text-zinc-900 tracking-tight">
+                                <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">
                                     Practice Interview
                                 </h1>
                                 {(companyName || jobTitle) && (
@@ -829,9 +649,9 @@ const MockInterviewPage = () => {
                             <button
                                 onClick={() => setIsMuted((prev) => !prev)}
                                 disabled={!isActive}
-                                className={`flex items-center gap-2.5 px-6 py-3.5 rounded-full border font-bold text-[10px] uppercase tracking-widest transition-all disabled:opacity-30 ${isMuted
-                                    ? 'bg-zinc-900 text-white border-zinc-900'
-                                    : 'bg-white text-zinc-900 border-zinc-100 hover:border-zinc-900'
+                                className={`premium-tag flex items-center gap-2.5 px-6 py-3.5 rounded-full border font-bold text-[10px] uppercase tracking-widest transition-all disabled:opacity-30 ${isMuted
+                                        ? 'bg-zinc-900 text-white border-zinc-900'
+                                        : 'bg-white text-zinc-900 border-zinc-100 hover:border-zinc-900'
                                     }`}
                             >
                                 {isMuted ? <MicOff size={16} /> : <Mic size={16} />}
@@ -863,7 +683,7 @@ const MockInterviewPage = () => {
 
                     {/* Error Banner */}
                     {errorMsg && (
-                        <div className="p-5 bg-red-50 border border-red-100 rounded-[32px] flex items-center gap-3">
+                        <div className="p-5 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3">
                             <AlertTriangle size={18} className="text-red-500" />
                             <p className="text-red-600 font-bold text-xs uppercase tracking-widest">{errorMsg}</p>
                         </div>
@@ -899,18 +719,18 @@ const MockInterviewPage = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col sm:flex-row items-center gap-4 min-w-[400px]">
+                                    <div className="flex flex-col sm:flex-row items-center gap-6 min-w-[360px]">
                                         <button
                                             onClick={handleFinalSubmit}
-                                            className="flex-1 w-full py-5 bg-zinc-900 text-white rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-xl shadow-zinc-900/20 active:scale-95"
+                                            className="flex-1 w-full py-4 bg-zinc-900 text-white rounded-full font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-zinc-800 transition-all shadow-xl shadow-zinc-900/10 active:scale-95"
                                         >
-                                            Submit for Expert Review
+                                            Submit
                                         </button>
                                         <button
                                             onClick={handleFinalCancel}
-                                            className="flex-1 w-full py-5 bg-white text-zinc-400 border border-zinc-100 rounded-full font-bold text-[11px] uppercase tracking-widest hover:border-zinc-900 hover:text-zinc-900 transition-all active:scale-95"
+                                            className="flex-1 w-full py-4 bg-white text-zinc-400 border border-zinc-100 rounded-full font-bold text-[11px] uppercase tracking-[0.2em] hover:border-zinc-900 hover:text-zinc-900 transition-all active:scale-95"
                                         >
-                                            Discard Session
+                                            Discard
                                         </button>
                                     </div>
                                 </div>
@@ -942,10 +762,10 @@ const MockInterviewPage = () => {
                     )}
 
                     {/* Transcript + Response panels */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Participant Transcript */}
-                        <div className="bg-white rounded-[40px] border border-zinc-100 p-10 shadow-2xl shadow-zinc-900/5">
-                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] mb-8 flex items-center gap-4 pb-6 border-b border-zinc-100 text-zinc-400">
+                        <div className="bg-white rounded-2xl border border-zinc-100 p-8 shadow-2xl shadow-zinc-900/5">
+                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] mb-6 flex items-center gap-4 pb-6 border-b border-zinc-100 text-zinc-400">
                                 <User size={18} className="text-zinc-300" /> Participant Signal
                             </h2>
                             <div
@@ -972,8 +792,8 @@ const MockInterviewPage = () => {
                         </div>
 
                         {/* AI Response */}
-                        <div className="bg-white rounded-[40px] border border-zinc-100 p-10 shadow-2xl shadow-zinc-900/5">
-                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] mb-8 flex items-center gap-4 pb-6 border-b border-zinc-100 text-zinc-400">
+                        <div className="bg-white rounded-2xl border border-zinc-100 p-8 shadow-2xl shadow-zinc-900/5">
+                            <h2 className="text-[11px] font-bold uppercase tracking-[0.4em] mb-6 flex items-center gap-4 pb-6 border-b border-zinc-100 text-zinc-400">
                                 <Bot size={18} className="text-zinc-300" /> AI Interviewer
                             </h2>
                             <div
@@ -1015,21 +835,21 @@ const MockInterviewPage = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex flex-col items-center justify-center text-center p-12 bg-white/80 backdrop-blur-2xl"
+                        className="fixed inset-0 z-50 flex flex-col items-center justify-center text-center p-8 bg-white/80 backdrop-blur-2xl"
                     >
-                        <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-10">
+                        <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mb-6">
                             <AlertTriangle size={40} className="text-red-500" />
                         </div>
                         <h2 className="text-zinc-900 text-4xl font-bold tracking-tight mb-6">
                             Focus Interrupted
                         </h2>
-                        <p className="text-zinc-500 text-base max-w-md mb-10 font-medium leading-relaxed">
+                        <p className="text-zinc-500 text-base max-w-md mb-6 font-medium leading-relaxed">
                             Sim session requires absolute cognitive focus. This interruption has been logged in the performance matrix.
                         </p>
-                        <div className="flex items-center gap-4 mb-12">
+                        <div className="flex items-center gap-4 mb-6">
                             <div className="px-6 py-4 bg-zinc-50 rounded-3xl border border-zinc-100">
                                 <p className="text-[10px] font-bold text-zinc-300 uppercase tracking-widest mb-1">Total Violations</p>
-                                <p className="text-3xl font-bold text-zinc-900">{violationCount}</p>
+                                <p className="text-2xl font-bold text-zinc-900">{violationCount}</p>
                             </div>
                         </div>
                         <button

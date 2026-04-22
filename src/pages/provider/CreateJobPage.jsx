@@ -37,28 +37,26 @@ const CreateJobPage = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto py-12 px-8">
-            <header className="mb-12 flex flex-col items-center text-center">
-                <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-zinc-100 text-zinc-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6 border border-zinc-200"
-                >
-                    <Sparkles size={12} className="text-zinc-400" />
-                    Signal Injection
-                </motion.div>
-                <h1 className="text-4xl md:text-5xl font-sans font-bold tracking-tight text-zinc-900 mb-4">
-                    Publish Requirement
-                </h1>
-                <p className="text-xs font-medium text-zinc-400 uppercase tracking-[0.3em]">
-                    Transmit new job parameters to the network
-                </p>
+        <div className="max-w-[1600px] mx-auto pt-8 pb-12 px-6 md:px-10 bg-[#FBFBFB] min-h-screen">
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16 relative">
+                <div className="w-full">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-transparent text-zinc-500 text-[10px] font-bold uppercase tracking-[0.15em] mb-8 border border-zinc-200">
+                        <span className="text-zinc-400 text-xs">#</span> PUBLISH REQUIREMENT
+                    </div>
+                    <h1 className="text-5xl md:text-6xl font-sans font-bold mb-4 tracking-tight text-[#1a1a1a]">
+                        Signal Injection
+                    </h1>
+                    <p className="text-zinc-500 max-w-xl text-lg leading-relaxed font-medium">
+                        Transmit new job parameters to the network and attract top-tier talent.
+                    </p>
+                </div>
             </header>
 
             <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white/80 backdrop-blur-xl rounded-[48px] border border-zinc-100 p-12 shadow-2xl shadow-zinc-900/5"
+                className="glass-card premium-shadow-lg p-8 md:p-12"
+                style={{ backgroundColor: 'var(--color-job-card)', borderColor: 'var(--color-accent)' }}
             >
                 <form onSubmit={handleSubmit} className="space-y-12">
                     {error && (
@@ -67,9 +65,9 @@ const CreateJobPage = () => {
                         </div>
                     )}
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="md:col-span-2">
-                            <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-4">
+                            <label className="block text-xs font-bold uppercase tracking-[0.2em] mb-4 ml-4" style={{ color: 'var(--color-primary)' }}>
                                 Requirement Title
                             </label>
                             <input
@@ -77,13 +75,14 @@ const CreateJobPage = () => {
                                 required
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                className="w-full bg-zinc-50/50 border border-zinc-100 rounded-[28px] px-8 py-6 text-zinc-900 font-bold text-sm placeholder:text-zinc-200 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                className="w-full bg-transparent border rounded-2xl px-8 py-6 font-bold text-sm focus:outline-none transition-all"
+                                style={{ borderColor: 'var(--color-accent)', color: 'var(--color-primary)' }}
                                 placeholder="Systems Architect / Product Lead"
                             />
                         </div>
 
                         <div className="md:col-span-2">
-                            <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-4">
+                            <label className="block text-xs font-bold uppercase tracking-[0.2em] mb-4 ml-4" style={{ color: 'var(--color-primary)' }}>
                                 Strategic Description
                             </label>
                             <textarea
@@ -91,25 +90,27 @@ const CreateJobPage = () => {
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 rows={10}
-                                className="w-full bg-zinc-50/50 border border-zinc-100 rounded-[32px] px-8 py-8 text-zinc-700 font-medium text-sm placeholder:text-zinc-200 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all leading-relaxed"
+                                className="w-full bg-transparent border rounded-2xl px-8 py-8 font-medium text-sm focus:outline-none transition-all leading-relaxed"
+                                style={{ borderColor: 'var(--color-accent)', color: 'var(--color-primary)' }}
                                 placeholder="Define the primary mission and technical scope..."
                             />
                             <div className="flex justify-between items-center mt-4 px-4">
-                                <p className="text-[9px] font-bold text-zinc-300 flex items-center gap-2 uppercase tracking-widest">
-                                    <Info size={14} className="text-zinc-200" /> Min_Char: 20
+                                <p className="text-[10px] font-bold flex items-center gap-2 uppercase tracking-widest" style={{ color: 'var(--color-accent)' }}>
+                                    <Info size={14} /> Min_Char: 20
                                 </p>
                             </div>
                         </div>
 
                         <div className="md:col-span-2">
-                            <label className="block text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4 ml-4">
+                            <label className="block text-xs font-bold uppercase tracking-[0.2em] mb-4 ml-4" style={{ color: 'var(--color-primary)' }}>
                                 Required Scalars (Skills)
                             </label>
                             <input
                                 type="text"
                                 value={skillsInput}
                                 onChange={(e) => setSkillsInput(e.target.value)}
-                                className="w-full bg-zinc-50/50 border border-zinc-100 rounded-[28px] px-8 py-6 text-zinc-900 font-bold text-sm placeholder:text-zinc-200 focus:outline-none focus:ring-4 focus:ring-zinc-900/5 transition-all"
+                                className="w-full bg-transparent border rounded-2xl px-8 py-6 font-bold text-sm focus:outline-none transition-all"
+                                style={{ borderColor: 'var(--color-accent)', color: 'var(--color-primary)' }}
                                 placeholder="Node.js, React, Strategy (Comma Separated)"
                             />
                         </div>
@@ -119,18 +120,16 @@ const CreateJobPage = () => {
                         <motion.button
                             type="submit"
                             disabled={loading}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="w-full md:w-auto px-16 py-6 bg-zinc-900 text-white rounded-[24px] font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-black transition-all flex items-center justify-center gap-4 shadow-xl shadow-zinc-900/20 disabled:opacity-20"
+                            className="hero-cta hero-cta-primary w-full md:w-auto px-16 py-6 font-bold text-[11px] uppercase tracking-[0.3em] disabled:opacity-50"
                         >
                             {loading ? (
                                 <>
-                                    <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                                    <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin mr-3" />
                                     Transmitting...
                                 </>
                             ) : (
                                 <>
-                                    <Briefcase size={20} />
+                                    <Briefcase size={20} className="mr-3" />
                                     Publish Requirement
                                 </>
                             )}

@@ -15,7 +15,8 @@ export const Tabs = ({ children, defaultValue }) => {
 export const TabsList = ({ children, className }) => {
     return (
         <div
-            className={clsx('bg-white border-2 border-black p-1.5 rounded-2xl flex gap-1 shadow-[4px_4px_0px_rgba(0,0,0,0.05)]', className)}
+            className={clsx('border-2 p-1.5 rounded-2xl flex gap-1 shadow-[4px_4px_0px_rgba(49,56,81,0.05)]', className)}
+            style={{ backgroundColor: 'var(--bg-surface-solid)', borderColor: 'var(--color-accent)' }}
         >
             {children}
         </div>
@@ -32,10 +33,14 @@ export const TabsTrigger = ({ children, value, className }) => {
             className={clsx(
                 'flex-1 py-3 px-6 rounded-xl font-display font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-300 active:scale-[0.98]',
                 isActive
-                    ? 'bg-black text-white shadow-lg'
-                    : 'text-black/40 hover:text-black hover:bg-black/5',
+                    ? 'text-white shadow-lg'
+                    : 'hover:opacity-80',
                 className
             )}
+            style={{
+                backgroundColor: isActive ? 'var(--color-primary)' : 'transparent',
+                color: isActive ? 'var(--color-on-primary)' : 'var(--color-accent)'
+            }}
         >
             {children}
         </button>

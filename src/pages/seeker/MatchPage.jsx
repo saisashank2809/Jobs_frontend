@@ -153,8 +153,8 @@ const MatchPage = () => {
     if (missingResume) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#FBFBFB]">
-                <motion.div {...fadeUp} className="max-w-xl w-full bg-white rounded-[40px] border border-zinc-100 p-16 text-center shadow-xl shadow-zinc-900/5">
-                    <div className="w-20 h-20 bg-zinc-900 rounded-[30px] mx-auto mb-10 grid place-items-center shadow-2xl shadow-zinc-900/20">
+                <motion.div {...fadeUp} className="max-w-xl w-full bg-white card border border-zinc-100 p-8 text-center shadow-xl shadow-zinc-900/5">
+                    <div className="w-20 h-20 bg-zinc-900 card mx-auto mb-10 grid place-items-center shadow-2xl shadow-zinc-900/20">
                         <Upload size={32} className="text-white" />
                     </div>
                     <h1 className="text-4xl font-sans font-bold text-zinc-900 mb-4 tracking-tight">Identity Offline</h1>
@@ -162,7 +162,7 @@ const MatchPage = () => {
                         Inject a resume object to initialize the analysis protocol.
                     </p>
                     <label className="block w-full cursor-pointer group">
-                        <div className="bg-zinc-50 border border-dashed border-zinc-200 rounded-[32px] p-20 group-hover:bg-zinc-900 group-hover:border-zinc-900 transition-all duration-500">
+                        <div className="bg-zinc-50 border border-dashed border-zinc-200 card p-20 group-hover:bg-zinc-900 group-hover:border-zinc-900 transition-all duration-500">
                             <span className="text-zinc-600 font-bold group-hover:text-white transition-colors">Select PDF / DOCX</span>
                         </div>
                         <input type="file" className="hidden" accept=".pdf,.docx" onChange={handleFileUpload} disabled={uploading} />
@@ -183,8 +183,8 @@ const MatchPage = () => {
     if (error) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#FBFBFB]">
-                <motion.div {...fadeUp} className="max-w-xl w-full bg-white rounded-[40px] border border-zinc-100 p-16 text-center shadow-xl shadow-zinc-900/5">
-                    <div className="w-20 h-20 bg-zinc-900 rounded-[30px] mx-auto mb-10 grid place-items-center shadow-2xl shadow-zinc-900/20">
+                <motion.div {...fadeUp} className="max-w-xl w-full bg-white card border border-zinc-100 p-8 text-center shadow-xl shadow-zinc-900/5">
+                    <div className="w-20 h-20 bg-zinc-900 card mx-auto mb-10 grid place-items-center shadow-2xl shadow-zinc-900/20">
                         <RefreshCw size={32} className="text-white" />
                     </div>
                     <h1 className="text-4xl font-sans font-bold text-zinc-900 mb-4 tracking-tight">Signal Interrupted</h1>
@@ -211,16 +211,16 @@ const MatchPage = () => {
     const scoreColor = isHighMatch ? '#000000' : '#404040';
 
     return (
-        <div className="min-h-screen pt-24 pb-32 px-8 md:px-12 bg-[#FBFBFB]">
-            <div className="max-w-7xl mx-auto">
+        <div className="min-h-screen pt-8 pb-12 px-6 md:px-10 bg-[#FBFBFB]">
+            <div className="max-w-[1600px] mx-auto">
                 <Link to={`/jobs/${id}`} className="inline-flex items-center gap-2 text-xs font-bold text-zinc-400 hover:text-zinc-900 transition-all mb-16 uppercase tracking-widest">
                     <ArrowLeft size={16} /> Back to position
                 </Link>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     {/* LEFT: Score & Actions */}
                     <div className="lg:col-span-4 space-y-10">
-                        <motion.div {...fadeUp} className="bg-white rounded-[44px] border border-zinc-100 p-12 text-center shadow-xl shadow-zinc-900/5">
+                        <motion.div {...fadeUp} className="bg-white card border border-zinc-100 p-8 text-center shadow-xl shadow-zinc-900/5">
                             <h2 className="text-[11px] font-bold text-zinc-400 mb-12 uppercase tracking-[0.3em]">Alignment Matrix</h2>
 
                             <div className="relative w-64 h-64 mx-auto mb-12 flex items-center justify-center">
@@ -252,7 +252,7 @@ const MatchPage = () => {
                         </motion.div>
 
                         {/* Actions */}
-                        <div className="bg-white rounded-[44px] border border-zinc-100 p-10 space-y-4 shadow-sm">
+                        <div className="bg-white card border border-zinc-100 p-8 space-y-4 shadow-sm">
                             {!isHighMatch && (
                                 <button
                                     onClick={handleTailorResume}
@@ -322,12 +322,12 @@ const MatchPage = () => {
 
                     {/* RIGHT: Analysis */}
                     <div className="lg:col-span-8 space-y-12">
-                        <motion.div {...fadeUp} className="bg-white rounded-[44px] border border-zinc-100 p-12 shadow-sm">
+                        <motion.div {...fadeUp} className="bg-white card border border-zinc-100 p-8 shadow-sm">
                             <h2 className="text-[11px] font-bold text-zinc-400 mb-10 flex items-center gap-3 uppercase tracking-[0.3em]">
                                 <div className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
                                 Structural Analysis
                             </h2>
-                            <div className="text-zinc-600 text-base font-medium leading-relaxed bg-zinc-50/50 p-10 rounded-[32px] border border-zinc-100">
+                            <div className="text-zinc-600 text-base font-medium leading-relaxed bg-zinc-50/50 p-8 card border border-zinc-100">
                                 {result.gap_analysis || "Analysis stream diagnostic in progress..."}
                             </div>
                         </motion.div>
@@ -337,7 +337,7 @@ const MatchPage = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                                className="bg-white rounded-[44px] border border-zinc-100 p-12 shadow-sm"
+                                className="bg-white card border border-zinc-100 p-8 shadow-sm"
                             >
                                 <h2 className="text-[11px] font-bold text-zinc-400 mb-12 flex items-center gap-3 uppercase tracking-[0.3em]">
                                     <div className="w-1.5 h-1.5 rounded-full bg-rose-500" />
@@ -351,7 +351,7 @@ const MatchPage = () => {
                                                 key={idx}
                                                 href={resource ? resource.url : `https://www.youtube.com/results?search_query=learn+${encodeURIComponent(skill)}+crash+course`}
                                                 target="_blank"
-                                                className="group bg-white p-8 rounded-[32px] border border-zinc-100 hover:border-zinc-900 transition-all duration-500 flex flex-col justify-between shadow-sm"
+                                                className="group bg-white p-8 card border border-zinc-100 hover:border-zinc-900 transition-all duration-500 flex flex-col justify-between shadow-sm"
                                             >
                                                 <div>
                                                     <span className="inline-block bg-zinc-900 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-6 group-hover:bg-zinc-800 transition-colors">
@@ -384,13 +384,13 @@ const MatchPage = () => {
                                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                                className="bg-white w-full max-w-5xl h-[85vh] rounded-[48px] shadow-2xl border border-zinc-100 flex flex-col overflow-hidden"
+                                className="bg-white w-full max-w-4xl h-[85vh] card shadow-2xl border border-zinc-100 flex flex-col overflow-hidden"
                             >
                                 <div className="px-10 py-8 border-b border-zinc-100 flex justify-between items-center bg-white">
                                     <h3 className="text-xl font-bold text-zinc-900 tracking-tight">Tailored Intelligence Object</h3>
                                     <button onClick={() => setShowModal(false)} className="w-10 h-10 rounded-full bg-zinc-50 flex items-center justify-center text-zinc-400 hover:bg-zinc-900 hover:text-white transition-all text-2xl">×</button>
                                 </div>
-                                <div className="flex-1 overflow-y-auto p-12 bg-white">
+                                <div className="flex-1 overflow-y-auto p-8 bg-white">
                                     <div className="prose prose-zinc max-w-none text-zinc-600 font-medium leading-relaxed text-sm">
                                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{tailoredResume}</ReactMarkdown>
                                     </div>

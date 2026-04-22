@@ -38,7 +38,7 @@ const IngestionPage = () => {
         <div className="max-w-6xl mx-auto py-20 px-8 bg-[#FBFBFB] min-h-screen">
             <header className="mb-20 border-b border-zinc-100 pb-12">
                 <h1 className="text-4xl font-sans font-bold text-zinc-900 tracking-tight flex items-center gap-6">
-                    <div className="w-16 h-16 bg-zinc-900 rounded-[24px] grid place-items-center shadow-lg shadow-zinc-900/20">
+                    <div className="w-16 h-16 bg-zinc-900 card grid place-items-center shadow-lg shadow-zinc-900/20">
                         <Database size={32} className="text-white" />
                     </div>
                     Data Management
@@ -51,9 +51,9 @@ const IngestionPage = () => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="grid md:grid-cols-2 lg:grid-cols-3 gap-10"
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-                <div className="md:col-span-2 lg:col-span-3 bg-white border border-zinc-100 rounded-[40px] p-12 shadow-xl shadow-zinc-900/5 flex flex-col md:flex-row justify-between items-center gap-10">
+                <div className="md:col-span-2 lg:col-span-3 bg-white border border-zinc-100 card p-8 shadow-xl shadow-zinc-900/5 flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="flex items-center gap-8">
                         <div className="w-16 h-16 bg-zinc-50 border border-zinc-100 rounded-3xl grid place-items-center">
                             <Power size={32} className="text-zinc-400" />
@@ -74,7 +74,7 @@ const IngestionPage = () => {
                 </div>
 
                 {sources.map(source => (
-                    <div key={source.id} className="bg-white border border-zinc-100 rounded-[32px] p-10 flex flex-col items-center text-center hover:shadow-2xl hover:shadow-zinc-900/5 transition-all duration-500 group">
+                    <div key={source.id} className="bg-white border border-zinc-100 card p-8 flex flex-col items-center text-center hover:shadow-2xl hover:shadow-zinc-900/5 transition-all duration-500 group">
                         <div className={`w-16 h-16 rounded-2xl mx-auto mb-8 grid place-items-center font-bold text-xl shadow-sm transition-all group-hover:scale-110 ${source.pattern}`}>
                             {source.name.charAt(0)}
                         </div>
@@ -96,7 +96,7 @@ const IngestionPage = () => {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="mt-20 bg-white border border-zinc-100 rounded-[40px] p-12 overflow-hidden shadow-2xl shadow-zinc-900/5"
+                        className="mt-20 bg-white border border-zinc-100 card p-8 overflow-hidden shadow-2xl shadow-zinc-900/5"
                     >
                         <h3 className="text-2xl font-sans font-bold text-zinc-900 mb-8 flex items-center gap-4 tracking-tight">
                             <CheckCircle size={32} className="text-zinc-900" /> Synchronization Success
@@ -113,7 +113,7 @@ const IngestionPage = () => {
                     <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
-                        className="mt-16 bg-black text-white border-4 border-black rounded-[40px] p-12 overflow-hidden shadow-[24px_24px_0px_rgba(0,0,0,0.03)]"
+                        className="mt-16 bg-black text-white border-4 border-black card p-8 overflow-hidden shadow-[24px_24px_0px_rgba(0,0,0,0.03)]"
                     >
                         <h3 className="text-2xl font-display font-black text-white mb-6 flex items-center gap-4 uppercase tracking-tighter">
                             <AlertOctagon size={32} /> Import_Error

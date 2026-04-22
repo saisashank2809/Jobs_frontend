@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Briefcase } from "lucide-react";
+import { MapPin, Briefcase, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { JobFlipCard } from "../ui/JobFlipCard";
 
@@ -70,43 +70,53 @@ export function FeaturedJobs() {
     const navigate = useNavigate();
 
     return (
-        <section className="bg-white py-24">
+        <section className="py-24 bg-[#F6F3ED]">
             <div className="container mx-auto px-4">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-14 gap-4">
                     <div>
-                        <h2 className="text-4xl font-bold text-black mb-4">
+                        <p className="text-[#313851]/65 text-xs font-bold uppercase tracking-[0.2em] mb-4">Curated Picks</p>
+                        <h2
+                            className="font-medium tracking-tight mb-3 text-[#313851]"
+                            style={{
+                                fontFamily: "'Inter', system-ui, sans-serif",
+                                fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+                            }}
+                        >
                             Featured Opportunities
                         </h2>
-                        <p className="text-black/60 max-w-xl">
-                            Discover roles at leading Indian startups and global tech giants.
-                            Find your next career move with Us.
+                        <p
+                            className="max-w-xl font-medium text-[#313851]/85"
+                            style={{ fontSize: '0.975rem' }}
+                        >
+                            Discover roles at leading startups and global tech giants.
+                            Find your next career move with us.
                         </p>
                     </div>
                     <div className="flex items-center gap-6">
                         <Link
                             to="/register"
-                            className="bg-black text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-black/90 transition-colors shadow-sm text-sm cursor-pointer inline-block"
+                            className="font-semibold px-6 py-2.5 rounded-xl text-sm shadow-sm transition-all hover:scale-105 cursor-pointer inline-block bg-[#313851] text-[#F6F3ED]"
                         >
                             Get started
                         </Link>
                         <Link
                             to="/jobs"
-                            className="text-black font-semibold border-b-2 border-black pb-1 hover:text-black/60 hover:border-black/30 transition-all cursor-pointer"
+                            className="inline-flex items-center gap-2 font-semibold text-sm transition-colors cursor-pointer text-[#313851] border-b-2 border-[#313851]/20 hover:border-[#313851] pb-1"
                         >
-                            View All Jobs
+                            View All Jobs <ArrowRight size={14} />
                         </Link>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {jobs.map((job, index) => (
                         <motion.div
                             key={job.id}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ 
-                                duration: 0.8, 
+                            transition={{
+                                duration: 0.8,
                                 delay: index * 0.1,
                                 ease: [0.21, 0.47, 0.32, 0.98]
                             }}

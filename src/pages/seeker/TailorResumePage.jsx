@@ -140,7 +140,7 @@ const TailorResumePage = () => {
                 <p className="text-gray-500 font-bold uppercase tracking-widest text-[10px] mb-8">{error}</p>
                 
                 {/* Upload Section */}
-                <div className="w-full mb-8 p-10 border-4 border-dashed border-black/10 rounded-3xl text-center hover:bg-black group transition-all duration-500 cursor-pointer relative overflow-hidden">
+                <div className="w-full mb-8 p-8 border-4 border-dashed border-black/10 rounded-3xl text-center hover:bg-black group transition-all duration-500 cursor-pointer relative overflow-hidden">
                     <input
                         type="file"
                         className="absolute inset-0 opacity-0 cursor-pointer"
@@ -191,14 +191,14 @@ const TailorResumePage = () => {
     if (matchOverall < 50) scoreColor = "text-red-500";
 
     return (
-        <div className="min-h-screen pt-16 pb-24 px-4 sm:px-8 max-w-[1400px] mx-auto bg-[#fafafa]">
+        <div className="min-h-screen pt-8 pb-12 px-6 md:px-10 max-w-[1600px] mx-auto bg-[#fafafa]">
              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="mb-12">
                 <Link to={`/jobs/${id}`} className="inline-flex items-center gap-2 text-black font-black uppercase text-[10px] tracking-[0.3em] hover:translate-x-[-4px] transition-transform">
                     <ArrowLeft size={16} /> Back to Job Details
                 </Link>
             </motion.div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* Header Section */}
                 <div className="lg:col-span-12">
                      <BentoCard className="relative overflow-hidden !py-12 !px-12 border-4 shadow-[16px_16px_0px_#000]">
@@ -223,7 +223,7 @@ const TailorResumePage = () => {
                 </div>
 
                 {/* Left Column - Score & Status */}
-                <div className="lg:col-span-4 flex flex-col gap-10">
+                <div className="lg:col-span-4 flex flex-col gap-8">
                     <BentoCard delay={0.1}>
                         <h2 className="text-sm font-black text-black mb-8 pb-4 border-b-2 border-black flex items-center gap-3 uppercase tracking-[0.3em]">
                             <div className="w-2 h-4 bg-black" />

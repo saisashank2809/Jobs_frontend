@@ -105,60 +105,61 @@ const JobCard = ({ job, isAuthenticated = true }) => {
             transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
             className="group relative h-full"
         >
-            <div className="relative h-full overflow-hidden bg-white rounded-[32px] border border-zinc-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all duration-500 ease-in-out hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.08)] hover:-translate-y-2 flex flex-col">
+            <div
+                className="relative h-full overflow-hidden card border premium-shadow premium-hover flex flex-col pt-0"
+                style={{ backgroundColor: 'var(--color-job-card)', borderColor: 'var(--color-accent)' }}
+            >
 
                 {/* 1. Status Bar: Active dot + Location · Date */}
                 <div className="px-8 pt-8 pb-3 relative z-10 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider">
                         <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
-                        <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest ${
-                            workMode === 'Remote' ? 'bg-sky-50 text-sky-600' :
-                            workMode === 'Hybrid' ? 'bg-purple-50 text-purple-600' :
-                            'bg-emerald-50 text-emerald-600'
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-black tracking-widest ${
+                            workMode === 'Remote' ? 'bg-sky-100 text-sky-700' :
+                            workMode === 'Hybrid' ? 'bg-purple-100 text-purple-700' :
+                            'bg-emerald-100 text-emerald-700'
                         }`}>
                             {workMode}
                         </span>
-                        <div className="flex items-center gap-2 text-[11px] font-semibold text-zinc-400 uppercase tracking-wider ml-1">
-                            <span className="text-zinc-200">·</span>
-                            <span className="truncate max-w-[100px] sm:max-w-[150px]">{displayLocation}</span>
-                        </div>
+                        <span className="text-zinc-400">·</span>
+                        <span className="text-zinc-500 font-bold">{displayLocation}</span>
                     </div>
-                    <span className="text-[11px] font-semibold text-zinc-400 shrink-0">{formattedDate}</span>
+                    <span className="text-[11px] font-bold text-zinc-400">{formattedDate}</span>
                 </div>
 
                 {/* 2. Company Row: Logo + Name */}
                 <div className="px-8 pb-3 relative z-10 flex items-center gap-3">
-                    <div className="shrink-0 w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center font-sans font-bold text-sm text-white shadow-md shadow-zinc-900/10">
+                    <div className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-sans font-bold text-sm text-white shadow-md shadow-zinc-900/10" style={{ backgroundColor: 'var(--color-primary)' }}>
                         {(job.company_name || 'O').charAt(0)}
                     </div>
-                    <span className="text-sm font-semibold text-zinc-500 uppercase tracking-wide truncate">
+                    <span className="text-sm font-black uppercase tracking-widest truncate" style={{ color: 'var(--color-primary)' }}>
                         {job.company_name || 'Company'}
                     </span>
                 </div>
 
                 {/* 3. Job Title — Standalone, Large */}
-                <div className="px-8 pb-3 relative z-10">
-                    <h3 className="font-sans font-bold text-zinc-900 tracking-tight leading-snug text-[22px] group-hover:text-zinc-600 transition-colors line-clamp-2">
+                <div className="px-8 pb-4 relative z-10">
+                    <h3 className="font-display font-extrabold tracking-tight leading-snug text-[22px] transition-colors line-clamp-2" style={{ color: 'var(--color-primary)' }}>
                         {cleanTitle}
                     </h3>
                 </div>
 
                 {/* 4. Metadata Row: Experience · Qualification · Salary */}
                 <div className="px-8 pb-3 relative z-10 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-                    <span className="flex items-center gap-1.5 text-[11px] font-semibold text-zinc-500">
-                        <Clock size={13} className="text-zinc-400" />
+                    <span className="flex items-center gap-1.5 text-[11px] font-bold text-zinc-900">
+                        <Clock size={13} className="text-zinc-900" />
                         {displayExperience}
                     </span>
                     {displayQualification && displayQualification !== 'Not specified' && (
-                        <span className="flex items-center gap-1.5 text-[11px] font-semibold text-zinc-500">
-                            <GraduationCap size={13} className="text-zinc-400" />
+                        <span className="flex items-center gap-1.5 text-[11px] font-bold text-zinc-900">
+                            <GraduationCap size={13} className="text-zinc-900" />
                             {displayQualification}
                         </span>
                     )}
                     {displaySalary && (
-                        <div className="flex items-center gap-1.5 min-w-0" title={displaySalary}>
-                            <IndianRupee size={14} className="text-zinc-400 shrink-0" />
-                            <span className="text-[11px] font-semibold text-zinc-500 truncate">{displaySalary}</span>
+                        <div className="flex items-center gap-2 text-sm font-bold" style={{ color: 'var(--color-primary)' }}>
+                            <IndianRupee size={15} className="text-zinc-900" />
+                            <span>{displaySalary}</span>
                         </div>
                     )}
                 </div>
@@ -169,7 +170,8 @@ const JobCard = ({ job, isAuthenticated = true }) => {
                         {keySkills.map((skill, idx) => (
                             <span
                                 key={idx}
-                                className="text-[10px] font-semibold px-4 py-2 bg-zinc-50 text-zinc-600 border border-zinc-200/50 rounded-full capitalize tracking-wide"
+                                className="text-[10px] font-bold px-4 py-2 border rounded-full capitalize tracking-wider"
+                                style={{ backgroundColor: 'white', color: 'var(--color-primary)', borderColor: 'var(--color-primary)' }}
                             >
                                 {skill}
                             </span>
@@ -190,17 +192,17 @@ const JobCard = ({ job, isAuthenticated = true }) => {
                 {/* 7. Bottom Action Bar: View details + Save */}
                 <div className="px-8 pb-8 relative z-10 flex items-center gap-3">
                     <Link to={`/jobs/${job.id}`} state={{ displayLocation }} className="flex-1">
-                        <button className="w-full bg-white border border-zinc-200 text-zinc-900 font-sans font-bold text-xs py-4 rounded-2xl transition-all duration-300 hover:bg-zinc-50 hover:border-zinc-300 active:scale-[0.98]">
+                        <button className="w-full premium-pill border border-zinc-900 transition-all duration-300 active:scale-[0.98] py-4 bg-zinc-900 text-white font-black uppercase tracking-widest text-[11px]">
                             View details
                         </button>
                     </Link>
                     <button
                         onClick={handleToggleSave}
                         disabled={loading || !isAuthenticated}
-                        className={`px-5 py-4 rounded-2xl font-sans font-bold text-xs transition-all duration-300 flex items-center justify-center gap-2 active:scale-[0.98] ${
+                        className={`px-5 py-4 rounded-2xl font-sans font-black text-[11px] uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 active:scale-[0.98] ${
                             saved
                                 ? 'bg-zinc-900 text-white shadow-lg shadow-zinc-900/10'
-                                : 'bg-white border border-zinc-200 text-zinc-900 hover:bg-zinc-50'
+                                : 'bg-white border border-zinc-900 text-zinc-900'
                         } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                         <Bookmark size={14} className={saved ? 'fill-white' : ''} />
